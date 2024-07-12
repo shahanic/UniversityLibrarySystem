@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**----- Headers and Titles -----**/
+.title1{
+    @apply font-semibold text-center text-3xl py-2
+}
+.title2{
+    @apply font-semibold text-center text-xl py-1
+}
+.title3{
+    @apply text-center text-lg py-1
+}
+
+@layer base {
+    a, a:hover, a:visited, a:focus, a:active  {
+        text-decoration: none;
+        /* color: inherit; */
+        outline: 0;
+      }
+      input[type="radio"]{
+        @apply py-2 px-3 self-center m-0
+      }
+    hr {
+        @apply border-gray-200;
+    }
+    h1 {
+        @apply text-4xl my-3 text-gray-600;
+    }
+    h2 {
+        @apply text-3xl my-3 text-gray-600;
+    }
+    h3 {
+        @apply text-2xl my-2 text-gray-600;
+    }
+    h4 {
+        @apply text-xl my-2 text-gray-600;
+    }
+    h5 {
+        @apply text-lg my-2 text-gray-600;
+    }
+
+    p, label, span{
+        @apply text-gray-700;
+    }
+    select{
+        @apply !pr-9;
+    }
+
+    table.bdr th{
+        @apply bg-gray-500/80 text-white;
+    }
+    table.bdr th span {
+        @apply text-white;
+    }
+
+    table.bdr td, table.bdr th{
+        @apply px-3 py-1 border border-gray-200 border-collapse
+    }
+    table{
+        @apply backdrop-blur-xl bg-white/40 text-gray-800
+    }
+
+    button:disabled {
+        @apply opacity-50 cursor-not-allowed
+    }
+}
+
+.tone-1 {
+    @apply text-gray-500;
+}
+
+
+.tone-2 {
+    @apply text-gray-400;
+}
+.card {
+    @apply rounded-lg p-4 shadow-lg bg-white
+}
+.card.trans {
+    @apply bg-white rounded-lg p-4 transform duration-300 shadow-lg hover:shadow-xl hover:scale-105
+}
+
+.nav-links {
+    @apply text-white font-semibold px-5 py-3 hover:bg-accent3;
+}
+
+.tabs {
+    @apply px-5 pt-3 pb-3 font-medium backdrop-blur-lg bg-white/80
+    text-gray-500 border-b border-gray-200
+    uppercase hover:border-gray-400 hover:bg-gray-50
+    hover:!border-b-4 hover:!pb-2
+}
+
+.tabs.active{
+    @apply !border-b-4 !pb-2 !border-accent4  !font-bold;
+}
+
+
+.form-input {
+    @apply  bg-gray-50 text-gray-800 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md
+}
+input[type="text"].form-input, input[type="date"].form-input,  input[type="time"].form-input, input[type="email"].form-input, input[type="number"].form-input, input[type="password"].form-input, select.form-input{
+    @apply border-2 border-gray-200
+}
+input[type="radio"].form-input {
+    @apply !border !border-gray-500
+}
+.form-input:disabled {
+    @apply  bg-gray-200 cursor-not-allowed
+}
+
+.btn {
+    @apply rounded inline-flex items-center py-2 px-4 border border-gray-100 uppercase font-semibold tracking-widest transition ease-in-out duration-150
+}
+.btn-sm {
+    @apply py-1 px-2 !important;
+    font-size: 13px !important;
+}
+.btn-xs {
+    @apply py-1 px-2 m-1;
+    font-size: 11px !important;
+
+}
+
+.btn-primary {
+    @apply bg-primary hover:bg-accent3 focus:outline-none focus:border-green-900 text-white
+}
+.btn-warning {
+    @apply bg-yellow-400 hover:bg-yellow-300 focus:outline-none focus:border-yellow-500 text-gray-600
+}
+.btn-danger {
+    @apply bg-red-500 hover:bg-red-400 focus:outline-none focus:border-red-600 text-white
+}
+.btn-default {
+    @apply bg-gray-300 hover:bg-gray-200 text-gray-700
+}
+
+.swal-modal {
+    @apply  backdrop-blur-lg bg-white/70
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    /* @apply bg-transparent; */
+    @apply bg-gray-200/80 border
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /* border-radius: 100vh;
+    border: 3px solid #999999; */
+    @apply bg-gray-400/80  hover:bg-gray-500/80  border-2 rounded-full border-gray-400/80
+}
+
+.alert-info{
+    @apply rounded backdrop-blur-md bg-blue-200/50 p-4 my-2 text-blue-800
+}
+.alert-info p, .alert-info span,  .alert-info h5, .alert-info h4{
+    @apply text-blue-800
+}
+
+.alert-success{
+    @apply rounded backdrop-blur-md bg-green-200/50  p-4 my-2 text-green-800
+}
+.alert-success p, .alert-success span,  .alert-success h5, .alert-success h4{
+    @apply text-green-800
+}
+
+.alert-warning{
+    @apply rounded backdrop-blur-md bg-yellow-200/50  p-4 my-2 text-yellow-700
+}
+.alert-warning p, .alert-warning span,  .alert-warning h5, .alert-warning h4{
+    @apply text-yellow-800
+}
+
+.alert-danger{
+    @apply rounded backdrop-blur-md bg-red-200/50  p-4 my-2 text-red-600
+}
+.alert-danger p, .alert-danger span,  .alert-danger h5, .alert-danger h4{
+    @apply text-red-600
+}
+
+.select2-container {
+    @apply !w-full
+}
+
+.select2-container .select2-selection--single{
+    @apply !p-1 !h-10  !border-none !bg-gray-200
+}
+
+
+
+.swal-icon--success:after {
+    background: transparent !important;
+}
+.swal-icon--success:before {
+    background: transparent !important;
+}
+.swal-icon--success__hide-corners {
+    background: transparent !important;
+}
+
+.line1 {
+
+    width: 3840px;
+    height: 100%;
+    border-bottom: 10px solid #ffcd00;
+    -webkit-transform:
+        translateY(0px)
+        translateX(-50px)
+        rotate(18deg);
+    position: absolute;
+    /* top: -20px; */
+    }
+    .line3 {
+
+        width: 3840px;
+        height: 100%;
+        border-bottom: 20px solid #ffcd00;
+        -webkit-transform:
+            translateY(100px)
+            translateX(-100px)
+            rotate(20deg);
+        position: absolute;
+        /* top: -20px; */
+    }
+    .line2 {
+    width: 3840px;
+    height: 100%;
+    border-bottom: 30px solid #0c4b05;
+    -webkit-transform:
+        translateY(-300px)
+        translateX(-1100px)
+        rotate(-28deg);
+    position: absolute;
+    }
+    .line4 {
+        width: 3840px;
+        height: 100%;
+        border-bottom: 10px solid #0c4b05;
+        -webkit-transform:
+            translateY(-400px)
+            translateX(-1200px)
+            rotate(-33deg);
+        position: absolute;
+    }
+
+.Approval {
+    @apply text-yellow-600;
+}
+.Approved {
+    @apply text-green-800;
+}
+.Deffered {
+    @apply text-yellow-900;
+}
+.Disapproved {
+    @apply text-red-700;
+}
+
+.ql-editor {
+    min-height: 110px !important;
+    font-size: 15px !important;
+}
+
+.collapse.in {
+    display: block !important;
+}
+.collapse {
+    visibility: visible !important;
+}

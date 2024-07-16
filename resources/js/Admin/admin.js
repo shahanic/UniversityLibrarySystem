@@ -23,23 +23,23 @@ pinia.use(({ store }) => {
   });
 
 import AdminLayout from './Layouts/AdminLayout.vue';
-import GenericPages from './Layouts/GenericPagesLayout.vue';
-import ArticlePages from './Layouts/ArticlePagesLayout.vue';
-import QuickLinks from './Layouts/QuickLinksLayout.vue';
-import Accounts from './Layouts/AccountLayout.vue';
-import Faqs from './Layouts/FaqsLayout.vue'
-import Images from './Layouts/ImagesLayout.vue'
+// import GenericPages from './Layouts/GenericPagesLayout.vue';
+// import ArticlePages from './Layouts/ArticlePagesLayout.vue';
+// import QuickLinks from './Layouts/QuickLinksLayout.vue';
+// import Accounts from './Layouts/AccountLayout.vue';
+// import Faqs from './Layouts/FaqsLayout.vue'
+// import Images from './Layouts/ImagesLayout.vue'
 
 const app = createApp();
 app.use(pinia);
 app.use(router);
 app.component('admin-layout', AdminLayout)
-app.component('generic-layout', GenericPages)
-app.component('article-layout', ArticlePages)
-app.component('faqs-layout', Faqs)
-app.component('quicklinks-layout', QuickLinks)
-app.component('quicklinks-layout', QuickLinks)
-app.component('images', Images)
+// app.component('generic-layout', GenericPages)
+// app.component('article-layout', ArticlePages)
+// app.component('faqs-layout', Faqs)
+// app.component('quicklinks-layout', QuickLinks)
+
+// app.component('images', Images)
 app.mount('#app');
 
 

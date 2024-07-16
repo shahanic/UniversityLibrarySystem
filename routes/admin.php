@@ -41,3 +41,11 @@ Route::prefix('faqs')->group(function() {
 
     Route::get('{vue?}', [HomeController:: class, 'index'])->where('vue', '[\/\w\.-]*');
 });
+
+Route::prefix('quick-links')->group(function() {
+
+
+    Route::get('{vue?}', [HomeController:: class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
+

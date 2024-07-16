@@ -5,12 +5,10 @@
     <admin-layout>
         <template v-slot:main>
             <div>
-                <H1>DashBoard</H1>
+                <H1>Accounts Ditoy</H1>
+                <p> </p>
                 <td></td>
             </div>
         </template>
     </admin-layout>
-    
-    
-    
 </template>

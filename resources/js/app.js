@@ -9,17 +9,20 @@ import { Link } from '@inertiajs/vue3'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+
+// import Index from '@/Admin/Pages/Index.vue';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props)}
+        return createApp({ render: () => h(App, props)} 
         )
             .use(plugin)
             .use(ZiggyVue)
             .component('Link', Link)
+            // .component('admin-layout', Index)
             .component('main-layout', MainLayout)
             .mount(el);
     },
@@ -27,3 +30,5 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+

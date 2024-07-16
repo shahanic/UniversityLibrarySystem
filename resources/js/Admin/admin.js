@@ -1,12 +1,12 @@
 import '../bootstrap';
 import '../../css/app.css';
 
-import { createApp } from 'vue';
+import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import 'sweetalert';
 
 import { createRouter, createWebHistory, useRoute } from 'vue-router';
 import { createPinia } from 'pinia';
-import { routes } from '@/Admin/routes';
+import { routes } from './routes';
 
 // vue Router
 const router = createRouter({
@@ -23,15 +23,34 @@ pinia.use(({ store }) => {
   });
 
 import AdminLayout from './Layouts/AdminLayout.vue';
+import GenericPages from './Layouts/GenericPagesLayout.vue';
+import ArticlePages from './Layouts/ArticlePagesLayout.vue';
+import QuickLinks from './Layouts/QuickLinksLayout.vue';
+import Accounts from './Layouts/AccountLayout.vue';
+import Faqs from './Layouts/FaqsLayout.vue'
+import Images from './Layouts/ImagesLayout.vue'
 
 const app = createApp();
 app.use(pinia);
 app.use(router);
 app.component('admin-layout', AdminLayout)
+app.component('generic-layout', GenericPages)
+app.component('article-layout', ArticlePages)
+app.component('faqs-layout', Faqs)
+app.component('quicklinks-layout', QuickLinks)
+app.component('quicklinks-layout', QuickLinks)
+app.component('images', Images)
 app.mount('#app');
+
+
+
+
+
 
 
 router.beforeEach((to, from, next) => {
     document.title = `ULS CMS | ${to.name? to.name : 'Home'}`;
     next()
 });
+
+

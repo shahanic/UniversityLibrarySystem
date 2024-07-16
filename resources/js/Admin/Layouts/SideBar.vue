@@ -4,13 +4,6 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 
 
-
-onBeforeMount(() => {
-    product.getCategories();
-    checker();
-    initTheme();
-})
-
 const dark = ref(false);
 const collapse_open = ref(0);
 
@@ -54,6 +47,11 @@ function testing(){
     }
 }
 
+onBeforeMount(() => {
+    initTheme();
+});
+
+
 </script>
 
 <template>
@@ -64,16 +62,27 @@ function testing(){
                 <img class="rounded-full"  src="https://www.mmsu.edu.ph/mmsu_logo/mmsu_logo.png"/>
             </div>
             <div class="flex self-center">
-                <p class="font-semibold text-white text-sm">Inventory Management System</p>
+                <p class="font-semibold text-white text-sm">University Library System</p>
                 <!-- <p class="font-semibold text-white text-sm">Inventory Management System</p> -->
             </div>
         </div>
+
+
         <div class="flex flex-col mt-2 border-green-300 border-t dark:border-gray-700">
-            <router-link to="/" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Dashboard</router-link>
+            <router-link to="/super-user" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Dashboard</router-link>
 
-            <router-link to="/transaction" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('transaction')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Transactions</router-link>
+            <router-link to="/generic-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
 
-            <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
+            <router-link to="/article-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
+
+            <router-link to="/faqs" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Faqs')? 'bg-blue-700 dark:bg-gray-600' : ''}`">FAQs</router-link>
+
+
+            <router-link to="/quick-links" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('QuickLinks')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Quick Links</router-link>
+
+            <router-link to="/images" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Images</router-link>
+
+            <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
                 <div class=" px-5 py-3 cursor-pointer block" @click="expandMe(1)">
                     <span class="text-end text-white">{{collapse_open === 1? '▾' : '▸'}}</span> Inventory
                 </div>
@@ -84,24 +93,15 @@ function testing(){
                         'max-height-px mt-4': collapse_open === 1
                     }">
 
-                    <template v-if="product.categories.length > 0">
-                        <RouterLink v-for="cat in product.categories"  :to="`/inventory/${cat.id}`" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('merchandise')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ {{ cat.text }}</RouterLink>
-                    </template>
-                    <template v-else>
-                        <p> -- No Category yet --</p>
-                    </template>
-
-                    <!-- <router-link to="/inventory/merchandise" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('merchandise')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Merchandise</router-link>
-
                     <router-link to="/inventory/fertilizers" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('fertilizers')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Fertilizers</router-link>
                     <router-link to="/inventory/chemicals" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('chemicals')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Chemicals</router-link>
                     <router-link to="/inventory/feeds" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('feeds')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Feeds</router-link>
                     <router-link to="/inventory/palayandcorn" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('palayandcorn')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Palay and Corn</router-link>
-                    <router-link to="/inventory/sacksandothers" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('others')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Sacks and Others</router-link> -->
+                    <router-link to="/inventory/sacksandothers" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('others')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Sacks and Others</router-link> 
                 </div>
-            </div>
+            </div> -->
 
-            <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('students')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 2? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
+            <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('students')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 2? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
                 <div class=" px-5 py-3 cursor-pointer block" @click="expandMe(2)">
                     <span class="text-end text-white">{{collapse_open === 2? '▾' : '▸'}}</span> Management
                 </div>
@@ -116,55 +116,33 @@ function testing(){
                     <router-link to="/manage/units" :class="`dark:hover:bg-gray-600 nav-links ${$route.name.includes('Units')? 'bg-blue-700 dark:bg-gray-600' : ''}`">↳ Units</router-link>
                     <router-link to="/manage/suppliers" :class="`nav-links dark:hover:bg-gray-600 ${$route.name.includes('Suppliers')? 'bg-blue-700 dark:bg-gray-600' : ''}`">↳ Suppliers</router-link>
                 </div>
-            </div>
+            </div> -->
 
             <router-link to="/accounts" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('accounts')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Accounts</router-link>
 
 
             <div class="flex items-center justify-center w-full border-t border-green-300 dark:border-gray-700 pt-4">
-                <label for="toggleB" class="flex items-center cursor-pointer">
+                <label for="toggleB" class="flex items-center cursor-pointer"> 
                     <div class="relative">
                         <input type="checkbox" id="toggleB" class="sr-only" v-model="dark" @change="testing()">
                         <div class="block bg-gray-600 dark:bg-gray-100 w-14 h-8 rounded-full"></div>
                         <div class="dot absolute left-1 top-1  dark:bg-gray-600 bg-white w-6 h-6 rounded-full transition"></div>
                     </div>
                     <div class="ml-3 text-white font-medium font-bold dark:text-gray-50">
-                        {{ !dark? '🌑 DARK' : '🔆 LIGHT'}} MODE
+                        {{ !dark? '🌑 DARK' : '🔆 LIGHT'}} MODE 
                     </div>
                 </label>
             </div>
         </div>
 
+
+
         <div class=" absolute bottom-3 right-3">
-            <span class="text-sm text-white font-semibold">version 2.2.5</span>
+            <span class="text-sm text-white font-semibold">version 2.2.5</span>  
         </div>
     </div>
 </template>
 
-<!-- <script> -->
-    // export default {
-    //     name: "SideBar",
-    //     data() {
-    //         return {
-    //             dark: false,
-    //             collapse_open: 0,
-    //         }
-    //     },
-    //     created(){
-    //         this.checker();
-    //         this.initTheme();
-    //     },
-    //     methods: {
-
-
-    //     },
-    //     watch: {
-    //         $route(to, from) {
-    //             this.checker();
-    //         }
-    //     }
-    // }
-<!-- </script> -->
 
 <style scoped>
     /* Toggle B */

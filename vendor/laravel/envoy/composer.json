@@ -1,0 +1,49 @@
+{
+    "name": "laravel/envoy",
+    "description": "Elegant SSH tasks for PHP.",
+    "keywords": ["ssh", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2|^8.0",
+        "guzzlehttp/guzzle": "^6.0|^7.0",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+        "symfony/console": "^4.3|^5.0|^6.0|^7.0",
+        "symfony/process": "^4.3|^5.0|^6.0|^7.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^8.0|^9.0|^10.4"
+    },
+    "suggest": {
+        "ext-posix": "Required to determine the System user on Unix systems."
+    },
+    "bin": [
+        "bin/envoy"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Laravel\\Envoy\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laravel\\Envoy\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

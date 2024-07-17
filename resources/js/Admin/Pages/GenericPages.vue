@@ -31,17 +31,7 @@
                                 <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <td class="border border-gray-300 p-2">Page Two</td>
-                            <td class="border border-gray-300 p-2">Type B</td>
-                            <td class="border border-gray-300 p-2">Menu B</td>
-                            <td class="border border-gray-300 p-2">Description for page two</td>
-                            <td class="border border-gray-300 p-2 text-center">
-                                <button class="bg-blue-500 text-white px-2 py-1 rounded mr-3">Edit</button>
-                                <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-                            </td>
-                        </tr> -->
-                        <!-- Add more rows as needed -->
+
                     </tbody>
                 </table>
             </div>

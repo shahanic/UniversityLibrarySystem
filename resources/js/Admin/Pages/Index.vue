@@ -40,15 +40,11 @@ const buttons = [
   margin: 20px;
 }
 
-
 .buttons-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  justify-content: center; /* Center horizontally */
-  gap: 10px; /* Adjusted gap between rows and columns */
-  margin-top: 50px; /* Added margin-top for spacing */
-  margin-left: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; /* Reduced gap to bring buttons closer */
 }
 
 .button {
@@ -67,6 +63,7 @@ const buttons = [
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  text-align: center;
 }
 
 .button:hover {

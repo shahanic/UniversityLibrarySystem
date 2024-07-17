@@ -5,7 +5,7 @@
     <admin-layout>
         <template v-slot:main>
             <div>
-                <H1>Quick Links</H1>
+                <H1>Quick Lindasdasdasks</H1>
                 <p> </p>
                 <td></td>
             </div>

@@ -20,14 +20,15 @@ const buttons = [
       <div class="home-page">
         <h1>Home Page</h1>
         <div class="buttons-container">
-          <div 
+          <router-link 
             v-for="button in buttons" 
             :key="button.name" 
+            :to="button.link" 
             class="button"
             :class="`${route.path.includes(button.link.split('/')[1]) ? 'active' : ''}`"
           >
-            <router-link :to="button.link">{{ button.name }}</router-link>
-          </div>
+            {{ button.name }}
+          </router-link>
         </div>
       </div>
     </template>
@@ -44,7 +45,7 @@ const buttons = [
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px; /* Reduced gap to bring buttons closer */
+  gap: 50px; /* Reduced gap to bring buttons closer */
 }
 
 .button {
@@ -55,16 +56,16 @@ const buttons = [
   justify-content: center;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: #353F46B3; /* Change to your preferred shade of gray */
   transition: background-color 0.3s;
-}
-
-.button a {
   text-decoration: none;
-  color: #333;
+  color: #f5f5f5;
   font-weight: bold;
   text-align: center;
+  margin-top: 50px;
+
 }
+
 
 .button:hover {
   background-color: #e0e0e0;

@@ -58,18 +58,21 @@
                         
 
                         <p class="text-xs block p-2 text-gray-400 dark:text-gray-500 font-semibold">Menu</p>
-                        <router-link to="/super-user" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Home</router-link>
-
-                        <router-link to="/generic-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
-
-                        <router-link to="/article-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
-
-                        <router-link to="/faqs" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Faqs')? 'bg-blue-700 dark:bg-gray-600' : ''}`">FAQs</router-link>
-
-
-                        <router-link to="/quick-links" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('QuickLinks')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Quick Links</router-link>
-
-                        <router-link to="/images" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Images</router-link>
+                        <router-link to="/super-user":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Dashboard') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Home</router-link>
+                        <router-link to="/generic-pages":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('GenericPages') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Pages</router-link>
+                        <router-link to="/article-pages":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('ArticlePages') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
+                        <router-link to="/faqs":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Faqs') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">FAQs</router-link>
+                        <router-link to="/quick-links":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('QuickLinks') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Quick Links</router-link>
+                        <router-link to="/images":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Images') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Images</router-link>
+                        <router-link to="/accounts":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Accounts') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Accounts</router-link>
+                        <button @click="logout" class="font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 text-red-500">Logout</button>
+<!-- 
+                        <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100  ${$route.name.includes('list')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/students/list')">GenericPages</div>
+                        <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100  ${$route.name.includes('list')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/students/list')">Articles</div>
+                        <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Registration')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/enlistment')">FAQs</div>
+                        <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100  ${$route.name.includes('Dropping')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/enlistment/cad')">Quick Links</div>
+                        <div :class="`font-semibold cursor-pointer py-3.5 px-3 block hover:bg-gray-100 ${$route.path.includes('gradesheet')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/gradesheet')">Images</div>
+                        <div :class="`font-semibold cursor-pointer py-3.5 px-3 block hover:bg-gray-100 ${$route.path.includes('tagging')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/tagging')">Accounts</div> -->
                     </div>
 
                 </div>
@@ -115,6 +118,8 @@
 
         // }
     }
+
+    
 </script>
 
 <style scoped>

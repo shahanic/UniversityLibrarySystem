@@ -17,10 +17,10 @@ const router = createRouter({
 // Vue-x Pinia
 const pinia = createPinia()
 
-pinia.use(({ store }) => {
-    store.router = markRaw(router);
-    store.route = markRaw(useRoute());
-  });
+// pinia.use(({ store }) => {
+//     store.router = markRaw(router);
+//     store.route = markRaw(useRoute());
+//   });
 
 import AdminLayout from './Layouts/AdminLayout.vue';
 // import GenericPages from './Layouts/GenericPagesLayout.vue';

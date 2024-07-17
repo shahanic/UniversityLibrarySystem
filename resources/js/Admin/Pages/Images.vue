@@ -6,7 +6,7 @@
         <template v-slot:main>
             <div>
                 <H1>Images Ditoy Ngamin!</H1>
-                <p> </p>
+                <p></p>
                 <td></td>
             </div>
         </template>

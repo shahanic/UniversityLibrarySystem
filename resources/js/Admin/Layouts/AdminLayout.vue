@@ -100,6 +100,7 @@
      import SideBar from "./SideBar.vue";
      import MobileNav from "./MobileNav.vue";
      import MemberSearch from "@/Components/InventorySearch.vue";
+     
  export default {
     name: "MainLayout",
     components: {MobileNav, DropdownLink, Dropdown, MemberSearch, SideBar},

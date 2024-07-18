@@ -1,8 +1,6 @@
 <script setup>
-import {accountsStore}from '@/Admin/Stores/accountsStores';
+import {accountsStore}from '@/Admin/Stores/accountsStores.js';
 import {storeToRefs} from 'pinia';
-
-
 
 
 const user = accountsStore()

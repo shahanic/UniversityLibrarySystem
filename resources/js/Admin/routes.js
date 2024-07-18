@@ -1,5 +1,5 @@
 import Index from "./Pages/Index.vue";
-// import Navigation from "./Pages/Navigation.vue";
+import Navigation from "./Pages/Navigation.vue";
 import ArticlePages from "./Pages/ArticlePages.vue";
 import GenericPages from "./Pages/GenericPages.vue";
 import Faqs from "./Pages/Faqs.vue";

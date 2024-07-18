@@ -12,7 +12,7 @@ nav.getter();
     <admin-layout>
         <template v-slot:main>
             <div>
-                <H1>Navigation</H1>
+                <H1>Main Navigation</H1>
                 <p></p>
                 <td></td>
             </div>
@@ -36,12 +36,11 @@ nav.getter();
             </thead>  
             <tbody>
                 <tr v-for="(navx, i) in nav.navigations":key="i">
-                    <td>{{++i}}</td>
-                    <td>{{navx.menu}}</td>
+                    <td class="border border-gray-300 text-white p-2">{{++i}}</td>
+                    <td class="border border-gray-300 text-white p-2">{{navx.menu}}</td>
               
                     <td>
-                        <button @click="nav.editNav(navx)">Edit</button>
-                        <button @click="nav.deleteNavs(navx)">Delete</button>
+                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="nav.editNav(navx)">Show</button>
                     </td>
                    
 

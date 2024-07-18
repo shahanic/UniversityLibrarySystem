@@ -38,5 +38,8 @@ class AccountsController extends Controller
     public function index(){
         return view('admin');
     }
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

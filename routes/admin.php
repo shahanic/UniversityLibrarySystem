@@ -36,16 +36,6 @@ Route::prefix('images')->group(function() {
 });
 
 
-Route::prefix('accounts')->group(function() {
-
-
-    Route::get('{vue?}', [AccountsController::class, 'index'])->where('vue', '[\/\w\.-]*');
-
-    Route::post('/save-user',[AccountsController::class, 'saveUser']);
-    Route::post('/get-users',[AccountsController::class, 'getUsers']);
-    Route::post('/delete-users',[AccountsController::class, 'deleteUser']);
-});
-
 Route::prefix('faqs')->group(function() {
 
 
@@ -57,5 +47,17 @@ Route::prefix('quick-links')->group(function() {
 
     Route::get('{vue?}', [QuickLinksController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
+
+
+Route::prefix('accounts')->group(function() {
+
+    Route::get('{vue?}', [AccountsController::class, 'index'])->where('vue', '[\/\w\.-]*');
+
+
+});
+
+Route::post('/save-user',[AccountsController::class, 'saveUser']);
+Route::post('/get-users',[AccountsController::class, 'getUsers']);
+Route::post('/delete-users',[AccountsController::class, 'deleteUser']);
 
 

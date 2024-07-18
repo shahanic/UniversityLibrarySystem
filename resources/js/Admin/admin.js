@@ -44,10 +44,6 @@ app.mount('#app');
 
 
 
-
-
-
-
 router.beforeEach((to, from, next) => {
     document.title = `ULS CMS | ${to.name? to.name : 'Home'}`;
     next()

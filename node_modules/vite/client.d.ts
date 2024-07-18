@@ -54,6 +54,10 @@ declare module '*.apng' {
   const src: string
   export default src
 }
+declare module '*.bmp' {
+  const src: string
+  export default src
+}
 declare module '*.png' {
   const src: string
   export default src
@@ -133,6 +137,14 @@ declare module '*.opus' {
   export default src
 }
 declare module '*.mov' {
+  const src: string
+  export default src
+}
+declare module '*.m4a' {
+  const src: string
+  export default src
+}
+declare module '*.vtt' {
   const src: string
   export default src
 }

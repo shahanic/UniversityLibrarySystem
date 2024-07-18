@@ -10,7 +10,7 @@ services:
         image: nginx:stable
         container_name: Library-App
         ports:
-            - "8012:80"
+            - "8085:80"
         volumes:
             - .:/var/www/uls
             - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf

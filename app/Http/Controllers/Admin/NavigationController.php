@@ -5,9 +5,11 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Navigation;
+use App\Models\SubMenu;
+use Illuminate\Support\Facades\DB;
 
-class NavigationController extends Controller
-{
+class NavigationController extends Controller{
+
     public function saveNav(Request $request){
         if($request->id){
             $new = Navigation::find($request->id);
@@ -33,5 +35,25 @@ class NavigationController extends Controller
     public function index(){
         return view('admin');
     }
+
+    public function getSubNav(Request $request){
+        // Create an instance of Navigation model
+        $navigation = new Navigation();
+        // Call the instance method
+        $result = $navigation->innerJoin($request->id);
+        return response()->json($result);
+    }
+
+    // public function innerJoin(Request $request){
+    //     $return = DB::table('navigations')
+    //     ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
+    //     ->where($request->id, 'sub_menus.navigation_id')
+    //     ->select('sub_menus.id', 'sub_menus.submenu')
+    //     ->get();
+
+    //     return $return;
+    // }
+
+    
 
 }

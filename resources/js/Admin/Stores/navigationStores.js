@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defineStore } from "pinia";
 
 export const navigationStore = defineStore('nav', {
@@ -6,7 +7,10 @@ export const navigationStore = defineStore('nav', {
             form:{
                 menu: '',
 
-            }
+            },
+            navigations: [],
+            sub_menus: [],
+            submenu: "",
             
         }
     },
@@ -34,6 +38,9 @@ export const navigationStore = defineStore('nav', {
                     this.getter();
                 })
             }
-        }
+        },
+
+
+
     }
-})
+});

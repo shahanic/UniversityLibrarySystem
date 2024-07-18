@@ -71,3 +71,10 @@ Route::post('/delete-users', [AccountsController::class, 'deleteUser']);
 Route::post('/save-nav',[NavigationController::class, 'saveNav']);
 Route::post('/get-navs',[NavigationController::class, 'getNavs']);
 Route::post('/delete-navs',[NavigationController::class, 'deleteNavs']);
+
+Route::post('/save-subnav',[SubNavigationController::class, 'saveSubNav']);
+Route::post('/get-subnavs',[SubNavigationController::class, 'getSubNavs']);
+Route::post('/delete-subnavs',[SubNavigationController::class, 'deleteSubNavs']);
+
+
+Route::get('/subnavs/{navigation_id}', [SubNavController::class, 'getSubNavs']);

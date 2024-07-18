@@ -87,8 +87,8 @@
                             'max-height-px mt-4': collapse_open === 1
                         }">
 
-                        <router-link to="/navigation" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('Navigation')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Home Navigation</router-link>
-                        <router-link to="/inventory/chemicals" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('mainnav')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Main Navigation</router-link>
+                        <router-link to="/navigation" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('Navigation')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Main Navigation</router-link>
+                        <!-- <router-link to="/inventory/chemicals" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('mainnav')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Main Navigation</router-link> -->
                         <!-- <router-link to="/inventory/feeds" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('feeds')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Feeds</router-link>
                         <router-link to="/inventory/palayandcorn" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('palayandcorn')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Palay and Corn</router-link>
                         <router-link to="/inventory/sacksandothers" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('others')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Sacks and Others</router-link>  -->

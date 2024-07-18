@@ -365,8 +365,8 @@ class ComposerStaticInit8f55386d9a30ac945a0ecf6b7633aa37
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -562,7 +562,14 @@ class ComposerStaticInit8f55386d9a30ac945a0ecf6b7633aa37
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admin\\AccountsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AccountsController.php',
+        'App\\Http\\Controllers\\Admin\\ArticlesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ArticlesController.php',
+        'App\\Http\\Controllers\\Admin\\FaqsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/FaqsController.php',
+        'App\\Http\\Controllers\\Admin\\GenericPageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/GenericPageController.php',
         'App\\Http\\Controllers\\Admin\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HomeController.php',
+        'App\\Http\\Controllers\\Admin\\ImagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ImagesController.php',
+        'App\\Http\\Controllers\\Admin\\NavigationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/NavigationController.php',
+        'App\\Http\\Controllers\\Admin\\QuickLinksController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/QuickLinksController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',

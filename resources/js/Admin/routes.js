@@ -1,4 +1,5 @@
 import Index from "./Pages/Index.vue";
+// import Navigation from "./Pages/Navigation.vue";
 import ArticlePages from "./Pages/ArticlePages.vue";
 import GenericPages from "./Pages/GenericPages.vue";
 import Faqs from "./Pages/Faqs.vue";
@@ -13,6 +14,12 @@ export const routes = [
         name: "Dashboard",
         component: Index
     }, 
+        
+    {
+        path: '/navigation',
+        name: "Navigation",
+        component: Navigation
+    },
     
     {
         path: '/generic-pages',
@@ -49,6 +56,8 @@ export const routes = [
         name: "Accounts",
         component: Accounts
     },
+
+
 
 
 

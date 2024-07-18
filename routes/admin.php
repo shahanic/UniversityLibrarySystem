@@ -1,12 +1,15 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
+// use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\GenericPageController;
 use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\ArticlesController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\QuickLinksController;
 use App\Models\User;
+// use App\Models\Navigation;
+
 
 Auth::routes();
 
@@ -15,6 +18,14 @@ Route::prefix('super-user')->group(function() {
 
     Route::get('{vue?}', [HomeController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
+// Route::prefix('navigation')->group(function() {
+
+
+//     Route::get('{vue?}', [NavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
+//     Route::post('/save-nav',[NavigationController::class, 'saveNav']);
+//     Route::post('/get-navs',[NavigationController::class, 'getNavs']);
+//     Route::post('/delete-navs',[NavigationController::class, 'deleteNavs']);
+// });
 
 
 Route::prefix('generic-pages')->group(function() {
@@ -36,14 +47,12 @@ Route::prefix('images')->group(function() {
 });
 
 
-Route::prefix('accounts')->group(function() {
-
-
+Route::group(['prefix' => 'accounts'], function() {
     Route::get('{vue?}', [AccountsController::class, 'index'])->where('vue', '[\/\w\.-]*');
 
-    Route::post('/save-user',[AccountsController::class, 'saveUser']);
-    Route::post('/get-users',[AccountsController::class, 'getUsers']);
-    Route::post('/delete-users',[AccountsController::class, 'deleteUser']);
+    Route::post('/save-user', [AccountsController::class, 'saveUser']);
+    Route::post('/get-users', [AccountsController::class, 'getUsers']);
+    Route::post('/delete-users', [AccountsController::class, 'deleteUser']);
 });
 
 Route::prefix('faqs')->group(function() {

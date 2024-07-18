@@ -4,6 +4,7 @@ import {storeToRefs} from 'pinia';
 
 
 
+
 const user = accountsStore()
 const{form} = storeToRefs(user)  
 
@@ -58,6 +59,7 @@ user.getter();
             </thead>
             <tbody>
                 <tr v-for="(userx, i) in user.users":key="i">
+                    
                     <td>{{++i}}</td>
                     <td>{{userx.name}}</td>
                     <td>{{userx.email}}</td>
@@ -65,11 +67,11 @@ user.getter();
                     <td>{{userx.role}}</td>
                     <td>{{userx.password}}</td>
                     <td>
+                        
                         <button @click="user.editUser(userx)">Edit</button>
                         <button @click="user.deleteUser(userx)">Delete</button>
                     </td>
-                   
-
+                       
                 </tr>
             </tbody>
         </table>

@@ -39,15 +39,4 @@ class AccountsController extends Controller
         return view('admin');
     }
 
-
-
-
-
-
-
-
-
-
-
-
 }

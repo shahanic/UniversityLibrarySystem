@@ -71,20 +71,10 @@
             <div class="flex flex-col mt-2 border-green-300 border-t dark:border-gray-700">
                 <router-link to="/super-user" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Home</router-link>
 
-                <router-link to="/generic-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
-
-                <router-link to="/article-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
-
-                <router-link to="/faqs" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Faqs')? 'bg-blue-700 dark:bg-gray-600' : ''}`">FAQs</router-link>
-
-
-                <router-link to="/quick-links" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('QuickLinks')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Quick Links</router-link>
-
-                <router-link to="/images" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Images</router-link>
-
-                <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
+                <router-link to="/navigation" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Navigation')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Navigation</router-link>
+                <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
                     <div class=" px-5 py-3 cursor-pointer block" @click="expandMe(1)">
-                        <span class="text-end text-white">{{collapse_open === 1? '▾' : '▸'}}</span> Inventory
+                        <span class="text-end text-white">{{collapse_open === 1? '▾' : '▸'}}</span> About
                     </div>
 
                     <div class="flex flex-col pl-5" :class="{
@@ -99,7 +89,20 @@
                         <router-link to="/inventory/palayandcorn" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('palayandcorn')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Palay and Corn</router-link>
                         <router-link to="/inventory/sacksandothers" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('others')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Sacks and Others</router-link> 
                     </div>
-                </div> -->
+                </div>
+
+                <router-link to="/generic-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
+
+                <router-link to="/article-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
+
+                <router-link to="/faqs" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Faqs')? 'bg-blue-700 dark:bg-gray-600' : ''}`">FAQs</router-link>
+
+
+                <router-link to="/quick-links" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('QuickLinks')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Quick Links</router-link>
+
+                <router-link to="/images" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Images</router-link>
+
+               
 
                 <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('students')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 2? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
                     <div class=" px-5 py-3 cursor-pointer block" @click="expandMe(2)">

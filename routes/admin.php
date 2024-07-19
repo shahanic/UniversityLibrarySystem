@@ -82,6 +82,6 @@ Route::post('/get-navs',[NavigationController::class, 'getNavs']);
 Route::post('/delete-navs',[NavigationController::class, 'deleteNavs']);
 
 Route::post('/save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
-Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
+Route::post('/get-sub-nav',[SubNavigationController::class, 'getSubNavs']);
 Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
 

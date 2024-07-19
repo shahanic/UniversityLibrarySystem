@@ -55,7 +55,7 @@
     </script>
 
     <template>
-        <div class="w-64 bg-blue-600 dark:bg-gray-900 h-screen pt-16 overflow-x-auto">
+        <div class="w-64 bg-green-600 dark:bg-gray-900 h-screen pt-16 overflow-x-auto">
             <div class="flex -mt-1 px-2 gap-1 ">
                 <div class="flex self-center w-20 h-14 ">
                     <!-- <img class="rounded-full"  src="/images/logo.jpg"/> -->
@@ -69,12 +69,12 @@
 
 
             <div class="flex flex-col mt-2 border-green-300 border-t dark:border-gray-700">
-                <router-link to="/super-user" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Home</router-link>
+                <router-link to="/super-user" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-green-900 dark:bg-gray-600' : ''}`">Home</router-link>
 
-                <router-link to="/navigation" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Navigation')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Navigation</router-link>
+                <router-link to="/navigation" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.path.includes('Navigation')? 'bg-green-900 dark:bg-gray-600' : ''}`">Navigation</router-link>
                
 
-                <router-link to="/generic-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
+                <router-link to="/generic-pages" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-green-900 dark:bg-gray-600' : ''}`">Generic Page</router-link>
 
                 <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
                     <div class=" px-5 py-3 cursor-pointer block" @click="expandMe(1)">
@@ -95,14 +95,14 @@
                     </div>
                 </div> -->
 
-                <router-link to="/article-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
+                <router-link to="/article-pages" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-green-900 dark:bg-gray-600' : ''}`">Articles</router-link>
 
-                <router-link to="/faqs" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Faqs')? 'bg-blue-700 dark:bg-gray-600' : ''}`">FAQs</router-link>
+                <router-link to="/faqs" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.path.includes('Faqs')? 'bg-green-900 dark:bg-gray-600' : ''}`">FAQs</router-link>
 
 
-                <router-link to="/quick-links" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('QuickLinks')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Quick Links</router-link>
+                <router-link to="/quick-links" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.path.includes('QuickLinks')? 'bg-green-900 dark:bg-gray-600' : ''}`">Quick Links</router-link>
 
-                <router-link to="/images" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Images</router-link>
+                <router-link to="/images" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-green-900 dark:bg-gray-600' : ''}`">Images</router-link>
 
                
 
@@ -123,7 +123,7 @@
                     </div>
                 </div> -->
 
-                <router-link to="/accounts" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('accounts')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Accounts</router-link>
+                <router-link to="/accounts" :class="`nav-links hover:bg-green-900 dark:hover:bg-gray-700 ${$route.path.includes('accounts')? 'bg-green-900 dark:bg-gray-600' : ''}`">Accounts</router-link>
 
 
                     <div class="flex items-center justify-center w-full border-t border-green-300 dark:border-gray-700 pt-4">
@@ -153,6 +153,8 @@
         /* Toggle B */
         input:checked ~ .dot {
         transform: translateX(100%);
-        background-color: rgb(65, 65, 65);
+        /*background-color: rgb(65, 65, 65); */
+        background-color: rgb(255, 255, 255);
+
         }
     </style>

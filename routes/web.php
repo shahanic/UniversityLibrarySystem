@@ -42,8 +42,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/test', [App\Http\Controllers\HomeController::class, 'test'])->name('test');
 
-Route::get('/get-sub-nav',[NavigationController::class, 'getSubNav']);
-Route::get('inner-join',[NavigationController::class, 'innerJoin']);
+// Route::get('/get-sub-nav',[NavigationController::class, 'getSubNav']);
+// Route::get('inner-join',[NavigationController::class, 'innerJoin']);
 
 
 include 'admin.php';

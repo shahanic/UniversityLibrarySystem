@@ -51,7 +51,7 @@ user.getter();
     <div>
         <table class="min-w-full border-collapse border border-gray-300">
           <thead>
-            <tr class="bg-gray-500">
+            <tr class="bg-gray-900">
               <th class="border border-gray-300 text-white p-2">#</th>
               <th class="border border-gray-300 text-white p-2">Name</th>
               <th class="border border-gray-300 text-white p-2">Email</th>
@@ -62,7 +62,7 @@ user.getter();
               </tr>
             </thead>
             <tbody>
-                <tr v-for="(userx, index) in user.users" :key="index" class="bg-gray-700">
+                <tr v-for="(userx, index) in user.users" :key="index" class="bg-gray-500">
               <td class="border border-gray-300 text-white p-2">{{ index + 1 }}</td>
               <td class="border border-gray-300 text-white p-2">{{ userx.name }}</td>
               <td class="border border-gray-300 text-white p-2">{{ userx.email }}</td>

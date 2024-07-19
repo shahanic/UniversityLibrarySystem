@@ -7,7 +7,7 @@ import {storeToRefs} from 'pinia';
 const nav = navigationStore()
 const subnav = subnavigationsStore()
 const{form} = storeToRefs(nav)  
-const{form1} = storeToRefs(subnav)  
+
 
 
 
@@ -43,7 +43,7 @@ const fetchSubNavData = async (id) => {
         </div>
     
         <div>
-            <button @click="nav.save()">Save</button>
+            <button class="bg-green-700 text-black px-2 py-1 rounded mr-3" @click="nav.save()">Save</button>
         </div>
 
   
@@ -65,9 +65,9 @@ const fetchSubNavData = async (id) => {
                     <td class="border border-gray-300 p-2">{{navx.menu}}</td>
               
                     <td class="border border-gray-300 p-2 text-center">
-                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="fetchSubNavData(navx.id)">View</button>
+                        <button class="bg-green-500 text-black px-2 py-1 rounded mr-3"  @click="fetchSubNavData(navx.id)">View</button>
                         <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="nav.editNav(navx)">Edit</button>
-                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="nav.deleteNavs(navx)">Delete</button>
+                        <button class="bg-red-500 text-black px-2 py-1 rounded mr-3"  @click="nav.deleteNavs(navx)">Delete</button>
                     </td>
                     
                 </tr>
@@ -84,15 +84,12 @@ const fetchSubNavData = async (id) => {
                         <table class="min-w-full border-collapse border border-gray-300">
                             <thead>
                                 <tr class="bg-gray-200">
-                                    <th class="border border-gray-300 p-2">Submenus</th>
+                                    <th class="border border-gray-300 p-2">Submenu</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in subNavData" :key="item.id">
                                     <td class="border border-gray-300 p-2">{{ item.submenu }}</td>
-                                    <td class="border border-gray-300 p-2 text-center">
-                                    
-                                </td>
                                 </tr>
                             </tbody>
                         </table>

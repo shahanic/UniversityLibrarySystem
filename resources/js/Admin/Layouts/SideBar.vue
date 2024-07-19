@@ -76,7 +76,7 @@
 
                 <router-link to="/generic-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
 
-                <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
+                <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
                     <div class=" px-5 py-3 cursor-pointer block" @click="expandMe(1)">
                         <span class="text-end text-white">{{collapse_open === 1? '▾' : '▸'}}</span> Management
                     </div>
@@ -89,11 +89,11 @@
 
                         <router-link to="/navigation" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('Navigation')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Home Navigation</router-link>
                         <router-link to="/inventory/chemicals" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('mainnav')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Main Navigation</router-link>
-                        <!-- <router-link to="/inventory/feeds" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('feeds')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Feeds</router-link>
+                        <router-link to="/inventory/feeds" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('feeds')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Feeds</router-link>
                         <router-link to="/inventory/palayandcorn" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('palayandcorn')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Palay and Corn</router-link>
-                        <router-link to="/inventory/sacksandothers" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('others')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Sacks and Others</router-link>  -->
+                        <router-link to="/inventory/sacksandothers" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('others')? 'bg-blue-800 dark:bg-gray-600' : ''}`">↳ Sacks and Others</router-link> 
                     </div>
-                </div>
+                </div> -->
 
                 <router-link to="/article-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('ArticlePages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
 

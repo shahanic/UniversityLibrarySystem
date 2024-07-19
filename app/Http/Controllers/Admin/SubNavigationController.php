@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Navigation;
 use App\Models\SubMenu;
+use Illuminate\Support\Facades\DB;
 
 class SubNavigationController extends Controller
 {
@@ -35,6 +36,13 @@ class SubNavigationController extends Controller
         return view('admin');
     }
 
+    public function navsubnav($id){
+        return DB::table('navigations')
+        ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
+        ->where('navigations.id', $id)
+        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu')
+        ->get();
+    }
 
 
 

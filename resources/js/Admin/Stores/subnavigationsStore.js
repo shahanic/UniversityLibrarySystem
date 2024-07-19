@@ -4,17 +4,18 @@ import { defineStore } from "pinia";
 export const subnavigationsStore = defineStore('subnav', {
     state: () =>{
         return{
-            form1:{
+            form:{
                 navigation_id:'',
                 submenu: '',
             },
             sub_menus: [],
             navigations: [],
             submenu: "",
+            sub_menus: ref([])
             
 
             
-        }
+        } 
     },
 
     actions: {
@@ -42,7 +43,14 @@ export const subnavigationsStore = defineStore('subnav', {
             }
         },
 
-        
-
-    }
+        async fetchSubNavData(id){
+            try {
+                const response = await axios.get('/get-sub-nav', {params: {id} });
+                this.sub_menus.value = response.data;
+            } catch (error) {
+                console.error('Error fetching sub navigation data:', error);
+            }
+        }
+    }   
 });
+

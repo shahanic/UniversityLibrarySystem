@@ -4,7 +4,7 @@
              <mobile-nav @signOut="logout"></mobile-nav>
          </header>
          <div class="hidden md:flex shadow backdrop-blur-md bg-white/60 w-full  dark:bg-gray-700/60 fixed z-40">
-             <div class="w-64 bg-blue-600/50 dark:bg-gray-800/50 flex items-center">
+             <div class="w-64 bg-green-900 dark:bg-gray-800/50 flex items-center">
                  <!-- <h4 class="ml-4 text-white font-semibold ">Bacarra Zanjeras MPC</h4> -->
                  <h4 class="ml-4 text-white font-semibold ">MMSU</h4>
              </div>

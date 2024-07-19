@@ -59,7 +59,7 @@ export const routes = [
     },
 
     {
-        path: '/subnav',
+        path: '/subnav/:id',
         name: "SubNavigation",
         component: SubNavigation
     },

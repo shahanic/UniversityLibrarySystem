@@ -1,3 +1,4 @@
+Charry Ann Omayama Cachero
 <script setup>
 import {navigationStore}from '@/Admin/Stores/navigationStores';
 import {storeToRefs} from 'pinia';
@@ -24,21 +25,24 @@ nav.getter();
         <div>
             <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3" @click="nav.save()">Save</button>
         </div>
+        <div> 
+        </div>
 
   
     <div>
         <table>
             <thead>
-                <th class="bg-gray-500">#</th>
+                <tr class = "bg-gray-500">
+                <th class="border border-gray-300 text-white p-2">#</th>
                 <th class="border border-gray-300 text-white p-2">Menu</th>
-                <th class="border border-gray-300 text-white p-2">Actions</th>
+                <th class="border border-gray-300 text-white p-7=2">Actions</th>
+                </tr>
             </thead>  
             <tbody>
-                <tr v-for="(navx, i) in nav.navigations":key="i">
+                <tr v-for="(navx, i) in nav.navigations":key="i" class="bg-gray-700">
                     <td class="border border-gray-300 text-white p-2">{{++i}}</td>
                     <td class="border border-gray-300 text-white p-2">{{navx.menu}}</td>
-              
-                    <td>
+                    <td class="border border-gray-300 text-white p-2 text-center">
                         <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="nav.editNav(navx)">edit</button>
                         <button class="bg-red-500 text-black px-2 py-1 rounded mr-3"  @click="nav.deleteNavs(navx)">delete</button>
                         <button class="bg-green-500 text-black px-2 py-1 rounded mr-3"  @click="nav.editNav(navx)">show</button>

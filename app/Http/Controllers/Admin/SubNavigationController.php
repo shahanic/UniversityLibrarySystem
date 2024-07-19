@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Navigation;
 use App\Models\SubMenu;
 
+use Illuminate\Support\Facades\DB;
+
 class SubNavigationController extends Controller
 {
     public function saveSubNav(Request $request){

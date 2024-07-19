@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\QuickLinksController;
 use App\Models\User;
 use App\Models\Navigation;
+use App\Models\SubMenu;
 
 
 Auth::routes();
@@ -69,6 +70,11 @@ Route::prefix('quick-links')->group(function() {
 
 
     Route::get('{vue?}', [QuickLinksController::class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
+Route::prefix('subnav')->group(function() {
+
+    Route::get('{vue?}', [SubNavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
 

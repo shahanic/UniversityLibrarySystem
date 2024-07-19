@@ -2,7 +2,7 @@
 import {navigationStore}from '@/Admin/Stores/navigationStores';
 import {subnavigationsStore}from '@/Admin/Stores/subnavigationsStore';
 import {storeToRefs} from 'pinia';
-
+import { useRoute } from 'vue-router';
 
 const nav = navigationStore()
 const subnav = subnavigationsStore()
@@ -21,7 +21,7 @@ const subNavData = ref([]);
 
 const fetchSubNavData = async (id) => {
     try {
-        const response = await axios.get('/get-sub-nav', {params: {id} });
+        const response = await axios.post('/get-sub-navs', {params: {id} });
         subNavData.value = response.data;
     } catch (error) {
         console.error('Error fetching sub navigation data:', error);
@@ -38,13 +38,13 @@ const fetchSubNavData = async (id) => {
                 <td></td>
             </div>
             <div>
-            <label for="">Menu: </label>
-            <input type="text" v-model="form.menu">
+            <!-- <label for="">Menu: </label>
+            <input type="text" v-model="form.menu"> -->
         </div>
     
-        <div>
+        <!-- <div>
             <button class="bg-green-700 text-black px-2 py-1 rounded mr-3" @click="nav.save()">Save</button>
-        </div>
+        </div> -->
 
   
 
@@ -66,8 +66,8 @@ const fetchSubNavData = async (id) => {
               
                     <td class="border border-gray-300 p-2 text-center">
                         <button class="bg-green-500 text-black px-2 py-1 rounded mr-3"  @click="fetchSubNavData(navx.id)">View</button>
-                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="nav.editNav(navx)">Edit</button>
-                        <button class="bg-red-500 text-black px-2 py-1 rounded mr-3"  @click="nav.deleteNavs(navx)">Delete</button>
+                        <!-- <router-link to="/subnav" :class="`dark:hover:bg-gray-600 nav-links ${$route.path.includes('SubNavigation')? 'bg-blue-800 dark:bg-gray-600' : ''}`">View</router-link> -->
+
                     </td>
                     
                 </tr>

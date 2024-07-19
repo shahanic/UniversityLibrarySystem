@@ -1,14 +1,27 @@
 <script setup>
-import {subnavigationStore}from '@/Admin/Stores/subnavigationStores';
+import {subnavigationsStore}from '@/Admin/Stores/subnavigationsStore';
+import {navigationStore}from '@/Admin/Stores/navigationStores';
 import {storeToRefs} from 'pinia';
 
 
-const subnav = subnavigationStore()
+const subnav = subnavigationsStore()
 const{form} = storeToRefs(subnav)  
 
 subnav.getter();
 
+import { ref } from 'vue';
+import axios from 'axios';
 
+const subNavData = ref([]);
+
+const fetchSubNavData = async (id) => {
+    try {
+        const response = await axios.get('/get-sub-nav', {params: {id} });
+        subNavData.value = response.data;
+    } catch (error) {
+        console.error('Error fetching sub navigation data:', error);
+    }
+};
 </script>
 <template>
     <admin-layout>
@@ -26,12 +39,9 @@ subnav.getter();
         </div>
     
         <div>
-            <button @click="nav.save()">Save</button>
+            <button @click="subnav.save()">Save</button>
         </div>
 
-  
-
-    
     <div>
         <table class="min-w-full border-collapse border border-gray-300">
             <thead>
@@ -44,17 +54,34 @@ subnav.getter();
                 
             </thead>  
             <tbody>
-                <tr v-for="(subnavx, i) in subnav.submenus":key="i">
+                <tr v-for="(subnavx, i) in subnav.sub_menus":key="i">
+                    
                     <td class="border border-gray-300 p-2">{{++i}}</td>
                     <td class="border border-gray-300 p-2">{{subnavx.navigation_id}}</td>
                     <td class="border border-gray-300 p-2">{{subnavx.submenu}}</td>
                     
               
                     <td class="border border-gray-300 p-2 text-center">
+                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="fetchSubNavData(navx.id)">View</button>
                         <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.editSubNav(navx)">Edit</button>
                         <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.deleteSubNavs(navx)">Delete</button>
                     </td>
-                    
+                    <div>
+                    <div v-if="subNavData.length">
+                        <table class="min-w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 p-2">Submenus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in subNavData" :key="item.id">
+                                    <td class="border border-gray-300 p-2">{{ item.submenu }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 </tr>
             </tbody>
         </table>

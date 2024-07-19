@@ -1,12 +1,18 @@
 <script setup>
 import {navigationStore}from '@/Admin/Stores/navigationStores';
+import {subnavigationsStore}from '@/Admin/Stores/subnavigationsStore';
 import {storeToRefs} from 'pinia';
 
 
 const nav = navigationStore()
+const subnav = subnavigationsStore()
 const{form} = storeToRefs(nav)  
+const{form1} = storeToRefs(subnav)  
+
+
 
 nav.getter();
+subnav.getter();
 
 import { ref } from 'vue';
 import axios from 'axios';
@@ -65,16 +71,33 @@ const fetchSubNavData = async (id) => {
                     </td>
                     
                 </tr>
-                <div>
-                    <div v-if="subNavData.length">
-                        <h2>Sub Navigation Data</h2>
-                        <ul>
-                            <li v-for="item in subNavData" :key="item.id">{{ item.submenu }}</li>
-                        </ul>
-                    </div>
-                </div>
             </tbody>
-        </table>
+        </table> <br><br>
+
+                <div v-if="subNavData.length">
+                    <div>
+                <H1>Sub Navigation</H1>
+                <p></p>
+                <td></td>
+            </div>
+
+                        <table class="min-w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 p-2">Submenus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in subNavData" :key="item.id">
+                                    <td class="border border-gray-300 p-2">{{ item.submenu }}</td>
+                                    <td class="border border-gray-300 p-2 text-center">
+                                    
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
     </div>
         </template>
     </admin-layout>

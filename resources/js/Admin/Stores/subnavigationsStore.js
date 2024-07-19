@@ -1,13 +1,17 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 
-export const subnavigationStore = defineStore('subnav', {
+export const subnavigationsStore = defineStore('subnav', {
     state: () =>{
         return{
-            form:{
+            form1:{
                 navigation_id:'',
                 submenu: '',
             },
+            sub_menus: [],
+            navigations: [],
+            submenu: "",
+            
 
             
         }

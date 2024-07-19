@@ -43,7 +43,6 @@ class NavigationController extends Controller{
         $result = $navigation->innerJoin($request->id);
         return response()->json($result);
     }
-
     // public function innerJoin(Request $request){
     //     $return = DB::table('navigations')
     //     ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')

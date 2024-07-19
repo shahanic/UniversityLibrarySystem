@@ -6,6 +6,7 @@ import Faqs from "./Pages/Faqs.vue";
 import QuickLinks from "./Pages/QuickLinks.vue";
 import Accounts from "./Pages/Accounts.vue";
 import Images from "./Pages/Images.vue";
+import SubNavigation from "./Pages/SubNavigation.vue";
 
 
 export const routes = [
@@ -55,6 +56,12 @@ export const routes = [
         path: '/accounts',
         name: "Accounts",
         component: Accounts
+    },
+
+    {
+        path: '/subnav',
+        name: "SubNavigation",
+        component: SubNavigation
     },
 
 

@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NavigationController;
+use App\Http\Controllers\Admin\SubNavigationController;
 use App\Http\Controllers\Admin\GenericPageController;
 use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\ArticlesController;
@@ -24,6 +25,14 @@ Route::prefix('navigation')->group(function() {
     Route::get('{vue?}', [NavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
 
 });
+
+Route::prefix('subnav')->group(function() {
+
+
+    Route::get('{vue?}', [SubNavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
+
+});
+
 
 
 Route::prefix('generic-pages')->group(function() {
@@ -75,3 +84,4 @@ Route::post('/delete-navs',[NavigationController::class, 'deleteNavs']);
 Route::post('/save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
 Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
 Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
+

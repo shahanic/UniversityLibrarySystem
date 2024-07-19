@@ -15,7 +15,7 @@ class SubNavigationController extends Controller
         }else{
             $new = new SubMenu;
         }
-
+        $new->navigation_id = $request->navigation_id; 
         $new->submenu = $request->submenu;    
      
         $res = $new->save();
@@ -34,6 +34,8 @@ class SubNavigationController extends Controller
     public function index(){
         return view('admin');
     }
+
+
 
 
 }

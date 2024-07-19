@@ -1,39 +1,40 @@
 <template>
-    <div v-if="isVisible" class="modal-overlay" @click="closeModal">
-      <div class="modal-content" @click.stop>
-        <button class="close-button" @click="closeModal">X</button>
-        <div>
-          <h1>Manage Account</h1>
+    <admin-layout>
+      <div v-if="isVisible" class="modal-overlay" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <button class="close-button" @click="closeModal">X</button>
           <div>
-            <label for="">Name: </label>
-            <input type="text" v-model="form.name" />
-          </div>
-          <div>
-            <label for="">Email: </label>
-            <input type="text" v-model="form.email" />
-          </div>
-          <div>
-            <label for="">Username: </label>
-            <input type="text" v-model="form.username" />
-          </div>
-          <div>
-            <label for="">Role: </label>
-            <input type="text" v-model="form.role" />
-          </div>
-          <div>
-            <label for="">Password: </label>
-            <input type="text" v-model="form.password" />
-          </div>
-          <div>
-            <button @click="user.save()">Save</button>
-            
+            <h1>Manage Account</h1>
+            <div>
+              <label for="">Name: </label>
+              <input type="text" v-model="form.name" />
+            </div>
+            <div>
+              <label for="">Email: </label>
+              <input type="text" v-model="form.email" />
+            </div>
+            <div>
+              <label for="">Username: </label>
+              <input type="text" v-model="form.username" />
+            </div>
+            <div>
+              <label for="">Role: </label>
+              <input type="text" v-model="form.role" />
+            </div>
+            <div>
+              <label for="">Password: </label>
+              <input type="text" v-model="form.password" />
+            </div>
+            <div>
+              <button @click="user.save()">Save</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </template>
+    </admin-layout>
+</template>
   
-  <script>
+<script>
   export default {
     props: {
       isVisible: {

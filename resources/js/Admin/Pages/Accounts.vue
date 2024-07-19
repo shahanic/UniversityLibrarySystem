@@ -46,14 +46,14 @@ const saveUser = () => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(userx, i) in user.users":key="i">
-                    <td>{{++i}}</td>
-                    <td>{{userx.name}}</td>
-                    <td>{{userx.email}}</td>
-                    <td>{{userx.username}}</td>
-                    <td>{{userx.role}}</td>
-                    <td>{{userx.password}}</td>
-                    <td>
+            <tr v-for="(userx, i) in user.users" :key="i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ userx.name }}</td>
+              <td>{{ userx.email }}</td>
+              <td>{{ userx.username }}</td>
+              <td>{{ userx.role }}</td>
+              <td>{{ userx.password }}</td>
+              <td>
                 <button @click="user.editUser(userx)">Edit</button>
                 <button @click="user.deleteUser(userx)">Delete</button>
               </td>
@@ -87,3 +87,7 @@ p {
   margin-bottom: 0;
 }
 </style>
+
+
+
+

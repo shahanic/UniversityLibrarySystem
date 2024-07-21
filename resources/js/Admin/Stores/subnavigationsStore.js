@@ -1,5 +1,6 @@
 import axios from "axios";
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
 export const subnavigationsStore = defineStore('subnav', {
     state: () =>{
@@ -10,11 +11,7 @@ export const subnavigationsStore = defineStore('subnav', {
             },
             sub_menus: [],
             navigations: [],
-            submenu: "",
-            sub_menus: ref([])
-            
 
-            
         } 
     },
 
@@ -45,8 +42,8 @@ export const subnavigationsStore = defineStore('subnav', {
 
         async fetchSubNavData(id){
             try {
-                const response = await axios.get('/get-sub-nav', {params: {id} });
-                this.sub_menus.value = response.data;
+                const response = await axios.get(`/get-sub-nav/${id}`);
+                this.sub_menus = response.data;
             } catch (error) {
                 console.error('Error fetching sub navigation data:', error);
             }

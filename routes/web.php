@@ -43,7 +43,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/test', [App\Http\Controllers\HomeController::class, 'test'])->name('test');
 
 // Route::get('/get-sub-nav',[NavigationController::class, 'getSubNav']);
-Route::get('/get-sub-nav',[SubNavigationController::class, 'navsubnav']);
+Route::get('/get-sub-nav/{id}',[SubNavigationController::class, 'navsubnav']);
 
 
 include 'admin.php';

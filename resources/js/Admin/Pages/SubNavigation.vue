@@ -1,10 +1,27 @@
-
-
 <template>
-    <div>
-        <p>ID: {{ route.params.id }}</p>
-    </div>
-    <div>
+    <admin-layout>
+        <template v-slot:main> 
+            <div class="container mx-auto p-4">
+                <h1 class="text-2xl font-bold mb-4" >Sub Navigation List</h1>
+                    <div v-if="subnav.sub_menus.length">
+                        <table class="min-w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 p-2">Submenus</th>
+                                    <th class="border border-gray-300 p-2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in subnav.sub_menus" :key="item.id">
+                                    <td class="border border-gray-300 p-2">{{ item.submenu }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </template>
+    </admin-layout>
+    <!-- <div>
         <table class="min-w-full border-collapse border border-gray-300">
             <thead>
                 <tr>
@@ -12,8 +29,7 @@
                     <th class="border border-gray-300 p-2">Navigation ID</th>
                     <th class="border border-gray-300 p-2">Sub Menu</th>
                     <th class="border border-gray-300 p-2">Actions</th>
-                </tr>
-                
+                </tr>   
             </thead>  
             <tbody>
                 <tr v-for="(subnavx, i) in subnav.sub_menus":key="i">
@@ -30,41 +46,28 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 
-    <div v-if="subnav.sub_menus.length">
-        <table class="min-w-full border-collapse border border-gray-300">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="border border-gray-300 p-2">Submenus</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in subnav.sub_menus" :key="item.id">
-                    <td class="border border-gray-300 p-2">{{ item.submenu }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router';
-const route = useRoute();
-
-import {ref } from 'vue';
+import {onMounted, ref } from 'vue';
 
 import {subnavigationsStore}from '@/Admin/Stores/subnavigationsStore';
 import {storeToRefs} from 'pinia';
 
-const id = ref( {{ route.params.id }});
+const route = useRoute();
 
-onMounted(async () => {
-  await subNavStore.fetchSubNavData(id.value);
-});     
 
 const subnav = subnavigationsStore()
 const{form} = storeToRefs(subnav)  
+
+onMounted(async () => {
+    const id = ref(route.params.id);
+    await subnav.fetchSubNavData(id.value);
+});     
 
 subnav.getter();
 

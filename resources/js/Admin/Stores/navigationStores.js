@@ -10,7 +10,7 @@ export const navigationStore = defineStore('nav', {
             },
             navigations: [],
             sub_menus: [],
-            submenu: "",
+
         }
     },
 

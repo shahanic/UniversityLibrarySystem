@@ -74,4 +74,10 @@ Route::post('/delete-navs',[NavigationController::class, 'deleteNavs']);
 
 Route::post('/save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
 Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
+<<<<<<< Updated upstream
 Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
+=======
+Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
+
+Route::get('/get-sub-nav/{id}',[SubNavigationController::class, 'navsubnav']);
+>>>>>>> Stashed changes

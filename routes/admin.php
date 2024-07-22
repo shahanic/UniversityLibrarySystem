@@ -70,3 +70,8 @@ Route::post('/save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
 Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
 Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
 
+Route::post('/save-page',[PagesController::class, 'savePage']);
+Route::post('/get-pages',[PagesController::class, 'getPages']);
+Route::post('/delete-pages',[PagesController::class, 'deletePages']);
+
+

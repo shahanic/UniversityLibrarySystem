@@ -44,7 +44,8 @@ export const pagesStores = defineStore('pages', {
         async fetchPageData(id){
             try {
                 const response = await axios.get(`/get-page/${id}`);
-                this.deletePages = response.data;
+                this.pages = response.data;
+                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching sub navigation data:', error);
             }

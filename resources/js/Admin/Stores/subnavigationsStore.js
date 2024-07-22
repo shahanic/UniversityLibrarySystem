@@ -43,7 +43,6 @@ export const subnavigationsStore = defineStore('subnav', {
             try {
                 const response = await axios.get(`/get-sub-nav/${id}`);
                 this.sub_menus = response.data;
-                
             } catch (error) {
                 console.error('Error fetching sub navigation data:', error);
             }

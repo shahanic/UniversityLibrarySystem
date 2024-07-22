@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
-    public function savePages(Request $request){
+    public function savePage(Request $request){
         if($request->id){
             $new = Pages::find($request->id);
         }else{
@@ -39,8 +39,8 @@ class PagesController extends Controller
     public function retrievePages($id){
         return DB::table('sub_menus')
         ->rightjoin('pages', 'sub_menus.id', '=', 'pages.subnav_id')
-        ->where('subnav.id', $id)
-        ->select('pages.id', 'pages.name', 'pages.code', 'pages.nav_id', 'pages.subnav_id')
+        ->where('sub_menus.id', $id)
+        ->select('pages.name', 'pages.code', 'sub_menus.submenu')
         ->get();
     }
 

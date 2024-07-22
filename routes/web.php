@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\SubNavigationController;
+use App\Http\Controllers\Admin\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::get('/test', [App\Http\Controllers\HomeController::class, 'test'])->name(
 
 // Route::get('/get-sub-nav',[NavigationController::class, 'getSubNav']);
 Route::get('/get-sub-nav/{id}',[SubNavigationController::class, 'navsubnav']);
+Route::get('/get-page/{id}',[PagesController::class, 'retrievePages']);
+
 
 
 include 'admin.php';

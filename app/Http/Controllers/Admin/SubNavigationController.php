@@ -40,7 +40,7 @@ class SubNavigationController extends Controller
         return DB::table('navigations')
         ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
         ->where('navigations.id', $id)
-        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu')
+        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu', 'navigations.menu')
         ->get();
     }
 

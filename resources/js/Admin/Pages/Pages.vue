@@ -2,7 +2,7 @@
     <admin-layout>
         <template v-slot:main> 
             <div class="container mx-auto p-4">
-                <h1 class="text-2xl font-bold mb-4" > {{ subnav.sub_menus.length > 0 ? subnav.sub_menus[0].menu : 'No' }} Navigation List</h1>
+                <h1 class="text-2xl font-bold mb-4" >{{ subnav.sub_menus[0].menu }} Navigation List</h1>
                     <div v-if="subnav.sub_menus.length">
                         <table class="min-w-full border-collapse border border-gray-300">
                             <thead>
@@ -26,58 +26,25 @@
             </div>
         </template>
     </admin-layout>
-    <!-- <div>
-        <table class="min-w-full border-collapse border border-gray-300">
-            <thead>
-                <tr>
-                    <th class="border border-gray-300 p-2">#</th>
-                    <th class="border border-gray-300 p-2">Navigation ID</th>
-                    <th class="border border-gray-300 p-2">Sub Menu</th>
-                    <th class="border border-gray-300 p-2">Actions</th>
-                </tr>   
-            </thead>  
-            <tbody>
-                <tr v-for="(subnavx, i) in subnav.sub_menus":key="i">
-                    
-                    <td class="border border-gray-300 p-2">{{++i}}</td>
-                    <td class="border border-gray-300 p-2">{{subnavx.navigation_id}}</td>
-                    <td class="border border-gray-300 p-2">{{subnavx.submenu}}</td>
-                    <td class="border border-gray-300 p-2 text-center">
-                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.editSubNav(navx)">Edit</button>
-                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.deleteSubNavs(navx)">Delete</button>
-                    </td>
-                    <div>
-                </div>
-                </tr>
-            </tbody>
-        </table>
-    </div> -->
-
-
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router';
 import {onMounted, ref } from 'vue';
 
-import {subnavigationsStore}from '@/Admin/Stores/subnavigationsStore';
+import {pagesStores} from '@/Admin/Stores/pagesStores';
 import {storeToRefs} from 'pinia';
 
 const route = useRoute();
 
 
-const subnav = subnavigationsStore()
+const pages = pagesStores()
 const{form} = storeToRefs(subnav)  
 
 onMounted(async () => {
     const id = ref(route.params.id);
-    await subnav.fetchSubNavData(id.value);
+    await pages.fetchSubNavData(id.value);
 });     
 
-subnav.getter();
-
-// const fetchData = async (id) => {
-//     await subnavigationsStore.fetchSubNavData(id);
-// }
+pages.getter();
 </script>
-

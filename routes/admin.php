@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\QuickLinksController;
 use App\Models\User;
 use App\Models\Navigation;
-
+use App\Models\Articles;
 
 Auth::routes();
 
@@ -72,9 +72,14 @@ Route::post('/save-nav',[NavigationController::class, 'saveNav']);
 Route::post('/get-navs',[NavigationController::class, 'getNavs']);
 Route::post('/delete-navs',[NavigationController::class, 'deleteNavs']);
 
-Route::post('/save-subnav',[SubNavigationController::class, 'saveSubNav']);
-Route::post('/get-subnavs',[SubNavigationController::class, 'getSubNavs']);
-Route::post('/delete-subnavs',[SubNavigationController::class, 'deleteSubNavs']);
+Route::post('/save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
+Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
+Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
+
+
+Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
+Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
+Route::post('/delete-articles',[ArticlesController::class, 'deleteArticles']);
 
 
 Route::get('/subnavs/{navigation_id}', [SubNavController::class, 'getSubNavs']);

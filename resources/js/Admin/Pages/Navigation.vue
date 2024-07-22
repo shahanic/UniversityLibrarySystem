@@ -3,11 +3,11 @@
     <admin-layout>
         <template v-slot:main>
             <div class="container mx-auto p-4">
-                <h1 class="text-2xl font-bold mb-4" >Main Navigation List</h1>
+                <h1 class="text-2xl font-bold mb-4 text-center" >Main Navigation List</h1>
                 <table class="min-w-full border-collapse border border-gray-300">
                     <thead>
-                        <tr class="bg-gray-200">
-                            <th class="border border-gray-300 p-2">Title</th>
+                        <tr class="bg-gray-400">
+                            <th class="border text-white border-gray-300 p-2">Title</th>
                             <th class="border border-gray-300 p-2"></th>
                         </tr>
                         
@@ -16,7 +16,7 @@
                         <tr v-for="navx in nav.navigations":key="i">
                             <td class="border border-gray-300 p-2" style="width: 78%;">{{navx.menu}}</td>
                             <td class="border border-gray-300 p-1 text-center">
-                                <router-link :to="{name: 'SubNavigation', params: {id: navx.id}}">view</router-link>
+                                <router-link :to="{name: 'SubNavigation', params: {id: navx.id}}" class="bg-green-900 text-white px-2 py-1 rounded">view</router-link>
                             </td>
                         </tr>
                     </tbody>

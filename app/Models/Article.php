@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "title",
+        "content",
+    ];
 }
+
+//in db, slug and status are not NULL
+//edited for testing purposes

@@ -2,22 +2,22 @@
     <admin-layout>
         <template v-slot:main> 
             <div class="container mx-auto p-4">
-                <h1 class="text-2xl font-bold mb-4" > {{ subnav.sub_menus.length > 0 ? subnav.sub_menus[0].menu : 'No' }} Navigation List</h1>
+                <h2> {{ subnav.sub_menus.length > 0 ? subnav.sub_menus[0].menu : 'No' }} Navigation List</h2>
                     <div v-if="subnav.sub_menus.length">
-                        <table class="min-w-full border-collapse border border-gray-300">
+                        <table >
                             <thead>
-                                <tr class="bg-gray-200" >
-                                    <th class="border border-gray-300 p-2" >Title</th>
-                                    <th class="border border-gray-300 p-2"> </th>
+                                <tr>
+                                    <th>Title</th>
+                                    <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in subnav.sub_menus" :key="item.id">
-                                    <td class="border border-gray-300 p-2">{{ item.submenu }}</td>
-                                    <td class="border border-gray-300 p-1 text-center">
-                                        <router-link class="bg-yellow-500 text-black px-2 py-1 rounded mr-3":to="{name: 'Pages', params: {id: item.id}}">Pages</router-link>
-                                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.editSubNav(item)">Edit</button>
-                                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.deleteSubNavs(item)">Delete</button>
+                                    <td  style="width: 70%">{{ item.submenu }}</td>
+                                    <td>
+                                        <router-link style="padding-left: 20px" :to="{name: 'Pages', params: {id: item.id}}">Pages</router-link>
+                                        <button style="padding-left: 20px" @click="subnav.editSubNav(item)">Edit</button>
+                                        <button style="padding-left: 20px" @click="subnav.deleteSubNavs(item)">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -26,34 +26,6 @@
             </div>
         </template>
     </admin-layout>
-    <!-- <div>
-        <table class="min-w-full border-collapse border border-gray-300">
-            <thead>
-                <tr>
-                    <th class="border border-gray-300 p-2">#</th>
-                    <th class="border border-gray-300 p-2">Navigation ID</th>
-                    <th class="border border-gray-300 p-2">Sub Menu</th>
-                    <th class="border border-gray-300 p-2">Actions</th>
-                </tr>   
-            </thead>  
-            <tbody>
-                <tr v-for="(subnavx, i) in subnav.sub_menus":key="i">
-                    
-                    <td class="border border-gray-300 p-2">{{++i}}</td>
-                    <td class="border border-gray-300 p-2">{{subnavx.navigation_id}}</td>
-                    <td class="border border-gray-300 p-2">{{subnavx.submenu}}</td>
-                    <td class="border border-gray-300 p-2 text-center">
-                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.editSubNav(navx)">Edit</button>
-                        <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.deleteSubNavs(navx)">Delete</button>
-                    </td>
-                    <div>
-                </div>
-                </tr>
-            </tbody>
-        </table>
-    </div> -->
-
-
 </template>
 
 <script setup>
@@ -75,9 +47,71 @@ onMounted(async () => {
 });     
 
 subnav.getter();
-
-// const fetchData = async (id) => {
-//     await subnavigationsStore.fetchSubNavData(id);
-// }
 </script>
 
+<style scoped>
+.container {
+  width: 100%;
+  padding: 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding-left: 7px;
+  text-align: center;
+}
+
+.view-details {
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 0.9em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  font-weight: normal;
+  color: #666;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.leave {
+  color: #FF4500;
+}
+
+.negative {
+  color: #FF4500;
+}
+
+.positive {
+  color: #4CAF50;
+}
+</style>

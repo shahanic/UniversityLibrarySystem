@@ -70,10 +70,7 @@
 
             <div class="flex flex-col mt-2 border-green-300 border-t dark:border-gray-700">
                 <router-link to="/super-user" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Home</router-link>
-
                 <router-link to="/navigation" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('Navigation')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Navigation</router-link>
-               
-
                 <router-link to="/generic-pages" :class="`nav-links hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
 
                 <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
@@ -149,10 +146,20 @@
     </template>
 
 
-    <style scoped>
-        /* Toggle B */
-        input:checked ~ .dot {
-        transform: translateX(100%);
-        background-color: rgb(65, 65, 65);
-        }
-    </style>
+<style scoped>
+/* Toggle B */
+input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: rgb(65, 65, 65);
+}
+
+.w-64 {
+    /* Ensures width consistency */
+    width: 16rem;
+}
+
+.h-screen {
+    /* Ensures height consistency */
+    height: 100vh;
+}
+</style>

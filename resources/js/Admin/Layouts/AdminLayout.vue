@@ -3,6 +3,7 @@
          <header class="flex-shrink-0 z-40">
              <mobile-nav @signOut="logout"></mobile-nav>
          </header>
+         
          <div class="hidden md:flex shadow backdrop-blur-md bg-white/60 w-full  dark:bg-gray-700/60 fixed z-40">
              <div class="w-64 bg-green-900 dark:bg-gray-800/50 flex items-center">
                  <!-- <h4 class="ml-4 text-white font-semibold ">Bacarra Zanjeras MPC</h4> -->
@@ -57,7 +58,7 @@
 
          <main class="flex-grow flex-shrink-0 mt-14 lg:mt-0 z-30 dark:bg-gray-800 bg-gray-100 ">
 
-             <div class="fixed w-full h-screen top-0 blur-sm">
+             <div class="fixed w-full h-screen top-0 blur-sm"> 
                  <div class="flex-col">
                      <div class="flex justify-center mt-32 md:ml-72 ml-24">
                          <div class="w-32 h-32 rounded-full bg-yellow-400 dark:opacity-10 opacity-20"></div>
@@ -77,7 +78,7 @@
 
              <div>
                  <div class="flex">
-                     <div class="flex-none hidden w-64 lg:block z-40">
+                     <div class="flex-none hidden w-64 md:block z-40">
                          <div class="w-64 fixed">
                              <side-bar :degree="`nagan`"></side-bar>
                          </div>

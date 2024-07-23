@@ -15,7 +15,7 @@
                                 <tr v-for="item in pagesStore.pages" :key="item.id">
                                     <td class="border border-gray-300 p-2">{{ item.name }}</td>
                                     <td class="border border-gray-300 p-1 text-center">
-                                        <router-link class="bg-yellow-500 text-black px-2 py-1 rounded mr-3":to="{name: 'Pages', params: {id: item.id}}">Pages</router-link>
+                                        <router-link class="bg-yellow-500 text-black px-2 py-1 rounded mr-3":to="{name: 'ArticlePages', params: {id: item.id}}">Preview</router-link>
                                         <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.editPage(item)">Edit</button>
                                         <button class="bg-yellow-500 text-black px-2 py-1 rounded mr-3"  @click="subnav.deletePages(item)">Delete</button>
                                     </td>

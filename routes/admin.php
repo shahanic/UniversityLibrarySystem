@@ -36,7 +36,7 @@ Route::prefix('generic-pages')->group(function() {
     Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
-Route::prefix('article-pages')->group(function() {
+Route::prefix('article-pages/{id}')->group(function() {
     Route::get('{vue?}', [ArticlesController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 

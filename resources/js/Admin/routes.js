@@ -30,12 +30,6 @@ export const routes = [
     },
 
     {
-        path: '/article-pages',
-        name: "ArticlePages",
-        component: ArticlePages
-    },
-
-    {
         path: '/faqs',
         name: "Faqs",
         component: Faqs
@@ -70,6 +64,13 @@ export const routes = [
         name: "Pages",
         component: Pages
     },
+
+    {
+        path: '/article-pages/:id/:vue(.*)*',
+        name: "ArticlePages",
+        component: ArticlePages
+    },
+
 
 
 ];

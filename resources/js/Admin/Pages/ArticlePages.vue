@@ -116,56 +116,60 @@ const deleteArticle = (articlex) => {
 <template>
     <admin-layout>
       <template v-slot:main>
-        <div>
-          <h1>Articles</h1>
+        <div class="container mx-auto p4">
+          <h1 class="text-3xl font-bold mb-4 text-center">Articles</h1>
           <p></p>
-          <button @click="addArticle" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Account</button>
+          <button @click="addArticle" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Article</button>
           
-          <AddArticlesModal :isVisible="showModal" @close="showModal = false">
+          <AddArticlesModal :isVisible="showModal" @close="showModal = false" @save="saveArticle">
             <div>
               <div>
-                <label for="">Title: </label>
-                <input type="text" v-model="form.title">
+                <h1 style="text-align: center;">Add Articles </h1>
               </div>
               <div>
-                <label for="">Abstract: </label>
-                <input type="text" v-model="form.abstract">
+                <label for="">Title: </label><br>
+                <input type="text" v-model="form.title " class="w-full rounded-lg border-gray-300">
               </div>
               <div>
-                <label for="">Content: </label>
-                <input type="text" v-model="form.content">
+                <label for="">Abstract: </label><br>
+                <input type="text" v-model="form.abstract" class="w-full rounded-lg border-gray-300">
               </div>
               <div>
-                <label for="">Status: </label>
-                <input type="text" v-model="form.status">
+                <label for="">Content: </label><br>
+                <input type="text" v-model="form.content" class="w-full rounded-lg border-gray-300">
               </div>
               <div>
+                <label for="">Status: </label><br>
+                <input type="text" v-model="form.status" class="w-full rounded-lg border-gray-300">
+              </div>
+              <br>
+              <!-- <div>
                 <button @click="saveArticle" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-              </div>
+              </div> -->
             </div>
           </AddArticlesModal >
   
           <table class="min-w-full border-collapse border border-gray-300">
             <thead>
-              <tr class="bg-gray-500">
-                <th class="border border-white-300 text-white p-2">#</th>
-                <th class="border border-white-300 text-white p-2">Title</th>
-                <th class="border border-white-300 text-white p-2">Abstract</th>
-                <th class="border border-white-300 text-white p-2">Content</th>
-                <th class="border border-white-300 text-white p-2">Status</th>
-                <th class="border border-white-300 text-white p-2">Actions</th>
+              <tr class="bg-gray-400">
+                <th class="border border-gray-300 text-white p-2">#</th>
+                <th class="border border-gray-300 text-white p-2">Title</th>
+                <th class="border border-gray-300 text-white p-2">Abstract</th>
+                <th class="border border-gray-300 text-white p-2">Content</th>
+                <th class="border border-gray-300 text-white p-2">Status</th>
+                <th class="border border-gray-300 text-white p-2"></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(articlex, index) in article.articles" :key="index" class="bg-gray-700">
-                <td class="border border-white-300 text-white p-2">{{ index + 1 }}</td>
-                <td class="border border-white-300 text-white p-2">{{ articlex.title }}</td>
-                <td class="border border-white-300 text-white p-2">{{ articlex.abstract }}</td>
-                <td class="border border-white-300 text-white p-2">{{ articlex.content }}</td>
-                <td class="border border-white-300 text-white p-2">{{ articlex.status }}</td>
-                <td class="border border-white-300 text-white p-2 text-center">
-                  <button @click="editArticle(articlex)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                  <button @click="deleteArticle(articlex)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
+              <tr v-for="(articlex, index) in article.articles" :key="index">
+                <td class="border border-gray-300 p-2">{{ index + 1 }}</td>
+                <td class="border border-gray-300 p-2">{{ articlex.title }}</td>
+                <td class="border border-gray-300 p-2">{{ articlex.abstract }}</td>
+                <td class="border border-gray-300 p-2">{{ articlex.content }}</td>
+                <td class="border border-gray-300 p-2">{{ articlex.status }}</td>
+                <td class="border border-gray-300 p-2" style="width: 12%;">
+                  <button @click="editArticle(articlex)" class="bg-yellow-500 text-gray px-2 py-1 rounded mr-2">Edit</button>
+                  <button @click="deleteArticle(articlex)" class="bg-red-500 text-black px-2 py-1 rounded">Delete</button>
                 </td>
               </tr>
             </tbody>

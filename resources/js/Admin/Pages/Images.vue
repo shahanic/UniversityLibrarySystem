@@ -1,6 +1,7 @@
-<script setup>
-
+<script>
+    
 </script>
+
 <template>
     <admin-layout>
         <template v-slot:main>

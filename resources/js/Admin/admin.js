@@ -3,7 +3,7 @@ import '../../css/app.css';
 
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import 'sweetalert';
-
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import { createRouter, createWebHistory, useRoute } from 'vue-router';
 import { createPinia } from 'pinia';
 import { routes } from './routes';
@@ -41,6 +41,9 @@ app.component('admin-layout', AdminLayout)
 
 // app.component('images', Images)
 app.mount('#app');
+
+//implement ckEditor
+app.use(CKEditor);
 
 
 

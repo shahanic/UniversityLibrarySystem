@@ -10,20 +10,6 @@ export const articlesStore = defineStore('articlesStore', {
                 content: '',
             },
             articles: [],
-
-            editor: ClassicEditor,
-      editorData: "<p>Hello from CKEditor 5!</p>",
-      editorConfig: {
-        tabSpaces: 4,
-        toolbar: {
-                  items: [
-                      'undo', 'redo',
-                      '|', 'heading',
-                      '|', 'bold', 'italic', 'numbered',
-                      '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
-                  ]
-                    }
-                }
         }
     },
 

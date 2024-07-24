@@ -27,8 +27,8 @@
 
             <form @submit.prevent="saveContent">
               <ckeditor class="ul ol li" 
-              :editor="articlepagestore.editor" v-model="articlepagestore.editorData" 
-              :config="articlepagestore.editorConfig"
+              :editor="editor.editor" v-model="editor.editorData" 
+              :config="editor.editorConfig"
               ></ckeditor>
               <button
   
@@ -62,52 +62,36 @@
 
 
 
-<script setup>
-import CKEditor from "@ckeditor/ckeditor5-vue";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+<script>
 import {articlesStore} from '@/Admin/Stores/articlepagesStores';
-import {storeToRefs} from 'pinia';
 
 // Access the Pinia store
 const articlepagestore = articlesStore()
-  const{form} = storeToRefs(articlepagestore)  
+const{form} = storeToRefs(articlepagestore)  
 
-  // Fetch initial data from the store
-  articlepagestore.getter();
+// Fetch initial data from the store
+articlepagestore.getter();
 
-// export default {
-//   components: {
-//     ckeditor: CKEditor.component,
-//   },
-//   data() {
-//     return {
-//       articlepage:{
-//         title:'',
-//         content: '',
-//       },
-//       editor: ClassicEditor,
-//       editorData: "<p>Hello from CKEditor 5!</p>",
-//       editorConfig: {
-//         tabSpaces: 4,
-//         toolbar: {
-//                   items: [
-//                       'undo', 'redo',
-//                       '|', 'heading',
-//                       '|', 'bold', 'italic', 'numbered',
-//                       '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
-//                   ]
-//                     }
-//       },
-//     };
-//   },
-//   methods: {
-//     saveContent() {
-//       // This is where you would handle saving the editor data, e.g., sending it to a server
-//       console.log("Saving content:", this.editorData);
-//       alert("Content saved successfully!");
-//     },
-//   },
-// };
+import CKEditor from "@ckeditor/ckeditor5-vue";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+
+const editor = {
+  editor: ClassicEditor,
+      editorData: "<p>Hello from CKEditor 5!</p>",
+      editorConfig: {
+        tabSpaces: 4,
+        toolbar: {
+                  items: [
+                      'undo', 'redo',
+                      '|', 'heading',
+                      '|', 'bold', 'italic', 'numbered',
+                      '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
+                  ]
+                    }
+      },
+}
+
 </script>
 
 

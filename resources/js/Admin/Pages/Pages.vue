@@ -28,6 +28,7 @@
     </admin-layout>
 </template>
 
+
 <script setup>
 import { useRoute } from 'vue-router';
 import {onMounted, ref } from 'vue';
@@ -45,9 +46,8 @@ onMounted(async () => {
     const id = ref(route.params.id);
     await pagesStore.fetchPageData(id.value);
 });     
-
-pagesStore.getter();
 </script>
+
 
 <style scoped>
 .container {

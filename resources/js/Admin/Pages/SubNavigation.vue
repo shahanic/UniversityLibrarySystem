@@ -45,8 +45,6 @@ onMounted(async () => {
     const id = ref(route.params.id);
     await subnav.fetchSubNavData(id.value);
 });     
-
-subnav.getter();
 </script>
 
 <style scoped>

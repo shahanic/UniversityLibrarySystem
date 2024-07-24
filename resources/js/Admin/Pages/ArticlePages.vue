@@ -1,114 +1,65 @@
 <template>
-    <admin-layout>
-        <template v-slot:main>
-            <div class="container mx-auto p-4">
-                <h1 class="text-2xl font-bold mb-4 text-center">Generic Pages</h1>
-                
-                <!-- <input
-                  type="text"
-                  placeholder="Search..."
-                  class="border rounded p-2 mb-4 w-full"
-                /> -->
-
-                <table class="min-w-full border-collapse border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-400">
-                            <th class="border border-gray-300 text-white p-2">ID</th>
-                            <th class="border border-gray-300 text-white p-2">Name</th>
-                            <th class="border border-gray-300 text-white p-2">Main Navigation</th>
-                            <th class="border border-gray-300 text-white p-2">Subnavigation</th>
-                            <th class="border border-gray-300 text-white p-2">Order</th>
-                            <th class="border border-gray-300 text-white p-2">Status</th>
-                            <th class="border border-gray-300 text-white p-2">Created By</th>
-                            <th class="border border-gray-300 text-white p-2">Modified By</th>
-                            <th class="border border-gray-300 p-2"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td colspan="9" class="text-center py-4">
-                            <button @click="togglePreview" class="bg-green-500 text-white px-4 py-2 rounded">PREVIEW</button>
-                            <button @click="toggleEditor" class="bg-yellow-500 text-white px-4 py-2 rounded">EDIT</button>
-                            </td>
-                        </tr>
-                        <!-- <tr>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2"></td>
-                            <td class="border border-gray-300 p-2 " style="width: 18%;">
-                                <button class="bg-green-900 text-white px-2 py-1 rounded mr-3">PREVIEW</button>
-                                <button class="bg-yellow-500 text-gray px-2 py-1 rounded mr-3">EDIT</button>
-                            </td>
-                        </tr> -->
-
-                    </tbody>
-                </table>
+  <admin-layout>
+    <template v-slot:main>
+      <div class="container mx-auto p-4">
+        <h2 class="text-2xl font-bold mb-4 text-center">Article Pages</h2>
         
-                <div v-if="isPreview" class="mt-4 p-4 border rounded">
-                    <div v-html="editorData"></div>
-                </div>
-                <div v-if="isEdit" class="mt-4">
-                    <ckeditor :editor="editor" v-model="editorData"></ckeditor>
-                    <button @click="saveContent" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">SAVE</button>
-                </div>
-        </div>
-        </template>
-    </admin-layout>
+        <form @submit.prevent="saveContent">
+          <ckeditor
+            :editor="editor"
+            v-model="editorData"
+            :config="editorConfig"
+          ></ckeditor>
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+            Save
+          </button>
+        </form>
+      </div>
+    </template>
+  </admin-layout>
 </template>
 
-<style scoped>
-.container {
-    max-width: 1500px;
-}
-</style>
-
-
 <script>
-  import CKEditor from '@ckeditor/ckeditor5-vue';
-  import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-  
-  export default {
-    components: {
-      ckeditor: CKEditor.component
-    },
-    data() {
-      return {
-        isPreview: false,
-        isEdit: false,
-        editor: ClassicEditor,
-        editorData: ''
-      };
-    },
-    methods: {
-      // Added togglePreview method
-      togglePreview() {
-        this.isPreview = !this.isPreview;
-        this.isEdit = false;
+import CKEditor from "@ckeditor/ckeditor5-vue";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+export default {
+  components: {
+    ckeditor: CKEditor.component,
+  },
+  data() {
+    return {
+      editor: ClassicEditor,
+      editorData: "<p>Hello from CKEditor 5!</p>",
+      editorConfig: {
+        toolbar: [
+          'undo',
+          'redo',
+          '|',
+          'bold',
+          'italic',
+          '|',
+          'fontSize',
+          'fontFamily',
+          'fontColor',
+          'fontBackgroundColor',
+          '|',
+          'numberedList',
+          'bulletedList', // Add list items here
+        ],
       },
-      // Added toggleEditor method
-      toggleEditor() {
-        this.isEdit = !this.isEdit;
-        this.isPreview = false;
-      },
-      saveContent() {
-        // Simulate saving data to a CMS
-        console.log('Saving data to CMS:', this.editorData);
-        alert('Content saved successfully!');
-      }
-    }
-  };
+    };
+  },
+  methods: {
+    saveContent() {
+      // This is where you would handle saving the editor data, e.g., sending it to a server
+      console.log("Saving content:", this.editorData);
+      alert("Content saved successfully!");
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -120,13 +71,6 @@
   background-color: #fff;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
 h2 {
   margin: 0;
   font-size: 1.2em;
@@ -135,45 +79,28 @@ h2 {
   text-align: center;
 }
 
-.view-details {
-  text-decoration: none;
-  color: #007BFF;
-  font-size: 0.9em;
+.ck-editor__editable {
+  min-height: 400px; /* Ensure there's enough space */
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box; /* Include padding and border in width/height */
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.ck-toolbar {
+  overflow: visible; /* Ensure toolbar is not clipped */
 }
 
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
+.ck-toolbar__items {
+  white-space: nowrap; /* Prevent toolbar items from wrapping */
 }
 
-th {
-  font-weight: normal;
-  color: #666;
+.ck-content ul,
+.ck-content ol {
+  padding-left: 2em; /* Ensure bullets and numbers have space */
+}
+/* Ensure the CKEditor editor itself is not constrained by parent elements */
+.ck-editor {
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding and border */
 }
 
-.avatar {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.leave {
-  color: #FF4500;
-}
-
-.negative {
-  color: #FF4500;
-}
-
-.positive {
-  color: #4CAF50;
-}
 </style>

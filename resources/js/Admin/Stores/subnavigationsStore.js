@@ -16,30 +16,45 @@ export const subnavigationsStore = defineStore('subnav', {
     },
 
     actions: {
-        save(){
+        async save(){
             let {form} = this;
-            axios.post('/save-sub-nav', form).then(({data})=>{
+            try {
+                await axios.post('/save-sub-nav', form);
                 this.$reset();
-                this.getter();
-            });
+                // Directly fetch updated data after saving
+                await this.fetchSubNavData();
+            } catch (error) {
+                console.error('Error saving sub navigation:', error);
+            }
+        },
 
+        async fetchSubNavData() {
+            try {
+                const response = await axios.post('/get-sub-navs');
+                this.navigations = response.data;
+            } catch (error) {
+                console.error('Error fetching sub navigation data:', error);
+            }
         },
-        getter(){
-            axios.post('/get-sub-navs').then(({data})=>{
-                this.navigations = data;
-            })
-        },
+
         editSubNav(subnavx){
             this.form = {...subnavx};
         },
-        deleteSubNavs(subnavx){
-            if(confirm('are you sure you want to delete this nav?')){
-                axios.post('/delete-navs', subnavx).then(({data})=>{
-                    this.getter();
-                })
+
+
+        async deleteSubNavs(subnavx) {
+            if (confirm('Are you sure you want to delete this subnav?')) {
+                try {
+                    await axios.post('/delete-navs', subnavx);
+                    // Directly fetch updated data after deletion
+                    await this.fetchSubNavData();
+                } catch (error) {
+                    console.error('Error deleting sub navigation:', error);
+                }
             }
         },
-        async fetchSubNavData(id){
+
+        async fetchSubNavData(id) {
             try {
                 const response = await axios.get(`/get-sub-nav/${id}`);
                 this.sub_menus = response.data;

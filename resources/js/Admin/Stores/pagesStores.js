@@ -18,36 +18,49 @@ export const pagesStores = defineStore('pages', {
     },
 
     actions: {
-        save(){
+        async save(){
             let {form} = this;
-            axios.post('/save-page', form).then(({data})=>{
+            try {
+                await axios.post('/save-page', form);
                 this.$reset();
-                this.getter();
-            });
+                // Directly fetch updated data after saving
+                await this.fetchSubNavData();
+            } catch (error) {
+                console.error('Error saving sub navigation:', error);
+            }
+        },
 
+        async fetchPagesData() {
+            try {
+                const response = await axios.post('/get-pages');
+                this.pages = response.data;
+            } catch (error) {
+                console.error('Error fetching pages data:', error);
+            }
         },
-        getter(){
-            axios.post('/get-pages').then(({data})=>{
-                this.pages = data;
-            })
-        },
+
         editPage(pagex){
             this.form = {...pagex};
         },
-        deletePages(pagex){
-            if(confirm('are you sure you want to delete this page?')){
-                axios.post('/delete-navs', pagex).then(({data})=>{
-                    this.getter();
-                })
+
+        async deletePages(pagex) {
+            if (confirm('Are you sure you want to delete this page?')) {
+                try {
+                    await axios.post('/delete-pages', pagex);
+                    // Directly fetch updated data after deletion
+                    await this.fetchPagesData();
+                } catch (error) {
+                    console.error('Error deleting page:', error);
+                }
             }
         },
+
         async fetchPageData(id){
             try {
                 const response = await axios.get(`/get-page/${id}`);
                 this.pages = response.data;
-                console.log(response.data);
             } catch (error) {
-                console.error('Error fetching sub navigation data:', error);
+                console.error('Error fetching page data:', error);
             }
         }
     }   

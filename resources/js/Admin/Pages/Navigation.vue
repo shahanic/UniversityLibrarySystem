@@ -40,7 +40,6 @@ const subnav = subnavigationsStore()
 const{form} = storeToRefs(nav)  
 
 nav.getter();
-subnav.getter();
 
 </script>
 

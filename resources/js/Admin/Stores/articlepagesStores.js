@@ -1,14 +1,30 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { defineStore } from "pinia";
 
-export const articlesStore = defineStore('articlesStore', {
+export const articlesStore = defineStore('articles', {
     state: () =>{
         return{
-            form:{
-                title: '',
-                abstract: '',
-                content: '',
+            editor: ClassicEditor,
+            editorData: "ckeditor 5 for laravel and vuejs",
+            editorConfig: {
+                toolbar: [
+                    'undo',
+                    'redo',
+                    '|',
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    '|',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'blockQuote',
+                  ],
             },
+            title: '',
+            abstract: '',
+            content: '',
             articles: [],
         }
     },

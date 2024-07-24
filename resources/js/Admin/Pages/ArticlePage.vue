@@ -5,30 +5,18 @@
           <h1 class="text-2xl font-bold mb-4 text-center">Article Page</h1>
           <div class="col-span-2">
               <h2 class="text-base font-bold">Title</h2>
-              <input type="text" class="form-input border border-gray-300 rounded w-full" v-model="articlepagestore.form.title" placeholder="Title" /> <br><br>
+              <input type="text" class="form-input border border-gray-300 rounded w-full" v-model="title" placeholder="Title" /> <br><br>
           </div>
           <div>
               <h2 class="text-base font-bold">Abstract</h2>
-              <input list="positions" class="form-input border border-gray-300 rounded w-full py-2 px-3" v-model="articlepagestore.form.abstract" placeholder="Ex. Developer" />
+              <input list="positions" class="form-input border border-gray-300 rounded w-full py-2 px-3" v-model="abstract" placeholder="Ex. Developer" />
           </div>
           <div>
             <h2 class="text-base font-bold">Content</h2>
-            <!-- <ckeditor class="ul ol li" :editor="articlepagestore.editor" v-model="articlepagestore.form.content" :config="articlepagestore.editorConfig"></ckeditor>
-            <div>
-      
-                 <textarea class="form-input w-full border border-gray-300 rounded h-40" v-model="articlepagestore.form.content" /> <br><br>
-                
-                
-              
-            
-            </div> -->
-            
-
-
             <form @submit.prevent="saveContent">
-              <ckeditor class="ul ol li" 
-              :editor="editor.editor" v-model="editor.editorData" 
-              :config="editor.editorConfig"
+              <ckeditor 
+              :editor="editor" v-model="content" 
+              :config="editorConfig"
               ></ckeditor>
               <button
   
@@ -38,43 +26,68 @@
               </button>
             </form>
           </div>
-          <button
-                  type="submit"
-                  class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
-                  Save
-            </button>
         </div>
       </template>
     </admin-layout>
   </template>
-<!-- 
+
+
+
 <script setup>
   import {articlesStore} from '@/Admin/Stores/articlepagesStores';
+  import CKEditor from '@ckeditor/ckeditor5-vue';
   import {storeToRefs} from 'pinia';
+  import { ref   } from "vue";
 
   // Access the Pinia store
   const articlepagestore = articlesStore()
-  const{form} = storeToRefs(articlepagestore)  
+  // const { editor, editorConfig, title, abstract, content } = storeToRefs(articlepagestore);
 
+
+  // Local state
+  const title = ref('');
+  const abstract = ref('');
+  const content = ref('');
+  const editor = ref(articlepagestore.editor);
+  const editorConfig = ref(articlepagestore.editorConfig);
+
+
+  console.log('Editor:', editor.value);
+  console.log('Editor Config:', editorConfig.value);
+  console.log('Title:', title.value);
+  console.log('Abstract:', abstract.value);
+  console.log('Content:', content.value);
   // Fetch initial data from the store
   articlepagestore.getter();
-  </script> -->
+
+  function saveContent() {
+  console.log('Saving content:', form.content);
+  articlepagestore.save();
+  alert('Content saved successfully!');
+}
+  </script>
 
 
 
-<script>
-import {articlesStore} from '@/Admin/Stores/articlepagesStores';
 
-// Access the Pinia store
-const articlepagestore = articlesStore()
-const{form} = storeToRefs(articlepagestore)  
 
-// Fetch initial data from the store
-articlepagestore.getter();
+
+
+
+
+<!-- <script>
+import { ref } from 'vue';
+import { articlesStore } from '@/Admin/Stores/articlepagesStores';
+import { storeToRefs } from 'pinia';
 
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
+// Access the Pinia store
+const articlepagestore = articlesStore()
+
+// Fetch initial data from the store
+articlepagestore.getter();
 
 const editor = {
   editor: ClassicEditor,
@@ -92,7 +105,14 @@ const editor = {
       },
 }
 
-</script>
+
+function saveContent() {
+  console.log('Saving content:', form.content);
+  articlepagestore.save();
+  alert('Content saved successfully!');
+}
+
+</script> -->
 
 
 <!-- <script setup>

@@ -14,9 +14,6 @@ const router = createRouter({
     routes: routes
 });
 
-// Vue-x Pinia
-const pinia = createPinia()
-
 // pinia.use(({ store }) => {
 //     store.router = markRaw(router);
 //     store.route = markRaw(useRoute());
@@ -31,6 +28,10 @@ import AdminLayout from './Layouts/AdminLayout.vue';
 // import Images from './Layouts/ImagesLayout.vue'
 
 const app = createApp();
+
+// Vue-x Pinia
+const pinia = createPinia()
+
 app.use(pinia);
 app.use(router);
 app.component('admin-layout', AdminLayout)

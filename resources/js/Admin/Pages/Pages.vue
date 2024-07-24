@@ -15,7 +15,7 @@
                                 <tr v-for="item in pagesStore.pages" :key="item.id">
                                     <td style="width: 70%">{{ item.name }}</td>
                                     <td >
-                                        <router-link style="padding-left: 20px" :to="{name: 'ArticlePages', params: {id: item.id}}">Preview</router-link>
+                                        <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Preview</router-link>
                                         <button style="padding-left: 20px" @click="subnav.editPage(item)">Edit</button>
                                         <button style="padding-left: 20px" @click="subnav.deletePages(item)">Delete</button>
                                     </td>

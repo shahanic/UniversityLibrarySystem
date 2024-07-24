@@ -36,7 +36,11 @@ Route::prefix('generic-pages')->group(function() {
     Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
-Route::prefix('article-pages/{id}')->group(function() {
+Route::prefix('article-page/{id}')->group(function() {
+    Route::get('{vue?}', [ArticlesController::class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
+Route::prefix('article-pages')->group(function() {
     Route::get('{vue?}', [ArticlesController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
@@ -74,4 +78,7 @@ Route::post('/save-page',[PagesController::class, 'savePage']);
 Route::post('/get-pages',[PagesController::class, 'getPages']);
 Route::post('/delete-pages',[PagesController::class, 'deletePages']);
 
+Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
+Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
+Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
 

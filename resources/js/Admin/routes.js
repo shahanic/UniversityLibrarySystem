@@ -1,6 +1,7 @@
 import Index from "./Pages/Index.vue";
 import Navigation from "./Pages/Navigation.vue";
 import ArticlePages from "./Pages/ArticlePages.vue";
+import ArticlePage from "./Pages/ArticlePage.vue";
 import GenericPages from "./Pages/GenericPages.vue";
 import Faqs from "./Pages/Faqs.vue";
 import QuickLinks from "./Pages/QuickLinks.vue";
@@ -66,7 +67,13 @@ export const routes = [
     },
 
     {
-        path: '/article-pages/:id/:vue(.*)*',
+        path: '/article-page/:id/:vue(.*)*',
+        name: "ArticlePage",
+        component: ArticlePage
+    },
+
+    {
+        path: '/article-pages',
         name: "ArticlePages",
         component: ArticlePages
     },

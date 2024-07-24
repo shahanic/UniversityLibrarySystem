@@ -17,7 +17,7 @@ class AccountsController extends Controller
             $new = new User;
         }
 
-        $new->name = $request->name;    
+        $new->name = $request->name;     
         $new->username = $request->username;
         $new->email = $request->email;
         $new->role = $request->role;

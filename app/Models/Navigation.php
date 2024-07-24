@@ -22,7 +22,7 @@ class Navigation extends Model
     public function innerJoin($id){
         return Navigation::rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
         ->where($id)
-        ->select('sub_menus.id', 'sub_menus.submenu')
+        ->select('sub_menus.id', 'sub_menus.submenu', 'sub_menus.navigation_id' )
         ->get();
 
     }

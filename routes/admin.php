@@ -7,9 +7,11 @@ use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\ArticlesController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\QuickLinksController;
+use App\Http\Controllers\Admin\SubNavigationController;
 use App\Models\User;
 use App\Models\Navigation;
 use App\Models\Articles;
+use App\Models\SubMenu;
 
 Auth::routes();
 
@@ -20,9 +22,12 @@ Route::prefix('super-user')->group(function() {
 });
 Route::prefix('navigation')->group(function() {
 
-
     Route::get('{vue?}', [NavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
 
+});
+Route::prefix('subnav')->group(function() {
+
+    Route::get('{vue?}', [SubNavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
 
@@ -62,6 +67,10 @@ Route::prefix('quick-links')->group(function() {
     Route::get('{vue?}', [QuickLinksController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
+Route::prefix('pages')->group(function() {
+    Route::get('{vue?}', [PagesController::class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
 
 
 Route::post('/save-user', [AccountsController::class, 'saveUser']);
@@ -82,4 +91,10 @@ Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
 Route::post('/delete-articles',[ArticlesController::class, 'deleteArticles']);
 
 
-Route::get('/subnavs/{navigation_id}', [SubNavController::class, 'getSubNavs']);
+Route::post('/save-page',[PagesController::class, 'savePage']);
+Route::post('/get-pages',[PagesController::class, 'getPages']);
+Route::post('/delete-pages',[PagesController::class, 'deletePages']);
+
+// Route::get('/subnavigation/{id}', [SubNavigationController::class, 'getSubNavs']);
+Route::get('/get-sub-nav/{id}',[SubNavigationController::class, 'navsubnav']);
+Route::get('/get-page/{id}',[PagesController::class, 'retrievePages']);

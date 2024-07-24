@@ -28,7 +28,7 @@ export const navigationStore = defineStore('nav', {
         editNav(navx){
             this.form = {...navx};
         },
-        deleteNavs(navx){
+        deleteNav(navx){
             if(confirm('are you sure you want to delete this nav?')){
                 axios.post('/delete-navs', navx).then(({data})=>{
                     this.getter();

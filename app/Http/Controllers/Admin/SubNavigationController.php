@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Submenu;
+use App\Models\SubMenu;
 
 class SubNavigationController extends Controller
 {
-    public function saveNav(Request $request){
+    public function saveSubNav(Request $request){
         if($request->id){
-            $new = Submenu::find($request->id);
+            $new = SubMenu::find($request->id);
         }else{
-            $new = new Submenu;
+            $new = new SubMenu;
         }
-
+        $new->navigation_id = $request->navigation_id; 
         $new->submenu = $request->submenu;    
      
         $res = $new->save();
@@ -22,17 +22,26 @@ class SubNavigationController extends Controller
         
     }
     public function getSubNavs(){
-        return Navigation:: all();
+        return SubMenu:: all();
     }
 
     public function deleteSubNavs(Request $request){
-        Navigation::where('id', $request->id)->delete();
+        SubMenu::where('id', $request->id)->delete();
         return 1;
     }
 
     public function index(){
         return view('admin');
     }
+
+    public function navsubnav($id){
+        return DB::table('navigations')
+        ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
+        ->where('navigations.id', $id)
+        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu', 'navigations.menu')
+        ->get();
+    }
+
 
 }
 

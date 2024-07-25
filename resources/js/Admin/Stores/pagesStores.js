@@ -24,16 +24,16 @@ export const pagesStores = defineStore('pages', {
                 await axios.post('/save-page', form);
                 this.$reset();
                 // Directly fetch updated data after saving
-                await this.fetchSubNavData();
+                await this.fetchPagesData();
             } catch (error) {
                 console.error('Error saving sub navigation:', error);
             }
-        },
+        }, 
 
         async fetchPagesData() {
             try {
                 const response = await axios.post('/get-pages');
-                this.pages = response.data;
+                this.sub_menus = response.data;
             } catch (error) {
                 console.error('Error fetching pages data:', error);
             }

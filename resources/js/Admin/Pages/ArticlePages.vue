@@ -33,15 +33,18 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import { articlesStore } from '@/Admin/Stores/articlepagesStores';
+import { storeToRefs } from 'pinia';
 
-import {articlesStore} from '@/Admin/Stores/articlepagesStores';
-import {storeToRefs} from 'pinia';
+// Access the Pinia store
+const articlepage = articlesStore();
+const { articles } = storeToRefs(articlepage);
 
-const articlepage = articlesStore()
-const{form} = storeToRefs(articlepage)  
-
-articlepage.getter();
-
+// Fetch articles data when the component is mounted
+onMounted(() => {
+  articlepage.fetchArticlesData();
+});
 </script>
 
 <style scoped>

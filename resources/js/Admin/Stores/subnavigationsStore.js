@@ -41,7 +41,6 @@ export const subnavigationsStore = defineStore('subnav', {
             this.form = {...subnavx};
         },
 
-
         async deleteSubNavs(subnavx) {
             if (confirm('Are you sure you want to delete this subnav?')) {
                 try {

@@ -1,155 +1,88 @@
 <template>
-    <admin-layout>
-      <template v-slot:main>
-        <div class="container mx-auto p-4">
-          <h1 class="text-2xl font-bold mb-4 text-center">Article Page</h1>
-          <div class="col-span-2">
-              <h2 class="text-base font-bold">Title</h2>
-              <input type="text" class="form-input border border-gray-300 rounded w-full" v-model="title" placeholder="Title" /> <br><br>
+  <admin-layout>
+    <template v-slot:main>
+      <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4 text-center">Article Page</h1>
+        <div v-if="currentArticle" class="mb-6">
+          <div class="col-span-2 mb-4">
+            <h2 class="text-base font-bold">Title</h2>
+            <input
+              type="text"
+              class="form-input border border-gray-300 rounded w-full"
+              v-model="currentArticle.title"
+              placeholder="Title"
+            />
           </div>
-          <div>
-              <h2 class="text-base font-bold">Abstract</h2>
-              <input list="positions" class="form-input border border-gray-300 rounded w-full py-2 px-3" v-model="abstract" placeholder="Ex. Developer" />
+          <div class="mb-4">
+            <h2 class="text-base font-bold">Abstract</h2>
+            <input
+              type="text"
+              class="form-input border border-gray-300 rounded w-full py-2 px-3"
+              v-model="currentArticle.abstract"
+              placeholder="Abstract"
+            />
           </div>
-          <div>
+          <div class="mb-4">
             <h2 class="text-base font-bold">Content</h2>
-            <form @submit.prevent="saveContent">
-              <ckeditor 
-              :editor="editor" v-model="content" 
-              :config="editorConfig"
-              ></ckeditor>
+            <form @submit.prevent="saveContent(articlex)">
+              <ckeditor :editor="editor" v-model="currentArticle.content" :config="editorConfig"></ckeditor>
               <button
                 type="submit"
-                class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+                class="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+              >
                 Save
+              </button>
+              <button
+                @click="deleteArticle"
+                type="button"
+                class="bg-red-500 text-white px-4 py-2 rounded mt-4 ml-2"
+              >
+                Delete
               </button>
             </form>
           </div>
         </div>
-      </template>
-    </admin-layout>
-  </template>
-
-
+      </div>
+    </template>
+  </admin-layout>
+</template>
 
 <script setup>
-  import {articlesStore} from '@/Admin/Stores/articlepagesStores';
-  import CKEditor from '@ckeditor/ckeditor5-vue';
-  import {storeToRefs} from 'pinia';
-  import { ref   } from "vue";
-
-  // Access the Pinia store
-  const articlepagestore = articlesStore()
-  const { editor, editorConfig, title, abstract, content } = storeToRefs(articlepagestore);
-
-
-  // Fetch initial data from the store
-  articlepagestore.getter();
-
-  function saveContent() {
-  console.log('Saving content:', form.content);
-  articlepagestore.save();
-  alert('Content saved successfully!');
-}
-  </script>
-
-
-
-
-
-
-
-
-
-<!-- <script>
-import { ref } from 'vue';
+import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import { storeToRefs } from 'pinia';
 
-import CKEditor from "@ckeditor/ckeditor5-vue";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
 // Access the Pinia store
-const articlepagestore = articlesStore()
+const articlepagestore = articlesStore();
+const { editor, editorConfig, currentArticle } = storeToRefs(articlepagestore);
 
-// Fetch initial data from the store
-articlepagestore.getter();
+// route const
+const route = useRoute();
 
-const editor = {
-  editor: ClassicEditor,
-      editorData: "<p>Hello from CKEditor 5!</p>",
-      editorConfig: {
-        tabSpaces: 4,
-        toolbar: {
-                  items: [
-                      'undo', 'redo',
-                      '|', 'heading',
-                      '|', 'bold', 'italic', 'numbered',
-                      '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
-                  ]
-                    }
-      },
-}
-
-
-function saveContent() {
-  console.log('Saving content:', form.content);
-  articlepagestore.save();
-  alert('Content saved successfully!');
-}
-
-</script> -->
-
-
-<!-- <script setup>
-import {articlesStore} from '@/Admin/Stores/articlepagesStores';
-import {storeToRefs} from 'pinia';
-
-// Access the Pinia store
-const articlepagestore = articlesStore()
-const{form} = storeToRefs(articlepagestore)  
-
-// Fetch initial data from the store
-articlepagestore.getter();
-
-import { ref } from 'vue';
-import CKEditor from '@ckeditor/ckeditor5-vue';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-// Initialize CKEditor
-const editor = ClassicEditor;
-const articlepage = ref({
-  title: '',
-  content: '',
+// Automatically edit each article when the component is mounted
+onMounted(() => {
+  const id = route.params.id;  // Get ID from route params
+  if (id) {
+    articlepagestore.fetchArticleData(id);
+  }
 });
 
-const editorConfig = {
-  tabSpaces: 4,
-  toolbar: {
-    items: [
-      'undo',
-      'redo',
-      '|',
-      'heading',
-      '|',
-      'bold',
-      'italic',
-      'numbered',
-      '|',
-      'bulletedList',
-      'numberedList',
-      'outdent',
-      'indent',
-    ],
-  },
-};
-
-// Method to save content
 function saveContent() {
-  console.log('Saving content:', articlepage.value.content);
-  alert('Content saved successfully!');
+  if (currentArticle.value) {
+    articlepagestore.save();
+  }
 }
-</script> -->
+
+
+function deleteArticle() {
+  if (currentArticle.value && confirm('Are you sure you want to delete this article?')) {
+    articlepagestore.deleteArticle(currentArticle.value.id);
+  }
+}
+</script>
+
 
 <style>
 .container {

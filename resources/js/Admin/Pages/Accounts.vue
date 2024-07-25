@@ -2,8 +2,6 @@
 import {accountsStore}from '@/Admin/Stores/accountsStores';
 import {storeToRefs} from 'pinia';
 
-
-
 const user = accountsStore()
 const{form} = storeToRefs(user)  
 

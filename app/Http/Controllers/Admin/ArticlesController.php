@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Models\Pages;
 use App\Models\Article;
+use App\Models\Pages;
 use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
@@ -17,6 +17,7 @@ class ArticlesController extends Controller
             $new = new Article;
         }
         $new->title = $request->title; 
+        $new->abstract = $request->abstract; 
         $new->content = $request->content;    
      
         $res = $new->save();
@@ -34,6 +35,14 @@ class ArticlesController extends Controller
 
     public function index(){
         return view('admin');
+    }
+
+    public function retrieveArticle($id){
+        return DB::table('pages')
+        ->rightjoin('articles', 'pages.id', '=', 'articles.pages_id')
+        ->where('pages.id', $id)
+        ->select('articles.id', 'articles.title', 'articles.abstract', 'articles.content')
+        ->get();
     }
 
     

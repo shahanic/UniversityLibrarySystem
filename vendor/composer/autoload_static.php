@@ -570,6 +570,7 @@ class ComposerStaticInit8f55386d9a30ac945a0ecf6b7633aa37
         'App\\Http\\Controllers\\Admin\\ImagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ImagesController.php',
         'App\\Http\\Controllers\\Admin\\NavigationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/NavigationController.php',
         'App\\Http\\Controllers\\Admin\\QuickLinksController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/QuickLinksController.php',
+        'App\\Http\\Controllers\\Admin\\SubNavigationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SubNavigationController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',

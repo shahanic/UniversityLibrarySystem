@@ -16,6 +16,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\ImagesController' => $baseDir . '/app/Http/Controllers/Admin/ImagesController.php',
     'App\\Http\\Controllers\\Admin\\NavigationController' => $baseDir . '/app/Http/Controllers/Admin/NavigationController.php',
     'App\\Http\\Controllers\\Admin\\QuickLinksController' => $baseDir . '/app/Http/Controllers/Admin/QuickLinksController.php',
+    'App\\Http\\Controllers\\Admin\\SubNavigationController' => $baseDir . '/app/Http/Controllers/Admin/SubNavigationController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',

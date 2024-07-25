@@ -40,6 +40,20 @@ export const subnavigationsStore = defineStore('subnav', {
         editSubNav(subnavx){
             this.form = {...subnavx};
         },
+        
+        // save(){
+        //     let {form} = this;
+        //     axios.post('/save-sub-nav', form).then(({data})=>{
+        //         this.$reset();
+        //         this.getter();
+        //     });
+
+        // },
+        getter(){
+            axios.post('/get-sub-navs').then(({data})=>{
+                this.sub_menus = data;
+            })
+        },
 
 
         async deleteSubNavs(subnavx) {

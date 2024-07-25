@@ -5,6 +5,8 @@ import {onMounted, ref } from 'vue';
 import {subnavigationsStore}from '@/Admin/Stores/subnavigationStores';
 import {storeToRefs} from 'pinia';
 
+import AddSubNavigationModal from '@/Admin/Modals/AddSubNavigationModal.vue';
+
 const route = useRoute();
 const subnav = subnavigationsStore()
 const{form} = storeToRefs(subnav)  
@@ -12,8 +14,36 @@ const{form} = storeToRefs(subnav)
 onMounted(async () => {
     const id = ref(route.params.id);
     await subnav.fetchSubNavData(id.value);
-});  
 
+  });  
+subnav.getter();
+const showModal = ref(false);
+const currentSubNav = ref(null);  // To store the user being edited
+
+const saveSubNav = () => {
+  if (currentSubNav.value) {
+    subnav.editSubNav(form.value);
+    subnav.save();
+  } else {
+    subnav.save();
+  }
+  showModal.value = false;  // Close the modal after saving
+};
+
+const addSubNav = () => {
+  currentSubNav.value = null;  // Clear current nav for adding a new nav
+  showModal.value = true;
+};
+
+const editSubNav = (subnavx) => {
+  currentSubNav.value = subnavx;  // Set the nav to be edited
+  Object.assign(form.value, subnavx);  // Populate form with nav data
+  showModal.value = true;
+};
+
+const deleteSubNav = (subnavx) => {
+  subnav.deleteSubNav(subnavx);
+};
 
 
 
@@ -21,8 +51,30 @@ onMounted(async () => {
 </script>
 <template>
     <admin-layout>
-        <template v-slot:main>
-        
+        <template v-slot:main>     
+        <div class="container mx-auto p-4">
+          <button @click="addSubNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Sub Menu</button>
+    
+        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
+        <div>
+        <!--  -->
+        <div>
+               <h1 style="text-align: center;">Add Sub Menu</h1>
+              </div>
+                      <!--  -->
+
+                <div>
+                <label for="menu">Sub Menu:</label><br>
+                <input type="text" v-model="form.submenu" class="w-full rounded-lg border-gray-300">
+                </div>
+                <div>
+         
+                   <!-- <div class="flex justify-start  ">
+                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
+                    </div> -->
+              </div>
+    </div>
+        </AddSubNavigationModal>
 
         <div class="container mx-auto p-4">
                 <h2> {{ subnav.sub_menus.length > 0 ? subnav.sub_menus[0].menu : 'No' }} Navigation List</h2>
@@ -38,15 +90,19 @@ onMounted(async () => {
                                 <tr v-for="item in subnav.sub_menus" :key="item.id">
                                     <td  style="width: 70%">{{ item.submenu }}</td>
                                     <td>
-                                        <router-link style="padding-left: 20px" :to="{name: 'Pages', params: {id: item.id}}">Pages</router-link>
-                                        <button style="padding-left: 20px" @click="subnav.editSubNav(item)">Edit</button>
-                                        <button style="padding-left: 20px" @click="subnav.deleteSubNavs(item)">Delete</button>
+                                        <router-link style="padding-left: 20px" :to="{name: 'Pages', params: {id: item.id}}" custom v-slot="{ navigate }">
+                                          <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">Pages</button>
+                                        </router-link>
+                                        <button @click="editSubNav(subnavx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
+                                        <button @click="deleteSubNav(subnavx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-            </div>
+
+          </div>
+          </div>
         </template>
     </admin-layout>
 </template>

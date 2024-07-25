@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Navigation;
 use App\Models\Articles;
 use App\Models\SubMenu;
+use App\Models\Faq;
 
 Auth::routes();
 
@@ -98,3 +99,8 @@ Route::post('/delete-pages',[PagesController::class, 'deletePages']);
 // Route::get('/subnavigation/{id}', [SubNavigationController::class, 'getSubNavs']);
 Route::get('/get-sub-nav/{id}',[SubNavigationController::class, 'navsubnav']);
 Route::get('/get-page/{id}',[PagesController::class, 'retrievePages']);
+
+
+Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
+Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
+Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);

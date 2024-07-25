@@ -19,7 +19,6 @@
               :config="editorConfig"
               ></ckeditor>
               <button
-  
                 type="submit"
                 class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
                 Save
@@ -41,22 +40,9 @@
 
   // Access the Pinia store
   const articlepagestore = articlesStore()
-  // const { editor, editorConfig, title, abstract, content } = storeToRefs(articlepagestore);
+  const { editor, editorConfig, title, abstract, content } = storeToRefs(articlepagestore);
 
 
-  // Local state
-  const title = ref('');
-  const abstract = ref('');
-  const content = ref('');
-  const editor = ref(articlepagestore.editor);
-  const editorConfig = ref(articlepagestore.editorConfig);
-
-
-  console.log('Editor:', editor.value);
-  console.log('Editor Config:', editorConfig.value);
-  console.log('Title:', title.value);
-  console.log('Abstract:', abstract.value);
-  console.log('Content:', content.value);
   // Fetch initial data from the store
   articlepagestore.getter();
 

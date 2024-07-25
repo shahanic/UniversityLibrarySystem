@@ -11,7 +11,7 @@
 <div class="bg-gray-100 ">
         <div class=" fixed z-40 w-full">
             <div class="relative container mx-auto">
-                <div class="flex justify-center mt-6">
+                <div class="flex justify-center mt-">
                     <img class="h-28 w-28 rounded-full" src="/imgs/ULS.jpg">
                 </div>
             </div>

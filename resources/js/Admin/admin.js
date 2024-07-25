@@ -8,6 +8,8 @@ import { createRouter, createWebHistory, useRoute } from 'vue-router';
 import { createPinia } from 'pinia';
 import { routes } from './routes';
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
 // vue Router
 const router = createRouter({
     history: createWebHistory(),
@@ -39,15 +41,12 @@ app.component('admin-layout', AdminLayout)
 // app.component('article-layout', ArticlePages)
 // app.component('faqs-layout', Faqs)
 // app.component('quicklinks-layout', QuickLinks)
-
 // app.component('images', Images)
+
+app.use(CKEditor);
+app.component('ck-editor');
+
 app.mount('#app');
-
-
-
-
-
-
 
 router.beforeEach((to, from, next) => {
     document.title = `ULS CMS | ${to.name? to.name : 'Home'}`;

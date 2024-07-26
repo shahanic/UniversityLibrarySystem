@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-use App\Models\Navigation;
-use App\Models\SubMenu;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\SubMenu;
 
 class SubNavigationController extends Controller
 {
     public function saveSubNav(Request $request){
+        // dd('hello');
         if($request->id){
-            $new = SubMenu::find($request->id);
-        }else{
+            $new = SubMenu::find($request->id);   
+           
+        }else{ 
             $new = new SubMenu;
         }
-        $new->navigation_id = $request->navigation_id; 
+        
+        $new->navigation_id = $request->navigation_id;
         $new->submenu = $request->submenu;    
      
         $res = $new->save();
-        return $res;
+
+        return response()->json(['success' => $res]);
         
     }
     public function getSubNavs(){
@@ -40,10 +42,9 @@ class SubNavigationController extends Controller
         return DB::table('navigations')
         ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
         ->where('navigations.id', $id)
-        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu', 'navigations.menu')
+        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu', 'navigations.menu', 'navigations.id')
         ->get();
     }
-
 
 
 }

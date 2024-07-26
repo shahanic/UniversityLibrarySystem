@@ -1,47 +1,99 @@
+<script setup>
+import { ref } from 'vue';
+import {navigationStore}from '@/Admin/Stores/navigationStores';
+import {storeToRefs} from 'pinia';
+import CKEditor from '@ckeditor/ckeditor5-vue';
+import AddNavigationModal from '@/Admin/Modals/AddNavigationModal.vue';
+const nav = navigationStore()
+const{form} = storeToRefs(nav)  
 
+nav.getter();
+const showModal = ref(false);
+const currentNav = ref(null);  // To store the user being edited
+
+const saveNav = () => {
+  if (currentNav.value) {
+    nav.editNav(form.value);
+    nav.save();
+  } else {
+    nav.save();
+  }
+  showModal.value = false;  // Close the modal after saving
+};
+
+const addNav = () => {
+  currentNav.value = null;  // Clear current nav for adding a new nav
+  showModal.value = true;
+};
+
+const editNav = (navx) => {
+  currentNav.value = navx;  // Set the nav to be edited
+  Object.assign(form.value, navx);  // Populate form with nav data
+  showModal.value = true;
+};
+
+const deleteNav = (navx) => {
+  nav.deleteNav(navx);
+};
+
+
+
+</script>
 <template>
     <admin-layout>
         <template v-slot:main>
-            <!-- <h1 style="padding:20px"></h1> -->
-            <div class="container mx-auto p-4">
-                <h2>Main Navigation List</h2>
-                <table>
+           <!-- <h1 style="padding:20px"></h1> -->
+           <div class="container mx-auto p-4">
+            <button @click="addNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Menu</button>
+            <h2>Main Navigation List</h2>
+              <AddNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveNav">
+              <div>
+                    <!--  -->
+               <div>
+               <h1 style="text-align: center;">Add Menu</h1>
+              </div>
+                      <!--  -->
+
+                <div>
+                <label for="menu">Menu:</label><br>
+                <input type="text" v-model="form.menu" class="w-full rounded-lg border-gray-300">
+                </div>
+                <div>
+         
+                   <!-- <div class="flex justify-start  ">
+                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
+                    </div> -->
+              </div>
+            </div>
+        </AddNavigationModal>
+        <table>
                     <thead>
                         <tr>
                             <th>Title</th>
                             <th></th>
                         </tr>
                         
-                    </thead>  
+                    </thead> 
+
+
                     <tbody>
                         <tr v-for="navx in nav.navigations":key="i">
                             <td style="width: 78%;">{{navx.menu}}</td>
-                            <td>
-                                <router-link :to="{name: 'SubNavigation', params: {id: navx.id}}">View</router-link>
-                            </td>
+                            <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
+                             <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">View</button>
+                                </router-link>
+                            <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
+                            <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
                         </tr>
                     </tbody>
                 </table><br>
 
 
             </div>
+         
         </template>
     </admin-layout>
 </template>
-
-<script setup>
-
-import {navigationStore}from '@/Admin/Stores/navigationStores';
-import {subnavigationsStore}from '@/Admin/Stores/subnavigationsStore';
-import {storeToRefs} from 'pinia';
-
-const nav = navigationStore()
-const subnav = subnavigationsStore()
-const{form} = storeToRefs(nav)  
-
-nav.getter();
-
-</script>
 
 <style scoped>
 .container {

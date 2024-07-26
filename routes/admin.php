@@ -1,3 +1,4 @@
+
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
@@ -12,7 +13,7 @@ use App\Http\Controllers\Admin\QuickLinksController;
 
 use App\Models\User;
 use App\Models\Navigation;
-
+use App\Models\Faq;
 
 Auth::routes();
 
@@ -81,4 +82,6 @@ Route::post('/delete-pages',[PagesController::class, 'deletePages']);
 Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
 Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
 Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
-
+Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
+Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
+Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);

@@ -3,7 +3,7 @@
     <div class="bg-white p-6 rounded-lg w-1/4">
       <slot></slot>
       <div class="flex justify-between items-center mt-1 ">
-          <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded">Save</button>
+          <button @click="saveFaq" class="bg-green-700 text-white px-2 py-1 rounded">Save</button>
           <button @click="closeModal" class="bg-red-500 text-white px-4 py-1 rounded mr-3">Close</button>
         </div>
     </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'AddAccountModal',
+  name: 'AddFaqModal',
   props: {
     isVisible: {
       type: Boolean,
@@ -23,7 +23,7 @@ export default {
     closeModal() {
       this.$emit('close');
     },
-    saveUser() {
+    saveFaq() {
       this.$emit('save'); // Emitting a save event to the parent component
     }
   }

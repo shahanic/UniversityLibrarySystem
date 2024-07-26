@@ -55,7 +55,8 @@ export const articlesStore = defineStore('articles', {
         try {
             const response = await axios.get(`/get-article/${id}`);
             // Assuming the response data is an object for a single article
-            this.currentArticle = response.data;
+            this.currentArticle = response.data[0]||null;
+
         } catch (error) {
             console.error('Error fetching article data:', error);
         }

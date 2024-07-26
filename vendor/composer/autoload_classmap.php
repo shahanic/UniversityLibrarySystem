@@ -53,6 +53,7 @@ return array(
     'App\\Models\\Photo' => $baseDir . '/app/Models/Photo.php',
     'App\\Models\\SubMenu' => $baseDir . '/app/Models/SubMenu.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\pages' => $baseDir . '/app/Models/pages.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

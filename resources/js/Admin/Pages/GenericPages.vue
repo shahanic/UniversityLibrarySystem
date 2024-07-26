@@ -30,7 +30,7 @@
   
   <script setup>
   import { onMounted } from 'vue';
-  import { subnavigationsStore } from '@/Admin/Stores/subnavigationsStore';
+  import { subnavigationsStore } from '@/Admin/Stores/subnavigationStore';
   import { storeToRefs } from 'pinia';
   
   // Access the Pinia store

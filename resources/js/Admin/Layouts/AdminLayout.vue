@@ -5,7 +5,7 @@
          </header>
          
          <div class="hidden md:flex shadow backdrop-blur-md bg-white/60 w-full  dark:bg-gray-700/60 fixed z-40">
-             <div class="w-64 bg-green-900 dark:bg-gray-800/50 flex items-center">
+             <div class="w-64 bg-green-700 dark:bg-gray-800/50 flex items-center">
                  <!-- <h4 class="ml-4 text-white font-semibold ">Bacarra Zanjeras MPC</h4> -->
                  <h4 class="ml-4 text-white font-semibold ">MMSU</h4>
              </div>
@@ -20,10 +20,10 @@
              </div>
 
              <div class="flex-grow flex items-center gap-2 md:px-20">
-
+<!-- 
                  <div class="flex-grow justify-end">
                      <member-search></member-search>
-                 </div>
+                 </div> -->
              </div>
 
              <div class="w-1/8">

@@ -1,3 +1,56 @@
+<template>
+    <admin-layout>
+        <template v-slot:main>
+           <!-- <h1 style="padding:20px"></h1> -->
+           <div class="container mx-auto p-4">
+            <button @click="addNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Menu</button>
+            <h2>Main Navigation List</h2>
+              <AddNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveNav">
+              <div>
+                    <!--  -->
+               <div>
+               <h1 style="text-align: center;">Add Menu</h1>
+              </div>
+                      <!--  -->
+
+                <div>
+                <label for="menu">Menu:</label><br>
+                <input type="text" v-model="form.menu" class="w-full rounded-lg border-gray-300">
+                </div>
+                <div>
+         
+                   <!-- <div class="flex justify-start  ">
+                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
+                    </div> -->
+              </div>
+            </div>
+        </AddNavigationModal>
+        <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th></th>
+                        </tr>
+                    </thead> 
+                    <tbody>
+                        <tr v-for="navx in nav.navigations":key="i">
+                            <td style="width: 70%;">{{navx.menu}}</td>
+                            <td>
+                              <router-link style="padding-left: 20px" :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
+                             <button @click="navigate" >View</button>
+                                </router-link>
+                            <button style="padding-left: 20px" @click="editNav(navx)" >Edit</button>
+                            <button  style="padding-left: 20px" @click="deleteNav(navx)" >Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><br>
+            </div>
+        </template>
+    </admin-layout>
+</template>
+
+
 <script setup>
 import { ref } from 'vue';
 import {navigationStore}from '@/Admin/Stores/navigationStores';
@@ -35,65 +88,10 @@ const editNav = (navx) => {
 const deleteNav = (navx) => {
   nav.deleteNav(navx);
 };
-
-
-
 </script>
-<template>
-    <admin-layout>
-        <template v-slot:main>
-           <!-- <h1 style="padding:20px"></h1> -->
-           <div class="container mx-auto p-4">
-            <button @click="addNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Menu</button>
-            <h2>Main Navigation List</h2>
-              <AddNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveNav">
-              <div>
-                    <!--  -->
-               <div>
-               <h1 style="text-align: center;">Add Menu</h1>
-              </div>
-                      <!--  -->
-
-                <div>
-                <label for="menu">Menu:</label><br>
-                <input type="text" v-model="form.menu" class="w-full rounded-lg border-gray-300">
-                </div>
-                <div>
-         
-                   <!-- <div class="flex justify-start  ">
-                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-                    </div> -->
-              </div>
-            </div>
-        </AddNavigationModal>
-        <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th></th>
-                        </tr>
-                        
-                    </thead> 
 
 
-                    <tbody>
-                        <tr v-for="navx in nav.navigations":key="i">
-                            <td style="width: 78%;">{{navx.menu}}</td>
-                            <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
-                             <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">View</button>
-                                </router-link>
-                            <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                            <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-                        </tr>
-                    </tbody>
-                </table><br>
 
-
-            </div>
-         
-        </template>
-    </admin-layout>
-</template>
 
 <style scoped>
 .container {

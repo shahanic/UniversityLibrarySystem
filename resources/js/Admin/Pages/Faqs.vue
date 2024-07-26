@@ -107,7 +107,7 @@ const deleteFaq = (faqx) => {
 
               <td class="border border-white-300 text-black p-2 text-center">
                 <button @click="editFaq(faqx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                <button @click="deleteFaq(faqx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
+                <button @click="deleteFaq(faqx)" class="bg-red-500 text-black px-2 py-1 rounded">Delete</button>
               </td>
             </tr>
           </tbody>

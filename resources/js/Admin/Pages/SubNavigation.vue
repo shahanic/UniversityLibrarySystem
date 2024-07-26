@@ -2,7 +2,7 @@
     <admin-layout>
         <template v-slot:main> 
             <div class="container mx-auto p-4">
-                <h2> {{ subnav.sub_menus.length > 0 ? subnav.sub_menus[0].menu : 'No' }} Navigation List</h2>
+                <h2> Sub Navigation List</h2>
                     <div v-if="subnav.sub_menus.length">
                         <table >
                             <thead>
@@ -37,13 +37,12 @@ import {storeToRefs} from 'pinia';
 
 const route = useRoute();
 
-
 const subnav = subnavigationsStore()
 const{form} = storeToRefs(subnav)  
 
 onMounted(async () => {
-    const id = ref(route.params.id);
-    await subnav.fetchSubNavData(id.value);
+    const id = route.params.id;
+    await subnav.fetchSubNavData(id);
 });     
 </script>
 

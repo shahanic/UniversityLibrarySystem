@@ -22,16 +22,16 @@ export const subnavigationsStore = defineStore('subnav', {
                 await axios.post('/save-sub-nav', form);
                 this.$reset();
                 // Directly fetch updated data after saving
-                await this.fetchSubNavData();
+                await this.fetchSubNavsData();
             } catch (error) {
                 console.error('Error saving sub navigation:', error);
             }
         },
 
-        async fetchSubNavData() {
+        async fetchSubNavsData() {
             try {
                 const response = await axios.post('/get-sub-navs');
-                this.navigations = response.data;
+                this.sub_menus = response.data;
             } catch (error) {
                 console.error('Error fetching sub navigation data:', error);
             }
@@ -44,9 +44,9 @@ export const subnavigationsStore = defineStore('subnav', {
         async deleteSubNavs(subnavx) {
             if (confirm('Are you sure you want to delete this subnav?')) {
                 try {
-                    await axios.post('/delete-navs', subnavx);
+                    await axios.post('/delete-sub-navs', subnavx);
                     // Directly fetch updated data after deletion
-                    await this.fetchSubNavData();
+                    await this.fetchSubNavsData();
                 } catch (error) {
                     console.error('Error deleting sub navigation:', error);
                 }

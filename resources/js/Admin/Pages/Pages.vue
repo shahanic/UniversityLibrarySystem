@@ -2,7 +2,7 @@
     <admin-layout>
         <template v-slot:main> 
             <div class="container mx-auto p-4">
-                <h2>{{ pagesStore.pages.length > 0 ? pagesStore.pages[0].submenu : 'No' }} </h2>
+                <h2>{{ pagesStore.pages.length > 0 ? pagesStore.pages[0].submenu : 'No' }} Pages</h2>
                     <div v-if="pagesStore.pages.length">
                         <table>
                             <thead>
@@ -15,9 +15,9 @@
                                 <tr v-for="item in pagesStore.pages" :key="item.id">
                                     <td style="width: 70%">{{ item.name }}</td>
                                     <td >
-                                        <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Preview</router-link>
-                                        <button style="padding-left: 20px" @click="subnav.editPage(item)">Edit</button>
-                                        <button style="padding-left: 20px" @click="subnav.deletePages(item)">Delete</button>
+                                        <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Edit</router-link>
+                                        <!-- <button style="padding-left: 20px" @click="subnav.editPage(item)">Edit</button> -->
+                                        <!-- <button style="padding-left: 20px" @click="deleteArticle">Delete</button> -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -34,11 +34,12 @@ import { useRoute } from 'vue-router';
 import {onMounted, ref } from 'vue';
 
 import {pagesStores} from '@/Admin/Stores/pagesStores';
+import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import {storeToRefs} from 'pinia';
 
 const route = useRoute();
 
-
+//pages
 const pagesStore = pagesStores()
 const{form} = storeToRefs(pagesStore)  
 
@@ -46,6 +47,17 @@ onMounted(async () => {
     const id = ref(route.params.id);
     await pagesStore.fetchPageData(id.value);
 });     
+
+//articles
+const articlepagestore = articlesStore();
+const { currentArticle } = storeToRefs(articlepagestore);
+
+function deleteArticle() {
+  if (currentArticle.value && confirm('Are you sure you want to delete this article?')) {
+    articlepagestore.deleteArticle(currentArticle.value.id);
+  }
+}
+
 </script>
 
 

@@ -15,17 +15,17 @@
                       
                   </thead>  
                   <tbody>
-                      <tr v-for="articlex in articlepage.articles":key="i">
+                      <tr v-for="(articlex, i) in articles" :key="i">
                           <td>{{articlex.title}}</td>
                           <td>{{articlex.content}}</td>
                           <td>{{articlex.pages_id}}</td>
                           <td>
-                            <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: articlex.id}}">Preview</router-link>
+                            <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: articlex.id}}">Edit</router-link>
                           </td>
                       </tr>
                   </tbody>
               </table><br>
-
+ 
 
           </div>
       </template>

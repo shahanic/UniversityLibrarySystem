@@ -1,46 +1,111 @@
 <template>
     <admin-layout>
         <template v-slot:main>
+            <!-- <h1 style="padding:20px"></h1> -->
             <div class="container mx-auto p-4">
-                <h1 class="text-2xl text-white font-bold mb-4">Generic Pages</h1>
-                
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  class="border rounded p-2 mb-4 w-full"
-                />
-
-                <table class="min-w-full border-collapse border border-gray-300">
+                <h2>General Pages</h2>
+                <table>
                     <thead>
-                        <tr class="bg-gray-200">
-                            <th class="border border-gray-300 p-2">Titles</th>
-                            <th class="border border-gray-300 p-2">Types</th>
-                            <th class="border border-gray-300 p-2">Parent Menu</th>
-                            <th class="border border-gray-300 p-2">Descriptions</th>
-                            <th class="border border-gray-300 p-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
                         <tr>
-                            <td class="border border-gray-300 p-2">Page One</td>
-                            <td class="border border-gray-300 p-2">Type A</td>
-                            <td class="border border-gray-300 p-2">Menu A</td>
-                            <td class="border border-gray-300 p-2">Description for page one</td>
-                            <td class="border border-gray-300 p-2 text-center">
-                                <button class="bg-blue-500 text-white px-2 py-1 rounded mr-3">Edit</button>
-                                <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                            <th>Title</th>
+                            <th>Action</th>
+                        </tr>
+                        
+                    </thead>  
+                    <tbody>
+                        <tr v-for="(subnavx, i) in sub_menus" :key="i">
+                            <td>{{subnavx.submenu}}</td>
+                            <td>
+                                <router-link style="padding-left: 20px" :to="{name: 'Pages', params: {id: subnavx.id}}">Pages</router-link>
                             </td>
                         </tr>
-
                     </tbody>
-                </table>
+                </table><br>
+  
+  
             </div>
         </template>
     </admin-layout>
-</template>
-
-<style scoped>
-.container {
-    max-width: 1500px;
-}
-</style>
+  </template>
+  
+  <script setup>
+  import { onMounted } from 'vue';
+  import { subnavigationsStore } from '@/Admin/Stores/subnavigationsStore';
+  import { storeToRefs } from 'pinia';
+  
+  // Access the Pinia store
+  const subnav = subnavigationsStore();
+  const { sub_menus } = storeToRefs(subnav);
+  
+  // Fetch articles data when the component is mounted
+  onMounted(() => {
+    subnav.fetchSubNavsData();
+  });
+  </script>
+  
+  <style scoped>
+  .container {
+  width: 100%;
+  padding: 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+  }
+  
+  .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  }
+  
+  h2 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding-left: 7px;
+  text-align: center;
+  }
+  
+  .view-details {
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 0.9em;
+  }
+  
+  table {
+  width: 100%;
+  border-collapse: collapse;
+  }
+  
+  th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  }
+  
+  th {
+  font-weight: normal;
+  color: #666;
+  }
+  
+  .avatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  vertical-align: middle;
+  }
+  
+  .leave {
+  color: #FF4500;
+  }
+  
+  .negative {
+  color: #FF4500;
+  }
+  
+  .positive {
+  color: #4CAF50;
+  }
+  </style>  

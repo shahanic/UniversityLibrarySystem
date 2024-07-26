@@ -67,29 +67,27 @@ const deleteNav = (navx) => {
             </div>
         </AddNavigationModal>
         <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th></th>
-                        </tr>
-                        
-                    </thead> 
+          <thead>
+            <tr>
+              <th>Title</th>
+                <th>Actions</th>
+            </tr>       
+          </thead> 
+          <tbody>
+            <tr v-for="navx in nav.navigations":key="i">
+                <td style="width: 78%;">{{navx.menu}}</td>
+                <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
+                  <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">View</button>
+                </router-link>
+                <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
+                <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
+            </tr>
+          </tbody>
+        </table>
+        <br>
 
 
-                    <tbody>
-                        <tr v-for="navx in nav.navigations":key="i">
-                            <td style="width: 78%;">{{navx.menu}}</td>
-                            <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
-                             <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">View</button>
-                                </router-link>
-                            <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                            <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-                        </tr>
-                    </tbody>
-                </table><br>
-
-
-            </div>
+      </div>
          
         </template>
     </admin-layout>

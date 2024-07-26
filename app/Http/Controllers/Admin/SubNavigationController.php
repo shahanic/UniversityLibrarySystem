@@ -16,7 +16,7 @@ class SubNavigationController extends Controller
         }
         $new->navigation_id = $request->navigation_id; 
         $new->submenu = $request->submenu;    
-     
+        
         $res = $new->save();
         return $res;
         

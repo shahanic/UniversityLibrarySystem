@@ -54,26 +54,20 @@ const deleteSubNav = (subnavx) => {
         <template v-slot:main>     
         <div class="container mx-auto p-4">
           <button @click="addSubNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Sub Menu</button>
-    
-        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
-        <div>
-        <!--  -->
-        <div>
-               <h1 style="text-align: center;">Add Sub Menu</h1>
-              </div>
-                      <!--  -->
-
+          <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
+       
+          <div>
+          <h1 style="text-align: center;">Add Sub Menu</h1>
+            </div>
                 <div>
                 <label for="menu">Sub Menu:</label><br>
                 <input type="text" v-model="form.submenu" class="w-full rounded-lg border-gray-300">
                 </div>
                 <div>
-         
                    <!-- <div class="flex justify-start  ">
                   <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
                     </div> -->
-              </div>
-    </div>
+            </div>
         </AddSubNavigationModal>
 
         <div class="container mx-auto p-4">

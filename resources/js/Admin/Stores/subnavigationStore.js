@@ -8,6 +8,7 @@ export const subnavigationsStore = defineStore('subnav', {
             form:{
                 navigation_id:'',
                 submenu: '',
+                slug: '',
             },
             sub_menus: [],
             navigations: [],
@@ -28,7 +29,32 @@ export const subnavigationsStore = defineStore('subnav', {
         //         console.error('Error saving sub navigation:', error);
         //     }
         // },
+        generateSlug(menu) {
+            return menu.toLowerCase().replace(/\s+/g, '-');
+        },
 
+        async fetchSubNavData(id) {
+            try {
+                const response = await axios.get(`/get-sub-nav/${id}`);
+                this.form.navigation_id = response.data[0].navigation_id;
+                // console.log(response.data[0].navigation_id);
+                this.sub_menus = response.data;
+            } catch (error) {
+                console.error('Error fetching sub navigation data:', error);
+            }
+        },
+
+        save(){
+            let {form} = this;
+            form.slug = this.generateSlug(form.submenu);
+            const response = axios.post(`/save-sub-nav`, form).then(({data})=>{
+                console.log(response.data);
+                this.$reset();
+                this.fetchSubNavData(form.navigation_id);
+            });
+        },
+
+        
         async fetchSubNavsData() {
             try {
                 const response = await axios.post('/get-sub-navs');
@@ -42,15 +68,7 @@ export const subnavigationsStore = defineStore('subnav', {
             this.form = {...subnavx};
         },
         
-        save(){
-            let {form} = this;
-            axios.post('/save-sub-nav', form).then(({data})=>{
-                console.log(data);
-                // this.$reset();
-                // this.getter();
-            });
 
-        },
         getter(){
             axios.post('/get-sub-navs').then(({data})=>{
                 this.sub_menus = data;
@@ -61,24 +79,16 @@ export const subnavigationsStore = defineStore('subnav', {
         async deleteSubNav(subnavx) {
             if (confirm('Are you sure you want to delete this subnav?')) {
                 try {
-                    await axios.post('/delete-navs', subnavx);
+                    await axios.post('/delete-sub-navs', subnavx).then(({data})=>{
                     // Directly fetch updated data after deletion
-                    await this.fetchSubNavData();
+                        this.fetchSubNavData(subnavx.navigation_id);
+                    })
                 } catch (error) {
                     console.error('Error deleting sub navigation:', error);
                 }
             }
         },
 
-        async fetchSubNavData(id) {
-            try {
-                const response = await axios.get(`/get-sub-nav/${id}`);
-                this.form.navigation_id = response.data[0].navigation_id;
-                // console.log(response.data[0].navigation_id);
-                this.sub_menus = response.data;
-            } catch (error) {
-                console.error('Error fetching sub navigation data:', error);
-            }
-        }
+
     }   
 });

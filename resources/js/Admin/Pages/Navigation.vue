@@ -1,44 +1,3 @@
-<script setup>
-import { ref } from 'vue';
-import {navigationStore}from '@/Admin/Stores/navigationStores';
-import {storeToRefs} from 'pinia';
-import CKEditor from '@ckeditor/ckeditor5-vue';
-import AddNavigationModal from '@/Admin/Modals/AddNavigationModal.vue';
-const nav = navigationStore()
-const{form} = storeToRefs(nav)  
-
-nav.getter();
-const showModal = ref(false);
-const currentNav = ref(null);  // To store the user being edited
-
-const saveNav = () => {
-  if (currentNav.value) {
-    nav.editNav(form.value);
-    nav.save();
-  } else {
-    nav.save();
-  }
-  showModal.value = false;  // Close the modal after saving
-};
-
-const addNav = () => {
-  currentNav.value = null;  // Clear current nav for adding a new nav
-  showModal.value = true;
-};
-
-const editNav = (navx) => {
-  currentNav.value = navx;  // Set the nav to be edited
-  Object.assign(form.value, navx);  // Populate form with nav data
-  showModal.value = true;
-};
-
-const deleteNav = (navx) => {
-  nav.deleteNav(navx);
-};
-
-
-
-</script>
 <template>
     <admin-layout>
         <template v-slot:main>
@@ -79,11 +38,14 @@ const deleteNav = (navx) => {
                     <tbody>
                         <tr v-for="navx in nav.navigations":key="i">
                             <td style="width: 78%;">{{navx.menu}}</td>
-                            <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
-                             <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">View</button>
-                                </router-link>
-                            <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                            <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
+                            <td>
+                              <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
+                              <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">View</button>
+                                  </router-link>
+                              <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
+                              <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
+                            </td>
+                            
                         </tr>
                     </tbody>
                 </table><br>
@@ -94,6 +56,47 @@ const deleteNav = (navx) => {
         </template>
     </admin-layout>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import {navigationStore}from '@/Admin/Stores/navigationStores';
+import {storeToRefs} from 'pinia';
+import CKEditor from '@ckeditor/ckeditor5-vue';
+import AddNavigationModal from '@/Admin/Modals/AddNavigationModal.vue';
+const nav = navigationStore()
+const{form} = storeToRefs(nav)  
+
+nav.getter();
+const showModal = ref(false);
+const currentNav = ref(null);  // To store the user being edited
+
+const saveNav = () => {
+  if (currentNav.value) {
+    nav.editNav(form.value);
+    nav.save();
+  } else {
+    nav.save();
+  }
+  showModal.value = false;  // Close the modal after saving
+};
+
+const addNav = () => {
+  currentNav.value = null;  // Clear current nav for adding a new nav
+  showModal.value = true;
+};
+
+const editNav = (navx) => {
+  currentNav.value = navx;  // Set the nav to be edited
+  Object.assign(form.value, navx);  // Populate form with nav data
+  showModal.value = true;
+};
+
+const deleteNav = (navx) => {
+  nav.deleteNavs(navx);
+};
+
+</script>
+
 
 <style scoped>
 .container {

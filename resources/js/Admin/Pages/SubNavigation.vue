@@ -14,7 +14,6 @@ const{form} = storeToRefs(subnav)
 onMounted(async () => {
     const id = ref(route.params.id);
     await subnav.fetchSubNavData(id.value);
-
   });  
 
 
@@ -76,20 +75,20 @@ const deleteSubNav = (subnavx) => {
               </div>
     </div>
         </AddSubNavigationModal>
-
-        <div class="container mx-auto p-4">
-                <h2> {{ subnav.sub_menus.length > 0 ? subnav.sub_menus[0].menu : 'No' }} Navigation List</h2>
+                <h2> Sub Navigation List</h2>
                     <div v-if="subnav.sub_menus.length">
                         <table >
                             <thead>
                                 <tr>
                                     <th>Title</th>
+                                    <th>Navigation</th>
                                     <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in subnav.sub_menus" :key="item.id">
-                                    <td  style="width: 70%">{{ item.submenu }}</td>
+                                    <td style="width: 30%">{{ item.submenu }}</td>
+                                    <td style="width: 48%">{{ item.menu }}</td>
                                     <td>
                                         <router-link style="padding-left: 20px" :to="{name: 'Pages', params: {id: item.id}}" custom v-slot="{ navigate }">
                                           <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">Pages</button>
@@ -101,8 +100,6 @@ const deleteSubNav = (subnavx) => {
                             </tbody>
                         </table>
                     </div>
-
-          </div>
           </div>
         </template>
     </admin-layout>

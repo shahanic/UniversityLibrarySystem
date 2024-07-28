@@ -8,6 +8,18 @@ use App\Models\SubMenu;
 
 class SubNavigationController extends Controller
 {
+    public function index(){
+        return view('admin');
+    }
+
+    public function navsubnav($id){
+        return DB::table('navigations')
+        ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
+        ->where('navigations.id', $id)
+        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu', 'navigations.menu')
+        ->get();
+    }
+
     public function saveSubNav(Request $request){
         // dd('hello');
         if($request->id){
@@ -19,6 +31,7 @@ class SubNavigationController extends Controller
         
         $new->navigation_id = $request->navigation_id;
         $new->submenu = $request->submenu;    
+        $new->slug = $request->slug;
      
         $res = $new->save();
 
@@ -34,17 +47,8 @@ class SubNavigationController extends Controller
         return 1;
     }
 
-    public function index(){
-        return view('admin');
-    }
 
-    public function navsubnav($id){
-        return DB::table('navigations')
-        ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
-        ->where('navigations.id', $id)
-        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu', 'navigations.menu', 'navigations.id')
-        ->get();
-    }
+
 
 
 }

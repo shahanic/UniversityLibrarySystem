@@ -6,6 +6,7 @@ export const navigationStore = defineStore('nav', {
         return{
             form:{
                 menu: '',
+                slug: '',
 
             },
             navigations: [],
@@ -15,8 +16,12 @@ export const navigationStore = defineStore('nav', {
     },
 
     actions: {
+        generateSlug(menu) {
+            return menu.toLowerCase().replace(/\s+/g, '-');
+        },
         save(){
             let {form} = this;
+            form.slug = this.generateSlug(form.menu);
             axios.post('/save-nav', form).then(({data})=>{
                 this.$reset();
                 this.getter();

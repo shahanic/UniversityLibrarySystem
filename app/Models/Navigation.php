@@ -14,6 +14,7 @@ class Navigation extends Model
     protected $fillable = [
         'id',
         'menu',
+        'slug',
     ];
 
     public function subnav(){

@@ -18,7 +18,8 @@ class NavigationController extends Controller{
         }
 
         $new->menu = $request->menu;    
-     
+        $new->slug = $request->slug; 
+        
         $res = $new->save();
         return $res;
         

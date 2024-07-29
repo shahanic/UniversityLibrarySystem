@@ -47,7 +47,9 @@ Route::get('/test', [App\Http\Controllers\HomeController::class, 'test'])->name(
 // Route::get('/get-sub-nav',[NavigationController::class, 'getSubNav']);
 Route::get('/get-sub-nav/{id}',[SubNavigationController::class, 'navsubnav']);
 Route::get('/get-page/{id}',[GenericPageController::class, 'retrievePages']);
+Route::get('/edit-page/{id}',[GenericPageController::class, 'retrieveEditPage']);
 Route::get('/get-article/{id}',[ArticlesController::class, 'retrieveArticle']);
+
 
 
 

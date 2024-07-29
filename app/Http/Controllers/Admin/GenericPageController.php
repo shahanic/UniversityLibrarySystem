@@ -35,7 +35,6 @@ class GenericPageController extends Controller
             ->get();
     }
     
-    
 
     public function deletePages(Request $request){
         Generic::where('id', $request->id)->delete();
@@ -50,7 +49,15 @@ class GenericPageController extends Controller
         return DB::table('sub_menus')
         ->rightjoin('generics', 'sub_menus.id', '=', 'generics.sub_menu_id')
         ->where('sub_menus.id', $id)
-        ->select('generics.title', 'generics.menu_title', 'generics.abstract', 'generics.content', 'generics.sub_menu_id', 'sub_menus.submenu')
+        ->select('generics.id', 'generics.title', 'generics.menu_title', 'generics.slug', 'generics.abstract', 'generics.content', 'generics.navigation_id', 'generics.sub_menu_id', 'sub_menus.submenu')
+        ->get();
+    }
+
+    public function retrieveEditPage($id){
+        return DB::table('sub_menus')
+        ->rightjoin('generics', 'sub_menus.id', '=', 'generics.sub_menu_id')
+        ->where('sub_menus.id', $id)
+        ->select('generics.id', 'generics.title', 'generics.menu_title', 'generics.slug', 'generics.abstract', 'generics.content', 'generics.navigation_id', 'generics.sub_menu_id', 'sub_menus.submenu')
         ->get();
     }
 

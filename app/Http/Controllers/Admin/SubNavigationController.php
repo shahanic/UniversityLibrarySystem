@@ -14,11 +14,41 @@ class SubNavigationController extends Controller
 
     public function navsubnav($id){
         return DB::table('navigations')
-        ->rightjoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
+        ->join('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
         ->where('navigations.id', $id)
-        ->select('sub_menus.id', 'sub_menus.navigation_id', 'sub_menus.submenu', 'navigations.menu')
+        ->select('sub_menus.id', 
+                 'sub_menus.submenu', 
+                 'navigations.id as nav_id',
+                 'navigations.menu')
         ->get();
     }
+
+    // public function navsubnav($id) {
+    //     // Query for all sub_menus with their related navigations
+    //     $subMenus = DB::table('navigations')
+    //         ->leftJoin('sub_menus', 'navigations.id', '=', 'sub_menus.navigation_id')
+    //         ->where('navigations.id', $id)
+    //         ->select('sub_menus.id as sub_menu_id',
+    //                  'sub_menus.navigation_id as sub_menu_navigation_id', 
+    //                  'sub_menus.submenu', 
+    //                  'navigations.id as navigation_id',
+    //                  'navigations.menu');
+    
+    //     // Query for all navigations with their related sub_menus
+    //     $navigations = DB::table('sub_menus')
+    //         ->rightJoin('navigations', 'sub_menus.navigation_id', '=', 'navigations.id')
+    //         ->where('navigations.id', $id)
+    //         ->select('sub_menus.id as sub_menu_id',
+    //                  'sub_menus.navigation_id as sub_menu_navigation_id', 
+    //                  'sub_menus.submenu', 
+    //                  'navigations.id as navigation_id',
+    //                  'navigations.menu');
+    
+    //     // Combine both queries
+    //     return $subMenus->union($navigations)
+    //         ->get();
+    // }
+    
 
     public function saveSubNav(Request $request){
         // dd('hello');
@@ -46,6 +76,8 @@ class SubNavigationController extends Controller
         SubMenu::where('id', $request->id)->delete();
         return 1;
     }
+
+    
 
 
 

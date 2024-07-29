@@ -17,8 +17,8 @@
                                     <td style="width: 30%">{{ item.title }}</td>
                                     <td style="width: 48%">{{ item.submenu }}</td>
                                     <td>
-                                        <button @click="subnav.editPage(item)">Preview</button>
-                                        <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Edit</router-link>
+                                        <!-- <button @click="subnav.editPage(item)">Preview</button> -->
+                                        <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'EditGenericPage', params: {id: item.id}}">Edit</router-link>
                                         <button @click="deleteArticle">Delete</button>
                                     </td>
                                 </tr>

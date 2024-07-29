@@ -1,3 +1,61 @@
+
+<template>
+    <admin-layout>
+        <template v-slot:main>     
+        <div class="container mx-auto p-4">
+          <button @click="addSubNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Sub Menu</button>
+    
+        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
+        <div>
+        <!--  -->
+        <div>
+               <h1 style="text-align: center;">Add Sub Menu</h1>
+              </div>
+                      <!--  -->
+
+                <div>
+                <label for="menu">Sub Menu:</label><br>
+                <input type="text" v-model="form.submenu" class="w-full rounded-lg border-gray-300">
+                </div>
+                <div>
+         
+                   <!-- <div class="flex justify-start  ">
+                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
+                    </div> -->
+              </div>
+    </div>
+        </AddSubNavigationModal>
+                <h2> Sub Navigation List</h2>
+                    <div v-if="subnav.sub_menus.length">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Navigation</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in subnav.sub_menus" :key="item.id">
+                                    <td style="width: 30%">{{ item.submenu }}</td>
+                                    <td style="width: 48%">{{ item.menu }}</td>
+                                    <td>
+                                        <router-link style="padding-left: 20px" :to="{name: 'GenericPage', params: {id: item.id}}" custom v-slot="{ navigate }">
+                                          <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">Pages</button>
+                                        </router-link>
+                                        <button @click="editSubNav(item)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
+                                        <button @click="deleteSubNav(item)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+          </div>
+        </template>
+    </admin-layout>
+</template>
+
+
 <script setup>
 import { useRoute } from 'vue-router';
 import {onMounted, ref } from 'vue';
@@ -43,67 +101,9 @@ const editSubNav = (subnavx) => {
 
 const deleteSubNav = (subnavx) => {
   subnav.deleteSubNav(subnavx);
-};
-
-
-
-
+}
 </script>
-<template>
-    <admin-layout>
-        <template v-slot:main>     
-        <div class="container mx-auto p-4">
-          <button @click="addSubNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Sub Menu</button>
-    
-        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
-        <div>
-        <!--  -->
-        <div>
-               <h1 style="text-align: center;">Add Sub Menu</h1>
-              </div>
-                      <!--  -->
 
-                <div>
-                <label for="menu">Sub Menu:</label><br>
-                <input type="text" v-model="form.submenu" class="w-full rounded-lg border-gray-300">
-                </div>
-                <div>
-         
-                   <!-- <div class="flex justify-start  ">
-                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-                    </div> -->
-              </div>
-    </div>
-        </AddSubNavigationModal>
-                <h2> Sub Navigation List</h2>
-                    <div v-if="subnav.sub_menus.length">
-                        <table >
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Navigation</th>
-                                    <th> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in subnav.sub_menus" :key="item.id">
-                                    <td style="width: 30%">{{ item.submenu }}</td>
-                                    <td style="width: 48%">{{ item.menu }}</td>
-                                    <td>
-                                        <router-link style="padding-left: 20px" :to="{name: 'Pages', params: {id: item.id}}" custom v-slot="{ navigate }">
-                                          <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">Pages</button>
-                                        </router-link>
-                                        <button @click="editSubNav(item)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                                        <button @click="deleteSubNav(item)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-          </div>
-        </template>
-    </admin-layout>
-</template>
 
 <style scoped>
 .container {

@@ -71,7 +71,7 @@
             <div class="flex flex-col mt-2 border-green-300 border-t dark:border-gray-700">
                 <router-link to="/super-user" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-700 ${$route.name.includes('Dashboard')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Home</router-link>
                 <router-link to="/navigation" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-700 ${$route.name.includes('Navigation')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Navigation</router-link>
-                <router-link to="/generic-pages" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-700 ${$route.name.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Page</router-link>
+                <router-link to="/generic-pages" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-700 ${$route.name.includes('GenericPages')? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Pages</router-link>
 
                 <!-- <div :class="`text-white font-semibold hover:bg-blue-500 dark:hover:bg-gray-700 ${$route.path.includes('members')? 'bg-blue-700 dark:bg-gray-700' : ''} ${collapse_open === 1? 'bg-blue-700 dark:bg-gray-700' : ''}`" >
                     <div class=" px-5 py-3 cursor-pointer block" @click="expandMe(1)">

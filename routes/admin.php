@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\SubNavigationController;
-use App\Http\Controllers\Admin\PagesController;
+// use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\GenericPageController;
 use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\ArticlesController;
@@ -29,8 +29,12 @@ Route::prefix('subnav')->group(function() {
     Route::get('{vue?}', [SubNavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
-Route::prefix('pages')->group(function() {
-    Route::get('{vue?}', [PagesController::class, 'index'])->where('vue', '[\/\w\.-]*');
+// Route::prefix('pages')->group(function() {
+//     Route::get('{vue?}', [PagesController::class, 'index'])->where('vue', '[\/\w\.-]*');
+// });
+
+Route::prefix('generic-page/{id}')->group(function() {
+    Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
 Route::prefix('generic-pages')->group(function() {
@@ -75,9 +79,13 @@ Route::post('save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
 Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
 Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
 
-Route::post('/save-page',[PagesController::class, 'savePage']);
-Route::post('/get-pages',[PagesController::class, 'getPages']);
-Route::post('/delete-pages',[PagesController::class, 'deletePages']);
+// Route::post('/save-page',[PagesController::class, 'savePage']);
+// Route::post('/get-pages',[PagesController::class, 'getPages']);
+// Route::post('/delete-pages',[PagesController::class, 'deletePages']);
+
+Route::post('/save-page',[GenericPageController::class, 'savePage']);
+Route::post('/get-pages',[GenericPageController::class, 'getPages']);
+Route::post('/delete-pages',[GenericPageController::class, 'deletePages']);
 
 Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
 Route::post('/get-articles',[ArticlesController::class, 'getArticles']);

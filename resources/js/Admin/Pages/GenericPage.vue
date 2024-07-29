@@ -3,7 +3,7 @@
         <template v-slot:main> 
             <div class="container mx-auto p-4">
                 <h2>Generic Pages</h2>
-                    <div v-if="pagesStore.pages.length">
+                    <div v-if="genericpages.generics.length">
                         <table>
                             <thead>
                                 <tr>
@@ -12,7 +12,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in pagesStore.pages" :key="item.id">
+                                <tr v-for="item in genericpages.generics" :key="item.id">
                                     <td style="width: 70%">{{ item.name }}</td>
                                     <td >
                                         <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Edit</router-link>
@@ -33,19 +33,19 @@
 import { useRoute } from 'vue-router';
 import {onMounted, ref } from 'vue';
 
-import {pagesStores} from '@/Admin/Stores/pagesStores';
+import {genericpagesStore} from '@/Admin/Stores/genericpagesStores';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import {storeToRefs} from 'pinia';
 
 const route = useRoute();
 
 //pages
-const pagesStore = pagesStores()
-const{form} = storeToRefs(pagesStore)  
+const genericpages = genericpagesStore()
+const{form} = storeToRefs(genericpages)  
 
 onMounted(async () => {
     const id = ref(route.params.id);
-    await pagesStore.fetchPageData(id.value);
+    await genericpages.fetchPageData(id.value);
 });     
 
 //articles

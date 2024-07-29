@@ -13,6 +13,7 @@ class SubMenu extends Model
         'id',
         'navigation_id',
         'submenu',
+        'slug',
     ];
 
     public function navigation(){

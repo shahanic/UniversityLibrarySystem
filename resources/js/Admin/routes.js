@@ -3,6 +3,7 @@ import Navigation from "./Pages/Navigation.vue";
 import ArticlePages from "./Pages/ArticlePages.vue";
 import ArticlePage from "./Pages/ArticlePage.vue";
 import GenericPages from "./Pages/GenericPages.vue";
+import GenericPage from "./Pages/GenericPage.vue";
 import Faqs from "./Pages/Faqs.vue";
 import QuickLinks from "./Pages/QuickLinks.vue";
 import Accounts from "./Pages/Accounts.vue";
@@ -25,9 +26,20 @@ export const routes = [
     },
     
     {
+        path: '/generic-page/:id',
+        name: "GenericPage",
+        component: GenericPage
+    },
+    {
         path: '/generic-pages',
         name: "GenericPages",
         component: GenericPages
+    },
+
+    {
+        path: '/pages/:id',
+        name: "Pages",
+        component: Pages
     },
 
     {
@@ -58,12 +70,6 @@ export const routes = [
         path: '/subnav/:id',
         name: "SubNavigation",
         component: SubNavigation
-    },
-
-    {
-        path: '/pages/:id',
-        name: "Pages",
-        component: Pages
     },
 
     {

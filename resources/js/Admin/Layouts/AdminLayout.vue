@@ -20,8 +20,8 @@
              </div>
 
              <div class="flex-grow flex items-center gap-2 md:px-20">
-<!-- 
-                 <div class="flex-grow justify-end">
+
+                 <!-- <div class="flex-grow justify-end">
                      <member-search></member-search>
                  </div> -->
              </div>

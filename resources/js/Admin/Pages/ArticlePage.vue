@@ -6,21 +6,19 @@
         <div v-if="currentArticle" class="mb-6">
           <div class="col-span-2 mb-4">
             <h2 class="text-base font-bold">Title</h2>
-            <input
-              type="text"
+            <textarea type="text"
               class="form-input border border-gray-300 rounded w-full"
               v-model="currentArticle.title"
-              placeholder="Title"
-            />
+              placeholder="Title"></textarea>
+
           </div>
           <div class="mb-4">
             <h2 class="text-base font-bold">Abstract</h2>
-            <input
-              type="text"
+            <textarea type="text"
               class="form-input border border-gray-300 rounded w-full py-2 px-3"
               v-model="currentArticle.abstract"
-              placeholder="Abstract"
-            />
+              placeholder="Abstract"></textarea>
+
           </div>
           <div class="mb-4">
             <h2 class="text-base font-bold">Content</h2>

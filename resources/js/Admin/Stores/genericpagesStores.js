@@ -14,6 +14,7 @@ export const genericpagesStore = defineStore('generics', {
                 sub_menu_id: '',
             },
             generics: [],
+            allgenerics: [],
             sub_menus: [],
 
         } 
@@ -35,7 +36,7 @@ export const genericpagesStore = defineStore('generics', {
         async fetchPagesData() {
             try {
                 const response = await axios.post('/get-pages');
-                this.sub_menus = response.data;
+                this.allgenerics = response.data;
             } catch (error) {
                 console.error('Error fetching pages data:', error);
             }

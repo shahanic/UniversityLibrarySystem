@@ -8,16 +8,18 @@
                             <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th> </th>
+                                    <th> Submenu </th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in genericpages.generics" :key="item.id">
-                                    <td style="width: 70%">{{ item.name }}</td>
-                                    <td >
-                                        <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Edit</router-link>
-                                        <!-- <button style="padding-left: 20px" @click="subnav.editPage(item)">Edit</button> -->
-                                        <!-- <button style="padding-left: 20px" @click="deleteArticle">Delete</button> -->
+                                    <td style="width: 30%">{{ item.title }}</td>
+                                    <td style="width: 48%">{{ item.submenu }}</td>
+                                    <td>
+                                        <button @click="subnav.editPage(item)">Preview</button>
+                                        <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Edit</router-link>
+                                        <button @click="deleteArticle">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -31,11 +33,11 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import {onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import {genericpagesStore} from '@/Admin/Stores/genericpagesStores';
+import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
-import {storeToRefs} from 'pinia';
+import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 

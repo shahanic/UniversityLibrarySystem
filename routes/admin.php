@@ -84,7 +84,7 @@ Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']
 // Route::post('/delete-pages',[PagesController::class, 'deletePages']);
 
 Route::post('/save-page',[GenericPageController::class, 'savePage']);
-Route::post('/get-pages',[GenericPageController::class, 'getPages']);
+Route::post('/get-pages',[GenericPageController::class, 'retrieveAllPages']);
 Route::post('/delete-pages',[GenericPageController::class, 'deletePages']);
 
 Route::post('/save-article',[ArticlesController::class, 'saveArticle']);

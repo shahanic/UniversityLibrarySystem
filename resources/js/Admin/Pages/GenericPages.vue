@@ -1,111 +1,114 @@
 <template>
     <admin-layout>
-        <template v-slot:main>
-            <!-- <h1 style="padding:20px"></h1> -->
+        <template v-slot:main> 
             <div class="container mx-auto p-4">
-                <h2>General Pages</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Action</th>
-                        </tr>
-                        
-                    </thead>  
-                    <tbody>
-                        <tr v-for="(subnavx, i) in sub_menus" :key="i">
-                            <td>{{subnavx.submenu}}</td>
-                            <td>
-                                <router-link style="padding-left: 20px" :to="{name: 'Pages', params: {id: subnavx.id}}">Pages</router-link>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table><br>
-  
-  
+                <h2>Generic Pages</h2>
+                    <div v-if="genericpages.allgenerics.length">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Submenu</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in genericpages.allgenerics" :key="item.id">
+                                    <td style="width: 30%">{{ item.title }}</td>
+                                    <td style="width: 48%">{{ item.submenu }}</td>
+                                    <td>
+                                        <!-- <button @click="subnav.editPage(item)">Preview</button> -->
+                                        <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Edit</router-link>
+                                        <!-- <button @click="deleteArticle">Delete</button> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
             </div>
         </template>
     </admin-layout>
-  </template>
-  
-  <script setup>
-  import { onMounted } from 'vue';
-  import { subnavigationsStore } from '@/Admin/Stores/subnavigationStore';
-  import { storeToRefs } from 'pinia';
-  
-  // Access the Pinia store
-  const subnav = subnavigationsStore();
-  const { sub_menus } = storeToRefs(subnav);
-  
-  // Fetch articles data when the component is mounted
-  onMounted(() => {
-    subnav.fetchSubNavsData();
-  });
-  </script>
-  
-  <style scoped>
-  .container {
+</template>
+
+
+<script setup>
+import { onMounted } from 'vue';
+import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
+import { storeToRefs } from 'pinia';
+
+
+const genericpages = genericpagesStore()
+const{generics} = storeToRefs(genericpages)  
+
+onMounted(() => {
+  genericpages.fetchPagesData();
+}); 
+</script>
+
+
+<style scoped>
+.container {
   width: 100%;
   padding: 100px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: #fff;
-  }
-  
-  .header {
+}
+
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  }
-  
-  h2 {
+}
+
+h2 {
   margin: 0;
   font-size: 1.2em;
   font-weight: bold;
   padding-left: 7px;
   text-align: center;
-  }
-  
-  .view-details {
+}
+
+.view-details {
   text-decoration: none;
   color: #007BFF;
   font-size: 0.9em;
-  }
-  
-  table {
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
-  }
-  
-  th, td {
+}
+
+th, td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #eee;
-  }
-  
-  th {
+}
+
+th {
   font-weight: normal;
   color: #666;
-  }
-  
-  .avatar {
+}
+
+.avatar {
   border-radius: 50%;
   width: 32px;
   height: 32px;
   margin-right: 8px;
   vertical-align: middle;
-  }
-  
-  .leave {
+}
+
+.leave {
   color: #FF4500;
-  }
-  
-  .negative {
+}
+
+.negative {
   color: #FF4500;
-  }
-  
-  .positive {
+}
+
+.positive {
   color: #4CAF50;
-  }
-  </style>  
+}
+</style>

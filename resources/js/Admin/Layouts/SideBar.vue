@@ -55,7 +55,7 @@
     </script>
 
     <template>
-        <div class="w-64 bg-green-900 dark:bg-gray-900 h-screen pt-16 overflow-x-auto">
+        <div class="w-64 bg-green-700 dark:bg-gray-900 h-screen pt-16 overflow-x-auto">
             <div class="flex -mt-1 px-2 gap-1 ">
                 <div class="flex self-center w-20 h-14 ">
                     <!-- <img class="rounded-full"  src="/images/logo.jpg"/> -->

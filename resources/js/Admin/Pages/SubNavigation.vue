@@ -1,4 +1,3 @@
-
 <template>
     <admin-layout>
         <template v-slot:main>     

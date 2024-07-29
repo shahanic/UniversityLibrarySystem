@@ -12,23 +12,33 @@ class GenericPageController extends Controller
 {
     public function savePage(Request $request){
         if($request->id){
-            $new = Pages::find($request->id);
+            $new = Generic::find($request->id);
         }else{
-            $new = new Pages;
+            $new = new Generic;
         }
-        $new->name = $request->name; 
-        $new->code = $request->code;  
-        $new->nav_id = $request->nav_id;  
+        $new->title = $request->title; 
+        $new->menu_title = $request->menu_title; 
+        $new->slug = $request->slug;  
+        $new->abstract = $request->abstract;  
+        $new->content = $request->content;  
+        $new->navigation_id = $request->navigation_id;  
+        $new->sub_menu_id = $request->sub_menu_id;
+
         $res = $new->save();
         return $res;
         
     }
-    public function getPages(){
-        return Pages:: all();
+    public function retrieveAllPages() {
+        return DB::table('sub_menus')
+            ->join('generics', 'sub_menus.id', '=', 'generics.sub_menu_id')
+            ->select('generics.id', 'generics.title', 'generics.menu_title', 'generics.abstract', 'generics.content', 'generics.sub_menu_id', 'sub_menus.submenu')
+            ->get();
     }
+    
+    
 
     public function deletePages(Request $request){
-        Pages::where('id', $request->id)->delete();
+        Generic::where('id', $request->id)->delete();
         return 1;
     }
 
@@ -38,9 +48,9 @@ class GenericPageController extends Controller
 
     public function retrievePages($id){
         return DB::table('sub_menus')
-        ->rightjoin('pages', 'sub_menus.id', '=', 'pages.subnav_id')
+        ->rightjoin('generics', 'sub_menus.id', '=', 'generics.sub_menu_id')
         ->where('sub_menus.id', $id)
-        ->select('pages.name', 'pages.code', 'sub_menus.submenu')
+        ->select('generics.title', 'generics.menu_title', 'generics.abstract', 'generics.content', 'generics.sub_menu_id', 'sub_menus.submenu')
         ->get();
     }
 

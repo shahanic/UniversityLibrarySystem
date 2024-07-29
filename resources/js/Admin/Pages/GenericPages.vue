@@ -19,8 +19,7 @@
                                     <td>
                                         <!-- <button @click="subnav.editPage(item)">Preview</button> -->
                                         <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'EditGenericPage', params: {id: item.id}}">Edit</router-link>
-                                        <button @click="deletePages(item.id)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-                                        <!-- <button @click="deleteArticle">Delete</button> -->
+                                        <button @click="deletePage">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -39,15 +38,17 @@ import { storeToRefs } from 'pinia';
 
 
 const genericpages = genericpagesStore()
-const{generics} = storeToRefs(genericpages)  
+const{currentPage} = storeToRefs(genericpages)  
 
 onMounted(() => {
   genericpages.fetchPagesData();
 }); 
-        
-const deletePages = (id) => {
-    genericpages.deletePages(id);
-};
+
+function deletePage() {
+    if (currentPage.value && confirm('Are you sure you want to delete this page?')) {
+        genericpages.deletePages(currentPage.value.id);
+    }
+  }
 </script>
 
 

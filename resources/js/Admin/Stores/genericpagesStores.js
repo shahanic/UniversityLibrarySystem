@@ -59,6 +59,7 @@ export const genericpagesStore = defineStore('generics', {
               this.$reset();
               await this.fetchPagesData();
               alert('Page deleted successfully!');
+              //after deletion, should route back to gen page
             } catch (error) {
               console.error('Error deleting page:', error);
               alert('Failed to delete page.');
@@ -84,7 +85,7 @@ export const genericpagesStore = defineStore('generics', {
         async editPageData(id){
             try {
                 const response = await axios.get(`/edit-page/${id}`);
-                this.currentPage = response.data[0]||null;
+                this.currentPage = response.data;
             } catch (error) {
                 console.error('Error fetching page data:', error);
             }

@@ -43,7 +43,7 @@ const deleteUser = (userx) => {
   <admin-layout>
     <template v-slot:main>
       <div>
-        <h1>Accounts</h1>
+        <h1>Accounts Here</h1>
         <p></p>
         <button @click="addUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Account</button>
         

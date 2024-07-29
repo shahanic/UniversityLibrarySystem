@@ -1,3 +1,4 @@
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -5,6 +6,10 @@ import { ref } from "vue";
 export const genericpagesStore = defineStore('generics', {
     state: () =>{
         return{
+            editor: ClassicEditor,
+            editorConfig: {
+            toolbar: ['undo', 'redo', '|', 'heading', '|', 'bold', 'italic', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
+            },
             form:{
                 title:'',
                 slug: '',
@@ -13,6 +18,7 @@ export const genericpagesStore = defineStore('generics', {
                 navigation_id: '',
                 sub_menu_id: '',
             },
+            currentPage: null,
             generics: [],
             allgenerics: [],
             sub_menus: [],
@@ -21,15 +27,19 @@ export const genericpagesStore = defineStore('generics', {
     },
 
     actions: {
+        generateSlug(menu) {
+            return menu.toLowerCase().replace(/\s+/g, '-');
+        },
+
         async save(){
-            let {form} = this;
+            if (this.currentPage) {
             try {
-                await axios.post('/save-page', form);
-                this.$reset();
-                // Directly fetch updated data after saving
-                await this.fetchPagesData();
+                await axios.post('/save-page', this.currentPage);
+                alert('Content saved successfully!');
             } catch (error) {
-                console.error('Error saving sub navigation:', error);
+                console.error('Error saving article:', error);
+                alert('Failed to save content.');
+            }
             }
         }, 
 
@@ -42,19 +52,17 @@ export const genericpagesStore = defineStore('generics', {
             }
         },
 
-        editPage(pagex){
-            this.form = {...pagex};
-        },
-
-        async deletePages(pagex) {
-            if (confirm('Are you sure you want to delete this page?')) {
-                try {
-                    await axios.post('/delete-pages', pagex);
-                    // Directly fetch updated data after deletion
-                    await this.fetchPagesData();
-                } catch (error) {
-                    console.error('Error deleting page:', error);
-                }
+        async deletePages(id) {
+            if (!id) return;
+            try {
+              await axios.post('/delete-pages', { id });
+              this.$reset();
+              await this.fetchPagesData();
+              alert('Page deleted successfully!');
+              //after deletion, should route back to gen page
+            } catch (error) {
+              console.error('Error deleting page:', error);
+              alert('Failed to delete page.');
             }
         },
 
@@ -62,6 +70,16 @@ export const genericpagesStore = defineStore('generics', {
             try {
                 const response = await axios.get(`/get-page/${id}`);
                 this.generics = response.data;
+            } catch (error) {
+                console.error('Error fetching page data:', error);
+            }
+        },
+
+        async editPageData(id){
+            try {
+                const response = await axios.get(`/edit-page/${id}`);
+                // console.log(response.data);
+                this.currentPage = response.data[0]||null;
             } catch (error) {
                 console.error('Error fetching page data:', error);
             }

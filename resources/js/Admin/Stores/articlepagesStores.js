@@ -32,11 +32,11 @@ export const articlesStore = defineStore('articles', {
       }
     },
 
-    editArticle(articlex) {
-      this.title = articlex.title;
-      this.abstract = articlex.abstract;
-      this.content = articlex.content;
-    },
+    // editArticle(articlex) {
+    //   this.title = articlex.title;
+    //   this.abstract = articlex.abstract;
+    //   this.content = articlex.content;
+    // },
 
     async deleteArticle(id) {
       if (!id) return;

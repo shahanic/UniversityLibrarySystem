@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\SubNavigationController;
-// use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\GenericPageController;
 use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\ArticlesController;
@@ -38,6 +37,10 @@ Route::prefix('generic-page/{id}')->group(function() {
 });
 
 Route::prefix('generic-pages')->group(function() {
+    Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
+Route::prefix('edit-generic-page/{id}')->group(function() {
     Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 

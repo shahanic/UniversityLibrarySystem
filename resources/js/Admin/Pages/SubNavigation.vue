@@ -66,23 +66,24 @@ import AddSubNavigationModal from '@/Admin/Modals/AddSubNavigationModal.vue';
 
 const route = useRoute();
 const subnav = subnavigationsStore()
-const{form} = storeToRefs(subnav)  
+const{form} = storeToRefs(subnav) 
 
 onMounted(async () => {
     const id = ref(route.params.id);
     await subnav.fetchSubNavData(id.value);
   });  
 
-
 const showModal = ref(false);
 const currentSubNav = ref(null);  // To store the user being edited
 
+
 const saveSubNav = () => {
+  const id = ref(route.params.id);
   if (currentSubNav.value) {
     subnav.editSubNav(form.value);
-    subnav.save();
+    subnav.save(id);
   } else {
-    subnav.save();
+    subnav.save(id);
   }
   showModal.value = false;  // Close the modal after saving
 };

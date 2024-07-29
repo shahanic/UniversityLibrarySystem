@@ -2,8 +2,9 @@ import Index from "./Pages/Index.vue";
 import Navigation from "./Pages/Navigation.vue";
 import ArticlePages from "./Pages/ArticlePages.vue";
 import ArticlePage from "./Pages/ArticlePage.vue";
-import GenericPages from "./Pages/GenericPages.vue";
 import GenericPage from "./Pages/GenericPage.vue";
+import GenericPages from "./Pages/GenericPages.vue";
+import EditGenericPage from "./Pages/EditGenericPage.vue";
 import Faqs from "./Pages/Faqs.vue";
 import QuickLinks from "./Pages/QuickLinks.vue";
 import Accounts from "./Pages/Accounts.vue";
@@ -30,10 +31,17 @@ export const routes = [
         name: "GenericPage",
         component: GenericPage
     },
+
     {
         path: '/generic-pages',
         name: "GenericPages",
         component: GenericPages
+    },
+
+    {
+        path: '/edit-generic-page/:id',
+        name: "EditGenericPage",
+        component: EditGenericPage
     },
 
     {

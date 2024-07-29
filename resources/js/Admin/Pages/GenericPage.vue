@@ -17,12 +17,12 @@
                                     <td style="width: 30%">{{ item.title }}</td>
                                     <td style="width: 48%">{{ item.submenu }}</td>
                                     <td>
-                                        <button @click="subnav.editPage(item)">Preview</button>
-                                        <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'ArticlePage', params: {id: item.id}}">Edit</router-link>
-                                        <button @click="deleteArticle">Delete</button>
+                                        <!-- <button @click="subnav.editPage(item)">Preview</button> -->
+                                        <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'EditGenericPage', params: {id: item.id}}">Edit</router-link>
+                                        <button @click="deletePage">Delete</button>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tbody> 
                         </table>
                     </div>
             </div>
@@ -43,22 +43,18 @@ const route = useRoute();
 
 //pages
 const genericpages = genericpagesStore()
-const{form} = storeToRefs(genericpages)  
+const{form, currentPage} = storeToRefs(genericpages)  
 
 onMounted(async () => {
-    const id = ref(route.params.id);
-    await genericpages.fetchPageData(id.value);
+    const id = route.params.id;
+    await genericpages.fetchPageData(id);
 });     
 
-//articles
-const articlepagestore = articlesStore();
-const { currentArticle } = storeToRefs(articlepagestore);
-
-function deleteArticle() {
-  if (currentArticle.value && confirm('Are you sure you want to delete this article?')) {
-    articlepagestore.deleteArticle(currentArticle.value.id);
+  function deletePage() {
+    if (currentPage.value && confirm('Are you sure you want to delete this page?')) {
+        genericpages.deletePages(currentPage.value.id);
+    }
   }
-}
 
 </script>
 

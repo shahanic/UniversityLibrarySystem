@@ -19,6 +19,7 @@
                                     <td>
                                         <!-- <button @click="subnav.editPage(item)">Preview</button> -->
                                         <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'EditGenericPage', params: {id: item.id}}">Edit</router-link>
+                                        <button @click="deletePages(item.id)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
                                         <!-- <button @click="deleteArticle">Delete</button> -->
                                     </td>
                                 </tr>
@@ -43,6 +44,10 @@ const{generics} = storeToRefs(genericpages)
 onMounted(() => {
   genericpages.fetchPagesData();
 }); 
+        
+const deletePages = (id) => {
+    genericpages.deletePages(id);
+};
 </script>
 
 

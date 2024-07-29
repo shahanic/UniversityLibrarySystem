@@ -64,6 +64,13 @@ export const genericpagesStore = defineStore('generics', {
               alert('Failed to delete page.');
             }
         },
+        // deletePages(id){
+        //     if(confirm('are you sure you want to delete this user?')){
+        //         axios.post('/delete-pages', id).then(({data})=>{
+        //             this.getter();
+        //         })
+        //     }
+        // },
 
         async fetchPageData(id){
             try {
@@ -77,7 +84,7 @@ export const genericpagesStore = defineStore('generics', {
         async editPageData(id){
             try {
                 const response = await axios.get(`/edit-page/${id}`);
-                this.currentPage = response.data;
+                this.currentPage = response.data[0]||null;
             } catch (error) {
                 console.error('Error fetching page data:', error);
             }

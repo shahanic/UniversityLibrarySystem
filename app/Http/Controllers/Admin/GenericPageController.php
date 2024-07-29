@@ -56,7 +56,7 @@ class GenericPageController extends Controller
     public function retrieveEditPage($id){
         return DB::table('sub_menus')
         ->rightjoin('generics', 'sub_menus.id', '=', 'generics.sub_menu_id')
-        ->where('sub_menus.id', $id)
+        ->where('generics.id', $id)
         ->select('generics.id', 'generics.title', 'generics.menu_title', 'generics.slug', 'generics.abstract', 'generics.content', 'generics.navigation_id', 'generics.sub_menu_id', 'sub_menus.submenu')
         ->get();
     }

@@ -23,7 +23,7 @@
           <div class="mb-4">
             <h2 class="text-base font-bold">Content</h2>
             <form @submit.prevent="saveContent(articlex)">
-              <ckeditor :editor="editor" v-model="currentArticle.content" :config="editorConfig"></ckeditor>
+           
               <button
                 type="submit"
                 class="bg-blue-500 text-white px-4 py-2 rounded mt-4"
@@ -49,7 +49,7 @@
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
-import CKEditor from '@ckeditor/ckeditor5-vue';
+
 import { storeToRefs } from 'pinia';
 
 // Access the Pinia store

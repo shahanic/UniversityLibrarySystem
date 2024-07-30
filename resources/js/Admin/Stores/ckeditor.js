@@ -282,7 +282,7 @@ export const ckStore = defineStore( 'ck', {
                     uploadUrl: '/super-user/upload-article-pics/',
                     withCredentials: true,
                     headers: {
-                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+                        // 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                         // Authorization: document.head.querySelector('meta[name="csrf-token"]').content,
                         // params: {
                         //     _token: document.head.querySelector('meta[name="csrf-token"]').content

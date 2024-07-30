@@ -1,4 +1,4 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -6,10 +6,8 @@ import { ref } from "vue";
 export const genericpagesStore = defineStore('generics', {
     state: () =>{
         return{
-            editor: ClassicEditor,
-            editorConfig: {
-            toolbar: ['undo', 'redo', '|', 'heading', '|', 'bold', 'italic', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
-            },
+            isLayoutReady: true,
+			config: null, // CKEditor needs the DOM tree before calculating the configuration.
             form:{
                 title:'',
                 slug: '',
@@ -65,13 +63,6 @@ export const genericpagesStore = defineStore('generics', {
               alert('Failed to delete page.');
             }
         },
-        // deletePages(id){
-        //     if(confirm('are you sure you want to delete this user?')){
-        //         axios.post('/delete-pages', id).then(({data})=>{
-        //             this.getter();
-        //         })
-        //     }
-        // },
 
         async fetchPageData(id){
             try {
@@ -85,27 +76,12 @@ export const genericpagesStore = defineStore('generics', {
         async editPageData(id){
             try {
                 const response = await axios.get(`/edit-page/${id}`);
+                // console.log(response.data);
                 this.currentPage = response.data[0]||null;
             } catch (error) {
                 console.error('Error fetching page data:', error);
             }
         }
-    },
-    async addPage(page) {
-        try {
-            console.log('Data to be sent:', page);
-          await axios.post('/add-page', page);
-          this.$reset();
-          await this.fetchPagesData();
-          alert('Page added successfully!');
-        } catch (error) {
-          console.error('Error adding page:', error);
-          alert('Failed to add page.');
-        }
-      }
-      
-
-
-    
+    }   
 });
 

@@ -4,14 +4,13 @@ import { faqsStore } from '@/Admin/Stores/faqsStores';
 import { storeToRefs } from 'pinia';
 import AddFaqModal from '@/Admin/Modals/AddFaqModal.vue';
 
-
 const faq = faqsStore();
 const { form } = storeToRefs(faq);
 
 faq.getter();
 
 const showModal = ref(false);
-const currentFaq = ref(null);  // To store the user being edited
+const currentFaq = ref(null);
 
 const saveFaq = () => {
   if (currentFaq.value) {
@@ -20,172 +19,199 @@ const saveFaq = () => {
   } else {
     faq.save();
   }
-  showModal.value = false;  // Close the modal after saving
+  showModal.value = false;
 };
 
 const addFaq = () => {
-  currentFaq.value = null;  // Clear current user for adding a new user
+  currentFaq.value = null;
   showModal.value = true;
 };
 
 const editFaq = (faqx) => {
-  currentFaq.value = faqx;  // Set the user to be edited
-  Object.assign(form.value, faqx);  // Populate form with user data
+  currentFaq.value = faqx;
+  Object.assign(form.value, faqx);
   showModal.value = true;
 };
 
 const deleteFaq = (faqx) => {
-    faq.deleteFaq(faqx);
+  faq.deleteFaq(faqx);
 };
 </script>
+
 
 <template>
   <admin-layout>
     <template v-slot:main>
-      <div>
-        <br>
-        <h2>FAQS</h2>
-        <p></p>
+      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <h2 style="text-align: center; margin-bottom: 10px;">FAQS</h2>
 
-        <button @click="addFaq" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Faq</button>    
-        <AddFaqModal :isVisible="showModal" @close="showModal = false "@save="saveFaq">
+        <button @click="addFaq" class="button button-add">Add New FAQ</button>
+
+        <AddFaqModal :isVisible="showModal" @close="showModal = false" @save="saveFaq">
           <div>
-        <!--  -->
-        <div>
-          <h1 style="text-align: center;">Add Faq</h1>
-        </div>
-        <!--  -->
+            <div class="modal-header">
+              <h1>Add FAQ</h1>
+            </div>
 
-        <div>
-            <label for="name">Question:</label><br>
-            <input type="text" v-model="form.question" class="w-full rounded-lg border-gray-300">
-        </div>
-        <div>
-          <label for="email">Answer:</label><br>
-          <input type="text" v-model="form.answer" class="w-full rounded-lg border-gray-300">
-        </div>
-
-        <div>
-          <label for="role">Category:</label><br>
-          <select v-model="form.category" class="w-full rounded-lg border-gray-300">
-              <option value="1">1</option>
-              <option value="2">2</option>
-          </select>
-        </div>
-        <div>
-          <label for="role">Satus:</label><br>
-          <select v-model="form.status" class="w-full rounded-lg border-gray-300">
-              <option value="1">1</option>
-              <option value="2">2</option>
-          </select>
-        </div>
-     
-        <!-- <div class="flex justify-start  ">
-          <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-        </div> -->
-      </div>
+            <div>
+              <label for="question">Question:</label><br>
+              <input type="text" v-model="form.question" class="input-text">
+            </div>
+            <div>
+              <label for="answer">Answer:</label><br>
+              <input type="text" v-model="form.answer" class="input-text">
+            </div>
+            <div>
+              <label for="category">Category:</label><br>
+              <select v-model="form.category" class="input-text">
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            <div>
+              <label for="status">Status:</label><br>
+              <select v-model="form.status" class="input-text">
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+          </div>
         </AddFaqModal>
-        <br>
-        <br>
-        <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
-        <thead>
-            <tr class="bg-gray-200 text-white">
-                <th class="border border-gray-300 p-2 font-bold">#</th>
-                <th class="border border-gray-300 p-2 font-bold">Question</th>
-                <th class="border border-gray-300 p-2 font-bold">Answer</th>
-                <th class="border border-gray-300 p-2 font-bold">Category</th>
-                <th class="border border-gray-300 p-2 font-bold">Status</th>
-                <th class="border border-gray-300 p-2 font-bold">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(faqx, index) in faq.faqs" :key="index" class="bg-white">
-                <td class="border border-gray-300 text-gray-700 p-2">{{ index + 1 }}</td>
-                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.question }}</td>
-                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.answer }}</td>
-                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.category }}</td>
-                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.status }}</td>
-                <td class="border border-gray-300 text-center p-2">
-                    <button @click="editFaq(faqx)" class="bg-yellow-500 text-white px-3 py-2 rounded hover:bg-yellow-600 transition duration-300 mr-3">
-                        <i class="bi bi-pencil-square text-black "></i> 
-                    </button>
-                    <button @click="deleteFaq(faqx)" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition duration-300">
-                        <i class="fw-bold text-white bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
 
+        <br>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th class="actions-header">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(faqx, index) in faq.faqs" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ faqx.question }}</td>
+              <td>{{ faqx.answer }}</td>
+              <td>{{ faqx.category }}</td>
+              <td>{{ faqx.status }}</td>
+              <td class="actions">
+                <button @click="editFaq(faqx)" class="button button-edit">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button @click="deleteFaq(faqx)" class="button button-delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </template>
   </admin-layout>
 </template>
-
 <style scoped>
-.container {
-width: 100%;
-padding: 100px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-border-radius: 8px;
-background-color: #fff;
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
+.button-add {
+  margin-bottom: 20px;
 }
 
-h2 {
-margin: 0;
-font-size: 1.2em;
-font-weight: bold;
-padding-left: 7px;
-text-align: center;
+.input-text {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px;
 }
 
-.view-details {
-text-decoration: none;
-color: #007BFF;
-font-size: 0.9em;
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
-table {
-width: 100%;
-border-collapse: collapse;
+.styled-table thead {
+  background-color: #d3d3d3;
+  color: black;
 }
 
-th, td {
-padding: 8px;
-text-align: left;
-border-bottom: 1px solid #eee;
+.styled-table th {
+  padding: 10px 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  text-align: left;
 }
 
-th {
-font-weight: normal;
-color: #666;
+.styled-table th.actions-header {
+  text-align: center;
 }
 
-.avatar {
-border-radius: 50%;
-width: 32px;
-height: 32px;
-margin-right: 8px;
-vertical-align: middle;
+.styled-table tbody {
+  background-color: #ffffff;
 }
 
-.leave {
-color: #FF4500;
+.styled-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px;
 }
 
-.negative {
-color: #FF4500;
+.styled-table tbody td {
+  padding: 10px 15px;
+  font-size: 0.875em;
+  color: #333;
 }
 
-.positive {
-color: #4CAF50;
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.button-edit:hover {
+  background-color: #e0a800;
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: #c82333;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 </style>

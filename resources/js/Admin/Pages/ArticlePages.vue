@@ -1,120 +1,139 @@
 <template>
   <admin-layout>
-      <template v-slot:main>
-        <br>
-      <h2> Article Pages</h2>
-      <br>
-            <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
-    <thead>
-        <tr class="bg-gray-200 text-white">
-            <th class="border border-gray-300 p-2 font-bold">Title</th>
-            <th class="border border-gray-300 p-2 font-bold">Content</th>
-            <th class="border border-gray-300 p-2 font-bold">Page</th>
-            <th class="border border-gray-300 p-2 font-bold">Actions</th>
-        </tr>
-    </thead>  
-    <tbody>
-        <tr v-for="(articlex, i) in articles" :key="i" class="bg-white">
-            <td class="border border-gray-300 text-gray-700 p-2">{{articlex.title}}</td>
-            <td class="border border-gray-300 text-gray-700 p-2">{{articlex.content}}</td>
-            <td class="border border-gray-300 text-gray-700 p-2">{{articlex.pages_id}}</td>
-            <td class="border border-gray-300 text-center p-2">
-                <router-link :to="{ name: 'ArticlePage', params: { id: articlex.id }}">
-                  <button @click="navigate" class="bg-yellow-500 text-white px-3 py-2 rounded hover:bg-yellow-600 transition duration-300">
-                    <i class="bi bi-pencil-square text-black "></i>
+    <template v-slot:main>
+      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <h2 style="text-align: center; margin-bottom: 10px;">Article Pages</h2>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Content</th>
+              <th>Page</th>
+              <th class="actions-header">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(articlex, i) in articles" :key="i">
+              <td>{{ articlex.title }}</td>
+              <td>{{ articlex.content }}</td>
+              <td>{{ articlex.pages_id }}</td>
+              <td class="actions">
+                <router-link :to="{ name: 'ArticlePage', params: { id: articlex.id } }" custom v-slot="{ navigate }">
+                  <button @click="navigate" class="button button-edit">
+                    <i class="bi bi-pencil-square"></i>
                   </button>
                 </router-link>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<br>
- 
-
-      </template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+      </div>
+    </template>
   </admin-layout>
 </template>
-
 <script setup>
 import { onMounted } from 'vue';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import { storeToRefs } from 'pinia';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-// Access the Pinia store
 const articlepage = articlesStore();
 const { articles } = storeToRefs(articlepage);
 
-// Fetch articles data when the component is mounted
 onMounted(() => {
   articlepage.fetchArticlesData();
 });
 </script>
 
 <style scoped>
-.container {
-width: 100%;
-padding: 100px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-border-radius: 8px;
-background-color: #fff;
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
-.header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
+.styled-table thead {
+  background-color: #d3d3d3;
+  color: black;
 }
 
-h2 {
-margin: 0;
-font-size: 1.2em;
-font-weight: bold;
-padding-left: 7px;
-text-align: center;
+.styled-table th {
+  padding: 10px 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  text-align: left;
 }
 
-.view-details {
-text-decoration: none;
-color: #007BFF;
-font-size: 0.9em;
+.styled-table th.actions-header {
+  text-align: center;
 }
 
-table {
-width: 100%;
-border-collapse: collapse;
+.styled-table tbody {
+  background-color: #ffffff;
 }
 
-th, td {
-padding: 8px;
-text-align: left;
-border-bottom: 1px solid #eee;
+.styled-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px;
 }
 
-th {
-font-weight: normal;
-color: #666;
+.styled-table tbody td {
+  padding: 10px 15px;
+  font-size: 0.875em;
+  color: #333;
 }
 
-.avatar {
-border-radius: 50%;
-width: 32px;
-height: 32px;
-margin-right: 8px;
-vertical-align: middle;
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.leave {
-color: #FF4500;
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
-.negative {
-color: #FF4500;
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.positive {
-color: #4CAF50;
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.button-edit:hover {
+  background-color: #e0a800;
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: #c82333;
+}
+
+.button i {
+  font-size: 1.2em;
 }
 </style>

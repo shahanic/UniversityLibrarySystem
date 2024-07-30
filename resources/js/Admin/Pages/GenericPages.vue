@@ -1,119 +1,147 @@
 <template>
-    <admin-layout>
-        <template v-slot:main> 
-      
-                <h2>Generic Pages</h2>
-                    <div v-if="genericpages.allgenerics.length">
-                      <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
-                      <thead>
-                          <tr class="bg-gray-200 text-white">
-                              <th class="border border-gray-300 p-2 font-bold">Title</th>
-                              <th class="border border-gray-300 p-2 font-bold">Submenu</th>
-                              <th class="border border-gray-300 p-2 font-bold">Actions</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr v-for="item in genericpages.allgenerics" :key="item.id" class="bg-white">
-                              <td class="border border-gray-300 text-gray-700 p-2" style="width: 30%">{{ item.title }}</td>
-                              <td class="border border-gray-300 text-gray-700 p-2" style="width: 48%">{{ item.submenu }}</td>
-                              <td class="border border-gray-300 text-center p-2">
-                                  <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" class="bg-yellow-500 text-white px-3 py-2 rounded mr-3 hover:bg-blue-600 transition duration-300"><i class="bi bi-pencil-square fw-bold text-black"></i></router-link>
-                                  <button @click="deletePage(item)" class="bg-red-400 text-black px-3 py-1.5 rounded hover:bg-red-500 transition duration-300"><i class="bi bi-trash fw-bold text-white "> </i></button>
-                              </td>
-                          </tr>
-                      </tbody>
-</table>
-
-            </div>
-        </template>
-    </admin-layout>
+  <admin-layout>
+    <template v-slot:main>
+      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
+        <div v-if="genericpages.allgenerics.length">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Submenu</th>
+                <th class="actions-header">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in genericpages.allgenerics" :key="item.id">
+                <td>{{ item.title }}</td>
+                <td>{{ item.submenu }}</td>
+                <td class="actions">
+                  <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" custom v-slot="{ navigate }">
+                    <button @click="navigate" class="button button-edit">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </router-link>
+                  <button @click="deletePage(item)" class="button button-delete">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </template>
+  </admin-layout>
 </template>
-
-
 <script setup>
 import { onMounted } from 'vue';
 import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { storeToRefs } from 'pinia';
 
-
-const genericpages = genericpagesStore()
-const{currentPage} = storeToRefs(genericpages)  
+const genericpages = genericpagesStore();
+const { currentPage } = storeToRefs(genericpages);
 
 onMounted(() => {
   genericpages.fetchPagesData();
-}); 
+});
 
-function deletePage() {
-    if (currentPage.value && confirm('Are you sure you want to delete this page?')) {
-        genericpages.deletePages(currentPage.value.id);
-    }
+const deletePage = (item) => {
+  if (confirm('Are you sure you want to delete this page?')) {
+    genericpages.deletePages(item.id);
   }
+};
 </script>
 
 
 <style scoped>
-.container {
+.styled-table {
   width: 100%;
-  padding: 100px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-collapse: collapse;
   border-radius: 8px;
-  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+.styled-table thead {
+  background-color: #d3d3d3;
+  color: black;
 }
 
-h2 {
-  margin: 0;
-  font-size: 1.2em;
+.styled-table th {
+  padding: 10px 15px;
   font-weight: bold;
-  padding-left: 7px;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  text-align: left;
+}
+
+.styled-table th.actions-header {
   text-align: center;
 }
 
-.view-details {
-  text-decoration: none;
-  color: #007BFF;
-  font-size: 0.9em;
+.styled-table tbody {
+  background-color: #ffffff;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.styled-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px;
 }
 
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
+.styled-table tbody td {
+  padding: 10px 15px;
+  font-size: 0.875em;
+  color: #333;
 }
 
-th {
-  font-weight: normal;
-  color: #666;
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.avatar {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  vertical-align: middle;
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
-.leave {
-  color: #FF4500;
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.negative {
-  color: #FF4500;
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.positive {
-  color: #4CAF50;
+.button-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.button-edit:hover {
+  background-color: #e0a800;
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: #c82333;
+}
+
+.button i {
+  font-size: 1.2em;
 }
 </style>

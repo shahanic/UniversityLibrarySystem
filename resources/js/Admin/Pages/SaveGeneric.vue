@@ -21,7 +21,7 @@
             <div class="mb-4">
               <h2 class="text-base font-bold">Content</h2>
               <form @submit.prevent="savePage()">
-                <ckeditor :editor="editor" v-model="newPage.content" :config="editorConfig"></ckeditor>
+               
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
                   Save
                 </button>
@@ -35,12 +35,13 @@
   
   <script setup>
   import { ref } from 'vue';
-  import CKEditor from '@ckeditor/ckeditor5-vue';
+
   import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
   import { storeToRefs } from 'pinia';
   
   const genericpages = genericpagesStore();
   const { editor, editorConfig } = storeToRefs(genericpages);
+  const currentPage = ref(null);  // To store the user being edited
   
   const newPage = ref({
     title: '',
@@ -48,11 +49,16 @@
     content: ''
   });
   
-  function savePage() {
-    if (genericpages.form) {
-        genericpages.addPage(genericpages.form);
-    }
-}
+  const savePage = () => {
+  const id = ref(route.params.id);
+  if (currentPage.value) {
+
+    genericpages.save(id);
+  } else {
+    genericpages.save(id);
+  }
+  showModal.value = false;  // Close the modal after saving
+};
 
   </script>
   

@@ -1,74 +1,69 @@
 <template>
-    <admin-layout>
-        <template v-slot:main>
-           <!-- <h1 style="padding:20px"></h1> -->
-            <br>
-           <h2>Main Navigation List</h2>
-           
-            <button @click="addNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Menu</button>
-            <br><br>
-              <AddNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveNav">
-              <div>
-                    <!--  -->
-               <div>
-               <h1 style="text-align: center;">Add Menu</h1>
-              </div>
-                      <!--  -->
+  <admin-layout>
+    <template v-slot:main>
+      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <h2 style="text-align: center; margin-bottom: 10px;">MAIN NAVIGATION</h2>
+        <div class="add-menu-button">
+          <button @click="addNav" class="button button-add">ADD NEW MENU</button>
+        </div>
 
-                <div>
+        <transition name="modal-fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
+          <AddNavigationModal v-if="showModal" :isVisible="showModal" @close="showModal = false" @save="saveNav">
+            <div>
+              <div class="modal-header">
+                <h1>Add Menu</h1>
+              </div>
+              <div>
                 <label for="menu">Menu:</label><br>
-                <input type="text" v-model="form.menu" class="w-full rounded-lg border-gray-300">
-                </div>
-                <div>
-         
-                   <!-- <div class="flex justify-start  ">
-                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-                    </div> -->
+                <input type="text" v-model="form.menu" class="input-text">
               </div>
             </div>
-        </AddNavigationModal>
-        <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
-    <thead>
-        <tr class="bg-gray-200 text-white">
-            <th class="border border-gray-300 p-2 font-bold">Title</th>
-            <th class="border border-gray-300 p-2 font-bold">Actions</th>
-        </tr>
-    </thead>  
+          </AddNavigationModal>
+        </transition>
 
-    <tbody>
-        <tr v-for="navx in nav.navigations" :key="navx.id" class="bg-white">
-            <td class="border border-gray-300 text-gray-700 p-2" style="width: 78%;">{{ navx.menu }}</td>
-            <td class="border border-gray-300 text-center p-2">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th class="actions-header">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="navx in nav.navigations" :key="navx.id">
+              <td>{{ navx.menu }}</td>
+              <td class="actions">
                 <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
-                    <button @click="navigate" class="bg-green-700 text-white px-2 py-1 rounded mr-3 hover:bg-green-800 transition duration-300">View</button>
+                  <button @click="navigate" class="button button-view">
+                    <i class="bi bi-eye" style="margin-right: 8px;"></i>   View
+                  </button>
                 </router-link>
-                <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3 hover:bg-yellow-500 transition duration-300"> <i class="bi bi-pencil-square fw-bold "></i> </button>
-                <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded hover:bg-red-500 transition duration-300"> <i class="bi bi-trash fw-bold text-white "> </i>  </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<br>
-                
-
-           
-         
-        </template>
-    </admin-layout>
+                <button @click="editNav(navx)" class="button button-edit">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button @click="deleteNav(navx)" class="button button-delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </template>
+  </admin-layout>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import {navigationStore}from '@/Admin/Stores/navigationStores';
-import {storeToRefs} from 'pinia';
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import { navigationStore } from '@/Admin/Stores/navigationStores';
+import { storeToRefs } from 'pinia';
 import AddNavigationModal from '@/Admin/Modals/AddNavigationModal.vue';
-const nav = navigationStore()
-const{form} = storeToRefs(nav)  
+
+const nav = navigationStore();
+const { form } = storeToRefs(nav);
 
 nav.getter();
 const showModal = ref(false);
-const currentNav = ref(null);  // To store the user being edited
+const currentNav = ref(null);
 
 const saveNav = () => {
   if (currentNav.value) {
@@ -77,90 +72,150 @@ const saveNav = () => {
   } else {
     nav.save();
   }
-  showModal.value = false;  // Close the modal after saving
+  showModal.value = false;
 };
 
 const addNav = () => {
-  currentNav.value = null;  // Clear current nav for adding a new nav
+  currentNav.value = null;
   showModal.value = true;
 };
 
 const editNav = (navx) => {
-  currentNav.value = navx;  // Set the nav to be edited
-  Object.assign(form.value, navx);  // Populate form with nav data
+  currentNav.value = navx;
+  Object.assign(form.value, navx);
   showModal.value = true;
 };
 
 const deleteNav = (navx) => {
   nav.deleteNavs(navx);
 };
-
 </script>
 
-
 <style scoped>
-.container {
+.add-menu-button {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* margin-right: 10px; */
+}
+
+.button-add {
+  margin-bottom: 0;
+}
+
+.input-text {
   width: 100%;
-  padding: 100px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.styled-table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
   border-radius: 8px;
-  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+.styled-table thead {
+  background-color: #d3d3d3;
+  color: black;
 }
 
-h2 {
-  margin: 0;
-  font-size: 1.2em;
+.styled-table th {
+  padding: 10px 15px;
   font-weight: bold;
-  padding-left: 7px;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  text-align: left;
+}
+
+.styled-table th.actions-header {
   text-align: center;
 }
 
-.view-details {
-  text-decoration: none;
-  color: #007BFF;
-  font-size: 0.9em;
+.styled-table tbody {
+  background-color: #ffffff;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.styled-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px; /* Adjusted row height */
 }
 
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
+.styled-table tbody td {
+  padding: 10px 15px;
+  font-size: 0.875em;
+  color: #333;
 }
 
-th {
-  font-weight: normal;
-  color: #666;
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.avatar {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  vertical-align: middle;
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
-.leave {
-  color: #FF4500;
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.negative {
-  color: #FF4500;
+.button-view, .button-edit, .button-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.positive {
-  color: #4CAF50;
+.button-view i, .button-edit i, .button-delete i {
+  font-size: 1.2em; /* Adjusted icon size */
+}
+
+.button-view {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button-view:hover {
+  background-color: #45a049;
+}
+
+.button-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.button-edit:hover {
+  background-color: #e0a800;
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: #c82333;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 </style>

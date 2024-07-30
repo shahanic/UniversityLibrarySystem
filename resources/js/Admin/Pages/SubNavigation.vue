@@ -1,56 +1,52 @@
 <template>
     <admin-layout>
         <template v-slot:main>     
-        <div class="container mx-auto p-4">
+          <h2> Sub Navigation List</h2>
           <button @click="addSubNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Sub Menu</button>
-    
-        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
-        <div>
-        <!--  -->
-        <div>
-               <h1 style="text-align: center;">Add Sub Menu</h1>
+           <br><br>
+          <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
+            <div>
+            <!--  -->
+              <div>
+                <h1 style="text-align: center;">Add Sub Menu</h1>
               </div>
-                      <!--  -->
-
-                <div>
-                <label for="menu">Sub Menu:</label><br>
-                <input type="text" v-model="form.submenu" class="w-full rounded-lg border-gray-300">
-                </div>
-                <div>
-         
-                   <!-- <div class="flex justify-start  ">
-                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-                    </div> -->
+              <!--  -->
+              <div>
+              <label for="menu">Sub Menu:</label><br>
+              <input type="text" v-model="form.submenu" class="w-full rounded-lg border-gray-300">
               </div>
-    </div>
+              <div>
+                    <!-- <div class="flex justify-start  ">
+                    <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
+                      </div> -->
+              </div>
+            </div>
         </AddSubNavigationModal>
-                <h2> Sub Navigation List</h2>
-                    <div v-if="subnav.sub_menus.length">
-                        <table >
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Navigation</th>
-                                    <th> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in subnav.sub_menus" :key="item.id">
-                                    <td style="width: 30%">{{ item.submenu }}</td>
-                                    <td style="width: 48%">{{ item.menu }}</td>
-                                    <td>
-                                        <router-link style="padding-left: 20px" :to="{name: 'GenericPage', params: {id: item.id}}" custom v-slot="{ navigate }">
-                                          <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">Pages</button>
-                                        </router-link>
-                                        <button @click="editSubNav(item)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                                        <button @click="deleteSubNav(item)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-          </div>
-        </template>
+        <div v-if="subnav.sub_menus.length">
+          <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
+          <thead>
+            <tr class="bg-gray-200 text-white">
+              <th class="border border-gray-300 p-2 font-bold">Title</th>
+              <th class="border border-gray-300 p-2 font-bold">Navigation</th>
+              <th class="border border-gray-300 p-2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in subnav.sub_menus" :key="item.id" class="bg-white">
+              <td class="border border-gray-300 text-gray-700 p-2" style="width: 30%">{{ item.submenu }}</td>
+              <td class="border border-gray-300 text-gray-700 p-2" style="width: 48%">{{ item.menu }}</td>
+              <td class="border border-gray-300 text-center p-2">
+                <router-link :to="{ name: 'GenericPage', params: { id: item.id } }" custom v-slot="{ navigate }">
+                  <button @click="navigate" class="bg-green-700 text-white px-3 py-2 rounded mr-3 hover:bg-green-800 transition duration-300">Pages</button>
+                </router-link>
+                  <button @click="editSubNav(item)" class="bg-yellow-500 text-white px-3 py-2 rounded mr-3 hover:bg-yellow-600 transition duration-300"><i class="bi bi-pencil-square fw-bold text-black"></i></button>
+                  <button @click="deleteSubNav(item)" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition duration-300"><i class="bi bi-trash fw-bold text-white "> </i></button>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+       </div>
+      </template>
     </admin-layout>
 </template>
 

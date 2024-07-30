@@ -31,7 +31,7 @@
                   Save
                 </button>
                 <button
-                  @click="deletePage"
+                  @click="deletePage(currentPage.id)"
                   type="button"
                   class="bg-red-500 text-white px-4 py-2 rounded mt-4 ml-2"
                 >
@@ -69,15 +69,21 @@
   
   function savePage() {
     if (currentPage.value) {
-        genericpages.save();
+    genericpages.save(() => {
+      router.push({ name: 'GenericPages' });  // Replace 'GenericPagesList' with the actual route name for your generic pages list
+    });
     }
   }
   
-  function deletePage() {
-    if (currentPage.value && confirm('Are you sure you want to delete this article?')) {
-        genericpages.deletePages(currentPage.value.id);
-    }
+  // function deletePage() {
+  //   if (currentPage.value && confirm('Are you sure you want to delete this article?')) {
+  //       genericpages.deletePages(currentPage.value.id);
+  //   }
+  // }
+  const deletePage = (id) =>{
+    genericpages.deletePages(id)
   }
+  
   </script>
   
   

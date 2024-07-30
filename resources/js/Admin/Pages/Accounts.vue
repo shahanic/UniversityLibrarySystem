@@ -46,13 +46,14 @@ const deleteUser = (userx) => {
         <h1>Accounts Here</h1>
         <p></p>
         <button @click="addUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Account</button>
-        
+        <br><br>
         <AddAccountModal :isVisible="showModal" @close="showModal = false "@save="saveUser">
           <div>
         <!--  -->
         <div>
           <h1 style="text-align: center;">Add Account</h1>
         </div>
+        
         <!--  -->
 
         <div>
@@ -85,34 +86,103 @@ const deleteUser = (userx) => {
       </div>
         </AddAccountModal>
 
-        <table class="min-w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-500">
-              <th class="border border-white-300 text-white p-2">#</th>
-              <th class="border border-white-300 text-white p-2">Name</th>
-              <th class="border border-white-300 text-white p-2">Email</th>
-              <th class="border border-white-300 text-white p-2">Username</th>
-              <th class="border border-white-300 text-white p-2">Role</th>
-              <th class="border border-white-300 text-white p-2">Password</th>    
-              <th class="border border-white-300 text-white p-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(userx, index) in user.users" :key="index" class="bg-white-200">
-              <td class="border border-white-300 text-black p-2">{{ index + 1 }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.name }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.email }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.username }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.role }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.password }}</td>
-              <td class="border border-white-300 text-black p-2 text-center">
-                <button @click="editUser(userx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                <button @click="deleteUser(userx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        
+        <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
+    <thead>
+        <tr class="bg-gray-200 text-white">
+            <th class="border border-gray-300 p-2 font-bold">Name</th>
+            <th class="border border-gray-300 p-2 font-bold">Email</th>
+            <th class="border border-gray-300 p-2 font-bold">Username</th>
+            <th class="border border-gray-300 p-2 font-bold">Role</th>
+            <th class="border border-gray-300 p-2 font-bold">Password</th>
+            <th class="border border-gray-300 p-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(userx, index) in user.users" :key="index" class="bg-white">
+            <td class="border border-gray-300 text-gray-700 p-2" style="width: 15%">{{ userx.name }}</td>
+            <td class="border border-gray-300 text-gray-700 p-2" style="width: 30%">{{ userx.email }}</td>
+            <td class="border border-gray-300 text-gray-700 p-2" style="width: 15%">{{ userx.username }}</td>
+            <td class="border border-gray-300 text-gray-700 p-2" style="width: 7%">{{ userx.role }}</td>
+            <td class="border border-gray-300 text-gray-700 p-2" style="width: 15%">{{ userx.password }}</td>
+            <td class="border border-gray-300 text-center p-2">
+                <button @click="editUser(userx)" class="bg-yellow-500 text-white px-3 py-2 rounded mr-3 hover:bg-yellow-500 transition duration-300"><i class="bi bi-pencil-square fw-bold text-black"></i></button>
+                <button @click="deleteUser(userx)" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition duration-300"><i class="bi bi-trash fw-bold text-white "> </i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
       </div>
     </template>
   </admin-layout>
 </template>
+
+
+<style scoped>
+.container {
+  width: 100%;
+  padding: 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding-left: 7px;
+  text-align: center;
+}
+
+.view-details {
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 0.9em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  font-weight: normal;
+  color: #666;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.leave {
+  color: #FF4500;
+}
+
+.negative {
+  color: #FF4500;
+}
+
+.positive {
+  color: #4CAF50;
+}
+</style>

@@ -2,9 +2,11 @@
     <admin-layout>
         <template v-slot:main>
            <!-- <h1 style="padding:20px"></h1> -->
-           <div class="container mx-auto p-4">
+            <br>
+           <h2>Main Navigation List</h2>
+           
             <button @click="addNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Menu</button>
-            <h2>Main Navigation List</h2>
+            <br><br>
               <AddNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveNav">
               <div>
                     <!--  -->
@@ -25,33 +27,31 @@
               </div>
             </div>
         </AddNavigationModal>
-        <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th></th>
-                        </tr>
-                        
-                    </thead> 
+        <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
+    <thead>
+        <tr class="bg-gray-200 text-white">
+            <th class="border border-gray-300 p-2 font-bold">Title</th>
+            <th class="border border-gray-300 p-2 font-bold">Actions</th>
+        </tr>
+    </thead>  
 
+    <tbody>
+        <tr v-for="navx in nav.navigations" :key="navx.id" class="bg-white">
+            <td class="border border-gray-300 text-gray-700 p-2" style="width: 78%;">{{ navx.menu }}</td>
+            <td class="border border-gray-300 text-center p-2">
+                <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
+                    <button @click="navigate" class="bg-green-700 text-white px-2 py-1 rounded mr-3 hover:bg-green-800 transition duration-300">View</button>
+                </router-link>
+                <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3 hover:bg-yellow-500 transition duration-300"> <i class="bi bi-pencil-square fw-bold "></i> </button>
+                <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded hover:bg-red-500 transition duration-300"> <i class="bi bi-trash fw-bold text-white "> </i>  </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+                
 
-                    <tbody>
-                        <tr v-for="navx in nav.navigations":key="i">
-                            <td style="width: 78%;">{{navx.menu}}</td>
-                            <td>
-                              <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
-                              <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">View</button>
-                                  </router-link>
-                              <button @click="editNav(navx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                              <button @click="deleteNav(navx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-                            </td>
-                            
-                        </tr>
-                    </tbody>
-                </table><br>
-
-
-            </div>
+           
          
         </template>
     </admin-layout>

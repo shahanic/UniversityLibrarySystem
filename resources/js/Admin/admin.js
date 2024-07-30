@@ -5,6 +5,7 @@ import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import 'sweetalert';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
+
 import { createRouter, createWebHistory, useRoute } from 'vue-router';
 import { createPinia } from 'pinia';
 import { routes } from './routes';

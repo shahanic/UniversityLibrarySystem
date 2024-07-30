@@ -97,3 +97,5 @@ Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
 Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
 Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
 Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);
+
+Route::post('/add-new-page',[GenericPageController::class, 'savePage']);

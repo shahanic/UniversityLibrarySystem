@@ -1,13 +1,13 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const articlesStore = defineStore('articles', {
   state: () => ({
-    editor: ClassicEditor,
-    editorConfig: {
-      toolbar: ['undo', 'redo', '|', 'heading', '|', 'bold', 'italic', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
-    },
+    // editor: ClassicEditor,
+    // editorConfig: {
+    //   toolbar: ['undo', 'redo', '|', 'heading', '|', 'bold', 'italic', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
+    // },
     currentArticle: null,
     articles: [],
   }),

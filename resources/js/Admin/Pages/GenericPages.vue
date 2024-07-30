@@ -53,6 +53,7 @@ function deletePage() {
 
 
 <style scoped>
+
 .container {
   width: 100%;
   padding: 100px;

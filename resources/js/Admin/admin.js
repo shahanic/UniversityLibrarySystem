@@ -7,8 +7,11 @@ import 'sweetalert';
 import { createRouter, createWebHistory, useRoute } from 'vue-router';
 import { createPinia } from 'pinia';
 import { routes } from './routes';
+import 'ckeditor5/ckeditor5.css';
 
-import CKEditor from '@ckeditor/ckeditor5-vue';
+    
+import CKEditor from '@ckeditor/ckeditor5-vue'; //
+
 
 // vue Router
 const router = createRouter({
@@ -30,13 +33,13 @@ import AdminLayout from './Layouts/AdminLayout.vue';
 // import Images from './Layouts/ImagesLayout.vue'
 
 const app = createApp();
-
 // Vue-x Pinia
 const pinia = createPinia()
-
+app.use(CKEditor); //
 app.use(pinia);
 app.use(router);
 app.component('admin-layout', AdminLayout)
+
 // app.component('generic-layout', GenericPages)
 // app.component('article-layout', ArticlePages)
 // app.component('faqs-layout', Faqs)
@@ -44,7 +47,7 @@ app.component('admin-layout', AdminLayout)
 // app.component('images', Images)
 
 app.use(CKEditor);
-app.component('ck-editor');
+app.component('ckeditor', CKEditor.component);
 
 app.mount('#app');
 

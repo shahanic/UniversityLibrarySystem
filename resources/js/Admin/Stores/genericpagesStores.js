@@ -1,4 +1,4 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -6,10 +6,8 @@ import { ref } from "vue";
 export const genericpagesStore = defineStore('generics', {
     state: () =>{
         return{
-            editor: ClassicEditor,
-            editorConfig: {
-            toolbar: ['undo', 'redo', '|', 'heading', '|', 'bold', 'italic', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
-            },
+            isLayoutReady: true,
+			config: null, // CKEditor needs the DOM tree before calculating the configuration.
             form:{
                 title:'',
                 slug: '',

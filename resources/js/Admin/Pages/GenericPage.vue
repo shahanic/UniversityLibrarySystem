@@ -1,8 +1,8 @@
 <template>
     <admin-layout>
         <template v-slot:main> 
-    
-                <h2>Generic Pages</h2>
+        <h2>Generic Pages</h2>
+        <router-link :to="{ name: 'SaveGeneric' }" class="bg-green-700 text-white px-4 py-2 rounded">Add New Page</router-link>
                     <div v-if="genericpages.generics.length">
                   <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
                   <thead>
@@ -29,6 +29,7 @@
         </template>
     </admin-layout>
 </template>
+
 
 
 <script setup>

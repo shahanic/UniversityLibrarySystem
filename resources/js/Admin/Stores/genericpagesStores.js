@@ -90,6 +90,22 @@ export const genericpagesStore = defineStore('generics', {
                 console.error('Error fetching page data:', error);
             }
         }
-    }   
+    },
+    async addPage(page) {
+        try {
+            console.log('Data to be sent:', page);
+          await axios.post('/add-page', page);
+          this.$reset();
+          await this.fetchPagesData();
+          alert('Page added successfully!');
+        } catch (error) {
+          console.error('Error adding page:', error);
+          alert('Failed to add page.');
+        }
+      }
+      
+
+
+    
 });
 

@@ -6,11 +6,10 @@
          
          <div class="hidden md:flex shadow backdrop-blur-md bg-white/60 w-full  dark:bg-gray-700/60 fixed z-40">
              <div class="w-64 bg-green-700 dark:bg-gray-800/50 flex items-center">
-                 <!-- <h4 class="ml-4 text-white font-semibold ">Bacarra Zanjeras MPC</h4> -->
                  <h4 class="ml-4 text-white font-semibold ">MMSU</h4>
              </div>
              <div class=" flex items-center w-1/6">
-                <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                    <span class="sr-only">Open sidebar</span>
                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
@@ -31,7 +30,7 @@
                  <div class="flex flex-row-reverse">
                      <dropdown>
                          <template #trigger>
-                             <div class="flex item-stretch text-sm cursor-pointer py-2.5 px-4 hover:bg-gray-100  dark:hover:bg-gray-500 dark:text-white gap-2" href="#">
+                             <div class="flex item-stretch text-sm cursor-pointer py-2.5 px-4 hover:bg-white dark:hover:bg-gray-500 dark:text-white gap-2" href="#">
                                  <div><img class="h-8 w-8 rounded-full border-2 border-gray-600 " src="/images/User-Icon.png"></div>
                                  <div class="self-center truncate">{{ $attrs.user.name }}</div>
                                  <div class="self-center">
@@ -56,9 +55,8 @@
              </div>
          </div>
 
-         <main class="flex-grow flex-shrink-0 mt-14 lg:mt-0 z-30 dark:bg-gray-800 bg-gray-100 ">
-
-             <div class="fixed w-full h-screen top-0 blur-sm"> 
+         <main class="flex-grow flex-shrink-0 mt-14 lg:mt-0 z-30 dark:bg-gray-800 bg-white">
+             <!-- <div class="fixed w-full h-screen top-0 blur-sm"> 
                  <div class="flex-col">
                      <div class="flex justify-center mt-32 md:ml-72 ml-24">
                          <div class="w-32 h-32 rounded-full bg-yellow-400 dark:opacity-10 opacity-20"></div>
@@ -74,8 +72,7 @@
                          <div class="w-16 h-16 rounded-full bg-red-500 dark:opacity-10 opacity-20"></div>
                      </div>
                  </div>
-             </div>
-
+             </div> -->
              <div>
                  <div class="flex">
                      <div class="flex-none hidden w-64 md:block z-40">

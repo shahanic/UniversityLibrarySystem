@@ -1,173 +1,216 @@
 <template>
-    <admin-layout>
-        <template v-slot:main>     
-        <div class="container mx-auto p-4">
-          <button @click="addSubNav" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Sub Menu</button>
-    
-        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false "@save="saveSubNav">
-        <div>
-        <!--  -->
-        <div>
-               <h1 style="text-align: center;">Add Sub Menu</h1>
-              </div>
-                      <!--  -->
+  <admin-layout>
+    <template v-slot:main>
+      <div class="main-container">
+        <h2 class="header-title">Sub Navigation List</h2>
+        <button @click="addSubNav" class="button button-add">Add New Sub Menu</button>
+        <br><br>
 
-                <div>
-                <label for="menu">Sub Menu:</label><br>
-                <input type="text" v-model="form.submenu" class="w-full rounded-lg border-gray-300">
-                </div>
-                <div>
-         
-                   <!-- <div class="flex justify-start  ">
-                  <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-                    </div> -->
-              </div>
-    </div>
-        </AddSubNavigationModal>
-                <h2> Sub Navigation List</h2>
-                    <div v-if="subnav.sub_menus.length">
-                        <table >
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Navigation</th>
-                                    <th> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in subnav.sub_menus" :key="item.id">
-                                    <td style="width: 30%">{{ item.submenu }}</td>
-                                    <td style="width: 48%">{{ item.menu }}</td>
-                                    <td>
-                                        <router-link style="padding-left: 20px" :to="{name: 'GenericPage', params: {id: item.id}}" custom v-slot="{ navigate }">
-                                          <button @click="navigate" class="bg-green-700 text-black px-2 py-1 rounded mr-3">Pages</button>
-                                        </router-link>
-                                        <button @click="editSubNav(item)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                                        <button @click="deleteSubNav(item)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false" @save="saveSubNav">
+          <div>
+            <div class="modal-header">
+              <h1>Add Sub Menu</h1>
+            </div>
+
+            <div>
+              <label for="menu">Sub Menu:</label><br>
+              <input type="text" v-model="form.submenu" class="input-text">
+            </div>
           </div>
-        </template>
-    </admin-layout>
-</template>
+        </AddSubNavigationModal>
 
+        <div v-if="subnav.sub_menus.length">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th class="header-cell">Title</th>
+                <th class="header-cell">Navigation</th>
+                <th class="header-cell"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in subnav.sub_menus" :key="item.id" class="table-row">
+                <td class="table-cell">{{ item.submenu }}</td>
+                <td class="table-cell">{{ item.menu }}</td>
+                <td class="table-cell actions">
+                  <router-link :to="{ name: 'GenericPage', params: { id: item.id } }" custom v-slot="{ navigate }">
+                    <button @click="navigate" class="button button-view">Pages</button>
+                  </router-link>
+                  <button @click="editSubNav(item)" class="button button-edit">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button @click="deleteSubNav(item)" class="button button-delete">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </template>
+  </admin-layout>
+</template>
 
 <script setup>
 import { useRoute } from 'vue-router';
-import {onMounted, ref } from 'vue';
-
-import {subnavigationsStore}from '@/Admin/Stores/subnavigationStore';
-import {storeToRefs} from 'pinia';
-
+import { onMounted, ref } from 'vue';
+import { subnavigationsStore } from '@/Admin/Stores/subnavigationStore';
+import { storeToRefs } from 'pinia';
 import AddSubNavigationModal from '@/Admin/Modals/AddSubNavigationModal.vue';
 
 const route = useRoute();
-const subnav = subnavigationsStore()
-const{form} = storeToRefs(subnav) 
+const subnav = subnavigationsStore();
+const { form } = storeToRefs(subnav);
 
 onMounted(async () => {
-    const id = ref(route.params.id);
-    await subnav.fetchSubNavData(id.value);
-  });  
+  const id = route.params.id;
+  await subnav.fetchSubNavData(id);
+});
 
 const showModal = ref(false);
-const currentSubNav = ref(null);  // To store the user being edited
-
+const currentSubNav = ref(null);
 
 const saveSubNav = () => {
-  const id = ref(route.params.id);
+  const id = route.params.id;
   if (currentSubNav.value) {
     subnav.editSubNav(form.value);
     subnav.save(id);
   } else {
     subnav.save(id);
   }
-  showModal.value = false;  // Close the modal after saving
+  showModal.value = false;
 };
 
 const addSubNav = () => {
-  currentSubNav.value = null;  // Clear current nav for adding a new nav
+  currentSubNav.value = null;
   showModal.value = true;
 };
 
 const editSubNav = (subnavx) => {
-  currentSubNav.value = subnavx;  // Set the nav to be edited
-  Object.assign(form.value, subnavx);  // Populate form with nav data
+  currentSubNav.value = subnavx;
+  Object.assign(form.value, subnavx);
   showModal.value = true;
 };
 
 const deleteSubNav = (subnavx) => {
   subnav.deleteSubNav(subnavx);
-}
+};
 </script>
 
 
 <style scoped>
-.container {
-  width: 100%;
-  padding: 100px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background-color: #fff;
+.main-container {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 2%;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.header-title {
+  text-align: center;
   margin-bottom: 10px;
-}
-
-h2 {
-  margin: 0;
   font-size: 1.2em;
   font-weight: bold;
-  padding-left: 7px;
-  text-align: center;
 }
 
-.view-details {
-  text-decoration: none;
-  color: #007BFF;
-  font-size: 0.9em;
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-table {
+.button-add {
+  margin-bottom: 20px;
+}
+
+.button-view {
+  background-color: #4CAF50;
+}
+
+.button-view:hover {
+  background-color: #45a049;
+}
+
+.button-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.button-edit:hover {
+  background-color: #e0a800;
+}
+
+.button-delete {
+  background-color: #dc3545;
+}
+
+.button-delete:hover {
+  background-color: #c82333;
+}
+
+.input-text {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.styled-table {
   width: 100%;
   border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
-th, td {
-  padding: 8px;
+.styled-table thead {
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.header-cell {
+  padding: 10px 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.875em;
   text-align: left;
-  border-bottom: 1px solid #eee;
 }
 
-th {
-  font-weight: normal;
-  color: #666;
+.table-cell {
+  padding: 10px 15px;
+  font-size: 0.875em;
+  color: #333;
 }
 
-.avatar {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  vertical-align: middle;
+.table-row {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px;
 }
 
-.leave {
-  color: #FF4500;
+.table-row:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.negative {
-  color: #FF4500;
+.table-row:hover {
+  background-color: #f1f1f1;
 }
 
-.positive {
-  color: #4CAF50;
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 </style>

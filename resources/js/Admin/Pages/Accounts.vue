@@ -4,14 +4,13 @@ import { accountsStore } from '@/Admin/Stores/accountsStores';
 import { storeToRefs } from 'pinia';
 import AddAccountModal from '@/Admin/Modals/AddAccountModal.vue';
 
-
 const user = accountsStore();
 const { form } = storeToRefs(user);
 
 user.getter();
 
 const showModal = ref(false);
-const currentUser = ref(null);  // To store the user being edited
+const currentUser = ref(null);
 
 const saveUser = () => {
   if (currentUser.value) {
@@ -20,17 +19,17 @@ const saveUser = () => {
   } else {
     user.save();
   }
-  showModal.value = false;  // Close the modal after saving
+  showModal.value = false;
 };
 
 const addUser = () => {
-  currentUser.value = null;  // Clear current user for adding a new user
+  currentUser.value = null;
   showModal.value = true;
 };
 
 const editUser = (userx) => {
-  currentUser.value = userx;  // Set the user to be edited
-  Object.assign(form.value, userx);  // Populate form with user data
+  currentUser.value = userx;
+  Object.assign(form.value, userx);
   showModal.value = true;
 };
 
@@ -42,72 +41,70 @@ const deleteUser = (userx) => {
 <template>
   <admin-layout>
     <template v-slot:main>
-      <div>
-        <h1>Accounts</h1>
-        <p></p>
-        <button @click="addUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Account</button>
+      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <h1 style="text-align: center; margin-bottom: 10px;">Accounts Here</h1>
         
-        <AddAccountModal :isVisible="showModal" @close="showModal = false "@save="saveUser">
-          <div>
-        <!--  -->
-        <div>
-          <h1 style="text-align: center;">Add Account</h1>
-        </div>
-        <!--  -->
+        <button @click="addUser" class="button button-add">Add New Account</button>
+        <br><br>
 
-        <div>
-            <label for="name">Name:</label><br>
-            <input type="text" v-model="form.name" class="w-full rounded-lg border-gray-300">
-        </div>
-        <div>
-          <label for="email">Email:</label><br>
-          <input type="text" v-model="form.email" class="w-full rounded-lg border-gray-300">
-        </div>
-        <div>
-          <label for="username">Username:</label><br>
-          <input type="text" v-model="form.username" class="w-full rounded-lg border-gray-300">
-        </div>
-        <div>
-          <label for="role">Role:</label><br>
-          <select v-model="form.role" class="w-full rounded-lg border-gray-300">
-              <option value="1">1</option>
-              <option value="2">2</option>
-          </select>
-        </div>
-        <div>
-          <label for="password">Password:</label><br>
-          <input type="text" v-model="form.password" class="w-full rounded-lg border-gray-300">
-        </div>
-        <br>
-        <!-- <div class="flex justify-start  ">
-          <button @click="saveUser" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Save</button>
-        </div> -->
-      </div>
+        <AddAccountModal :isVisible="showModal" @close="showModal = false" @save="saveUser">
+          <div>
+            <div class="modal-header">
+              <h1>Add Account</h1>
+            </div>
+
+            <div>
+              <label for="name">Name:</label><br>
+              <input type="text" v-model="form.name" class="input-text">
+            </div>
+            <div>
+              <label for="email">Email:</label><br>
+              <input type="text" v-model="form.email" class="input-text">
+            </div>
+            <div>
+              <label for="username">Username:</label><br>
+              <input type="text" v-model="form.username" class="input-text">
+            </div>
+            <div>
+              <label for="role">Role:</label><br>
+              <select v-model="form.role" class="input-text">
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            <div>
+              <label for="password">Password:</label><br>
+              <input type="text" v-model="form.password" class="input-text">
+            </div>
+          </div>
         </AddAccountModal>
 
-        <table class="min-w-full border-collapse border border-gray-300">
+        <br>
+        <table class="styled-table">
           <thead>
-            <tr class="bg-gray-500">
-              <th class="border border-white-300 text-white p-2">#</th>
-              <th class="border border-white-300 text-white p-2">Name</th>
-              <th class="border border-white-300 text-white p-2">Email</th>
-              <th class="border border-white-300 text-white p-2">Username</th>
-              <th class="border border-white-300 text-white p-2">Role</th>
-              <th class="border border-white-300 text-white p-2">Password</th>    
-              <th class="border border-white-300 text-white p-2">Action</th>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Password</th>
+              <th class="actions-header"> Action </th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(userx, index) in user.users" :key="index" class="bg-white-200">
-              <td class="border border-white-300 text-black p-2">{{ index + 1 }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.name }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.email }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.username }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.role }}</td>
-              <td class="border border-white-300 text-black p-2">{{ userx.password }}</td>
-              <td class="border border-white-300 text-black p-2 text-center">
-                <button @click="editUser(userx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                <button @click="deleteUser(userx)" class="bg-red-400 text-black px-2 py-1 rounded">Delete</button>
+            <tr v-for="(userx, index) in user.users" :key="index">
+              <td>{{ userx.name }}</td>
+              <td>{{ userx.email }}</td>
+              <td>{{ userx.username }}</td>
+              <td>{{ userx.role }}</td>
+              <td>{{ userx.password }}</td>
+              <td class="actions">
+                <button @click="editUser(userx)" class="button button-edit">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button @click="deleteUser(userx)" class="button button-delete">
+                  <i class="bi bi-trash"></i>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -116,3 +113,108 @@ const deleteUser = (userx) => {
     </template>
   </admin-layout>
 </template>
+
+
+<style scoped>
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-add {
+  margin-bottom: 20px;
+}
+
+.button-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.button-edit:hover {
+  background-color: #e0a800;
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: #c82333;
+}
+
+.input-text {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.styled-table thead {
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.styled-table th {
+  padding: 10px 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  text-align: left;
+}
+
+.styled-table th.actions-header {
+  text-align: center;
+}
+
+.styled-table tbody {
+  background-color: #ffffff;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px;
+}
+
+.styled-table tbody td {
+  padding: 10px 15px;
+  font-size: 0.875em;
+  color: #333;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+</style>

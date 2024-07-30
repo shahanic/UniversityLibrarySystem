@@ -82,9 +82,9 @@ Route::post('save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
 Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
 Route::post('/delete-sub-navs',[SubNavigationController::class, 'deleteSubNavs']);
 
-// Route::post('/save-page',[PagesController::class, 'savePage']);
-// Route::post('/get-pages',[PagesController::class, 'getPages']);
-// Route::post('/delete-pages',[PagesController::class, 'deletePages']);
+Route::post('/save-page',[PagesController::class, 'savePage']);
+Route::post('/get-pages',[PagesController::class, 'getPages']);
+Route::post('/delete-pages',[PagesController::class, 'deletePages']);
 
 Route::post('/save-page',[GenericPageController::class, 'savePage']);
 Route::post('/get-pages',[GenericPageController::class, 'retrieveAllPages']);
@@ -97,3 +97,5 @@ Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
 Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
 Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
 Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);
+
+Route::post('/add-new-page',[GenericPageController::class, 'savePage']);

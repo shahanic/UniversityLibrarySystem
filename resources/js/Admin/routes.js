@@ -11,7 +11,7 @@ import Accounts from "./Pages/Accounts.vue";
 import Images from "./Pages/Images.vue";
 import SubNavigation from "./Pages/SubNavigation.vue";
 import Pages from "./Pages/Pages.vue";
-
+import SaveGeneric from "./Pages/SaveGeneric.vue";
 
 export const routes = [
     {
@@ -92,7 +92,14 @@ export const routes = [
         component: ArticlePages
     },
 
+    {
+        path: '/add-new-page',
+        name: 'SaveGeneric',
+        component: SaveGeneric 
+      },
 
+
+ 
 
 ];
 

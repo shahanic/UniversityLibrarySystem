@@ -85,7 +85,7 @@ export const genericpagesStore = defineStore('generics', {
         async editPageData(id){
             try {
                 const response = await axios.get(`/edit-page/${id}`);
-                this.currentPage = response.data;
+                this.currentPage = response.data[0]||null;
             } catch (error) {
                 console.error('Error fetching page data:', error);
             }

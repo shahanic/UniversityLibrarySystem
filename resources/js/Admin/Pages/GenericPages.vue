@@ -1,30 +1,29 @@
 <template>
     <admin-layout>
         <template v-slot:main> 
-            <div class="container mx-auto p-4">
+      
                 <h2>Generic Pages</h2>
                     <div v-if="genericpages.allgenerics.length">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Submenu</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in genericpages.allgenerics" :key="item.id">
-                                    <td style="width: 30%">{{ item.title }}</td>
-                                    <td style="width: 48%">{{ item.submenu }}</td>
-                                    <td>
-                                        <!-- <button @click="subnav.editPage(item)">Preview</button> -->
-                                        <router-link style="padding-left: 20px; padding-right: 20px" :to="{name: 'EditGenericPage', params: {id: item.id}}">Edit</router-link>
-                                        <button @click="deletePage">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                      <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
+                      <thead>
+                          <tr class="bg-gray-200 text-white">
+                              <th class="border border-gray-300 p-2 font-bold">Title</th>
+                              <th class="border border-gray-300 p-2 font-bold">Submenu</th>
+                              <th class="border border-gray-300 p-2 font-bold">Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr v-for="item in genericpages.allgenerics" :key="item.id" class="bg-white">
+                              <td class="border border-gray-300 text-gray-700 p-2" style="width: 30%">{{ item.title }}</td>
+                              <td class="border border-gray-300 text-gray-700 p-2" style="width: 48%">{{ item.submenu }}</td>
+                              <td class="border border-gray-300 text-center p-2">
+                                  <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" class="bg-yellow-500 text-white px-3 py-2 rounded mr-3 hover:bg-blue-600 transition duration-300"><i class="bi bi-pencil-square fw-bold text-black"></i></router-link>
+                                  <button @click="deletePage(item)" class="bg-red-400 text-black px-3 py-1.5 rounded hover:bg-red-500 transition duration-300"><i class="bi bi-trash fw-bold text-white "> </i></button>
+                              </td>
+                          </tr>
+                      </tbody>
+</table>
+
             </div>
         </template>
     </admin-layout>

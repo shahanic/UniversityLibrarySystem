@@ -1,33 +1,37 @@
 <template>
   <admin-layout>
       <template v-slot:main>
-          <!-- <h1 style="padding:20px"></h1> -->
-          <div class="container mx-auto p-4">
-              <h2>Article Pages</h2>
-              <table>
-                  <thead>
-                      <tr>
-                          <th>Title</th>
-                          <th>Content</th>
-                          <th>Page</th>
-                          <th>Action</th>
-                      </tr>
-                      
-                  </thead>  
-                  <tbody>
-                      <tr v-for="(articlex, i) in articles" :key="i">
-                          <td>{{articlex.title}}</td>
-                          <td>{{articlex.content}}</td>
-                          <td>{{articlex.pages_id}}</td>
-                          <td>
-                            <router-link style="padding-left: 20px" :to="{name: 'ArticlePage', params: {id: articlex.id}}">Edit</router-link>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table><br>
+        <br>
+      <h2> Article Pages</h2>
+      <br>
+            <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
+    <thead>
+        <tr class="bg-gray-200 text-white">
+            <th class="border border-gray-300 p-2 font-bold">Title</th>
+            <th class="border border-gray-300 p-2 font-bold">Content</th>
+            <th class="border border-gray-300 p-2 font-bold">Page</th>
+            <th class="border border-gray-300 p-2 font-bold">Actions</th>
+        </tr>
+    </thead>  
+    <tbody>
+        <tr v-for="(articlex, i) in articles" :key="i" class="bg-white">
+            <td class="border border-gray-300 text-gray-700 p-2">{{articlex.title}}</td>
+            <td class="border border-gray-300 text-gray-700 p-2">{{articlex.content}}</td>
+            <td class="border border-gray-300 text-gray-700 p-2">{{articlex.pages_id}}</td>
+            <td class="border border-gray-300 text-center p-2">
+                <router-link :to="{ name: 'ArticlePage', params: { id: articlex.id }}">
+                  <button @click="navigate" class="bg-yellow-500 text-white px-3 py-2 rounded hover:bg-yellow-600 transition duration-300">
+                    <i class="bi bi-pencil-square text-black "></i>
+                  </button>
+                </router-link>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
  
 
-          </div>
       </template>
   </admin-layout>
 </template>
@@ -36,6 +40,7 @@
 import { onMounted } from 'vue';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import { storeToRefs } from 'pinia';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Access the Pinia store
 const articlepage = articlesStore();

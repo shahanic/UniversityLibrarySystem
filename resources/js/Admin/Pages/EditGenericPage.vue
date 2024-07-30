@@ -69,7 +69,9 @@
   
   function savePage() {
     if (currentPage.value) {
-        genericpages.save();
+    genericpages.save(() => {
+      router.push({ name: 'GenericPages' });  // Replace 'GenericPagesList' with the actual route name for your generic pages list
+    });
     }
   }
   

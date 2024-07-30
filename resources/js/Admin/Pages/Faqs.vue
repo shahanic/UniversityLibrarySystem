@@ -43,10 +43,11 @@ const deleteFaq = (faqx) => {
   <admin-layout>
     <template v-slot:main>
       <div>
-        <h1>FAQS</h1>
+        <br>
+        <h2>FAQS</h2>
         <p></p>
-        <button @click="addFaq" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Faq</button>
-        
+
+        <button @click="addFaq" class="bg-green-700 text-white px-2 py-1 rounded mr-3">Add New Faq</button>    
         <AddFaqModal :isVisible="showModal" @close="showModal = false "@save="saveFaq">
           <div>
         <!--  -->
@@ -84,35 +85,107 @@ const deleteFaq = (faqx) => {
         </div> -->
       </div>
         </AddFaqModal>
-
-        <table class="min-w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-500">
-              <th class="border border-white-300 text-white p-2">#</th>
-              <th class="border border-white-300 text-white p-2">Question</th>
-              <th class="border border-white-300 text-white p-2">Answer</th>
-              <th class="border border-white-300 text-white p-2">Category</th>
-     
-              <th class="border border-white-300 text-white p-2">Status</th>
-              <th class="border border-white-300 text-white p-2">Actions</th>
+        <br>
+        <br>
+        <table class="min-w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
+        <thead>
+            <tr class="bg-gray-200 text-white">
+                <th class="border border-gray-300 p-2 font-bold">#</th>
+                <th class="border border-gray-300 p-2 font-bold">Question</th>
+                <th class="border border-gray-300 p-2 font-bold">Answer</th>
+                <th class="border border-gray-300 p-2 font-bold">Category</th>
+                <th class="border border-gray-300 p-2 font-bold">Status</th>
+                <th class="border border-gray-300 p-2 font-bold">Actions</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(faqx, index) in faq.faqs" :key="index" class="bg-white-200">
-              <td class="border border-white-300 text-black p-2">{{ index + 1 }}</td>
-              <td class="border border-white-300 text-black p-2">{{ faqx.question }}</td>
-              <td class="border border-white-300 text-black p-2">{{ faqx.answer }}</td>
-              <td class="border border-white-300 text-black p-2">{{ faqx.category }}</td>
-              <td class="border border-white-300 text-black p-2">{{ faqx.status }}</td>
-
-              <td class="border border-white-300 text-black p-2 text-center">
-                <button @click="editFaq(faqx)" class="bg-yellow-400 text-black px-2 py-1 rounded mr-3">Edit</button>
-                <button @click="deleteFaq(faqx)" class="bg-red-500 text-black px-2 py-1 rounded">Delete</button>
-              </td>
+        </thead>
+        <tbody>
+            <tr v-for="(faqx, index) in faq.faqs" :key="index" class="bg-white">
+                <td class="border border-gray-300 text-gray-700 p-2">{{ index + 1 }}</td>
+                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.question }}</td>
+                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.answer }}</td>
+                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.category }}</td>
+                <td class="border border-gray-300 text-gray-700 p-2">{{ faqx.status }}</td>
+                <td class="border border-gray-300 text-center p-2">
+                    <button @click="editFaq(faqx)" class="bg-yellow-500 text-white px-3 py-2 rounded hover:bg-yellow-600 transition duration-300 mr-3">
+                        <i class="bi bi-pencil-square text-black "></i> 
+                    </button>
+                    <button @click="deleteFaq(faqx)" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition duration-300">
+                        <i class="fw-bold text-white bi bi-trash"></i>
+                    </button>
+                </td>
             </tr>
-          </tbody>
-        </table>
+        </tbody>
+    </table>
+    <br>
+
       </div>
     </template>
   </admin-layout>
 </template>
+
+<style scoped>
+.container {
+width: 100%;
+padding: 100px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+background-color: #fff;
+}
+
+.header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+}
+
+h2 {
+margin: 0;
+font-size: 1.2em;
+font-weight: bold;
+padding-left: 7px;
+text-align: center;
+}
+
+.view-details {
+text-decoration: none;
+color: #007BFF;
+font-size: 0.9em;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 8px;
+text-align: left;
+border-bottom: 1px solid #eee;
+}
+
+th {
+font-weight: normal;
+color: #666;
+}
+
+.avatar {
+border-radius: 50%;
+width: 32px;
+height: 32px;
+margin-right: 8px;
+vertical-align: middle;
+}
+
+.leave {
+color: #FF4500;
+}
+
+.negative {
+color: #FF4500;
+}
+
+.positive {
+color: #4CAF50;
+}
+</style>

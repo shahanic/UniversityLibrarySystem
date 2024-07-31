@@ -107,6 +107,8 @@ export const genericpagesStore = defineStore('generics', {
             axios.post('/delete-pages', { id })
             .then(() => {
                 this.$reset();
+                //FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                // FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 this.fetchPagesData();
                 alert('Page deleted successfully!');
             })

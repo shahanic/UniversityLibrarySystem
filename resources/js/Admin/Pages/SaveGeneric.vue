@@ -19,11 +19,21 @@
                 placeholder="Abstract"></textarea>
             </div>
             <div>
-              <select name="" id="">
-                <option v-for="submenu in sub_menus" v-bind:value="submenu.value">{{submenu.value}}</option>
+            <h2 class="text-base font-bold">Navigation</h2>
+            <select v-model="newPage.navigation_id" @change="genericpages.retrieveSubNavs(newPage.navigation_id); newPage.sub_menu_id = '' ;">
+                <option value="" disabled>Select a navigation</option>
+                <option v-for="nav in genericpages.navs" v-bind:key="nav.id" v-bind:value="nav.id">{{nav.menu}}</option>
               </select>
-              
-            </div>
+          </div><br>
+          <div> 
+            <h2 class="text-base font-bold">Sub Navigation</h2>
+            <select v-model="newPage.sub_menu_id" >
+                <option value="" disabled>Select a sub-navigation</option>
+                <option v-for="subnav in genericpages.subnavs" v-bind:key="subnav.id" v-bind:value="subnav.id" >{{subnav.submenu}}</option>
+              </select>
+          </div> <br>
+
+          {{ newPage }}
             <div class="mb-4">
               <h2 class="text-base font-bold">Content</h2>
               <div class="editor-container" ref="editorContainerElement">

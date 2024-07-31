@@ -1,6 +1,6 @@
 <template>
   <admin-layout>
-    <template v-slot:main>
+    <!-- <template v-slot:main>
       <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4 text-center">Article Page</h1>
         <div v-if="currentArticle" class="mb-6">
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-    </template>
+    </template> -->
   </admin-layout>
 </template>
 
@@ -54,31 +54,31 @@ import { storeToRefs } from 'pinia';
 
 // Access the Pinia store
 const articlepagestore = articlesStore();
-const { editor, editorConfig, currentArticle } = storeToRefs(articlepagestore);
+// const { editor, editorConfig, currentArticle } = storeToRefs(articlepagestore);
 
 // route const
 const route = useRoute();
 
 // Automatically edit each article when the component is mounted
-onMounted(() => {
-  const id = route.params.id;  // Get ID from route params
-  if (id) {
-    articlepagestore.fetchArticleData(id);
-  }
-});
+// onMounted(() => {
+//   const id = route.params.id;  // Get ID from route params
+//   if (id) {
+//     articlepagestore.fetchArticleData(id);
+//   }
+// });
 
-function saveContent() {
-  if (currentArticle.value) {
-    articlepagestore.save();
-  }
-}
+// function saveContent() {
+//   if (currentArticle.value) {
+//     articlepagestore.save();
+//   }
+// }
 
 
-function deleteArticle() {
-  if (currentArticle.value && confirm('Are you sure you want to delete this article?')) {
-    articlepagestore.deleteArticle(currentArticle.value.id);
-  }
-}
+// function deleteArticle() {
+//   if (currentArticle.value && confirm('Are you sure you want to delete this article?')) {
+//     articlepagestore.deleteArticle(currentArticle.value.id);
+//   }
+// }
 </script>
 
 

@@ -12,7 +12,6 @@ import 'ckeditor5/ckeditor5.css';
     
 import CKEditor from '@ckeditor/ckeditor5-vue'; //
 
-
 // vue Router
 const router = createRouter({
     history: createWebHistory(),

@@ -44,7 +44,9 @@ class NavigationController extends Controller{
         $result = $navigation->innerJoin($request->id);
         return response()->json($result);
     }
-
-    
+        
+    public function retrieveNavs(){
+        return response()->json(Navigation::select('navigations.id', 'navigations.menu')->get());
+    }
 
 }

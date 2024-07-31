@@ -45,6 +45,13 @@ export const routes = [
     },
 
     {
+        path: '/save-generic-page/:id',
+        name: 'SaveGeneric',
+        component: SaveGeneric 
+      },
+
+
+    {
         path: '/pages/:id',
         name: "Pages",
         component: Pages
@@ -92,11 +99,6 @@ export const routes = [
         component: ArticlePages
     },
 
-    {
-        path: '/add-new-page',
-        name: 'SaveGeneric',
-        component: SaveGeneric 
-      },
 
 
  

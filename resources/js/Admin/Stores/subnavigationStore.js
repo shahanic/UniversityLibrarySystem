@@ -18,21 +18,12 @@ export const subnavigationsStore = defineStore('subnav', {
     },
 
     actions: {
-        // async save(){
-        //     let {form} = this;
-        //     try {
-        //         await axios.post('/save-sub-nav', form);
-        //         this.$reset();
-        //         // Directly fetch updated data after saving
-        //         await this.fetchSubNavData(form.navigation_id);
-        //     } catch (error) {
-        //         console.error('Error saving sub navigation:', error);
-        //     }
-        // },
+        //edit and add
         generateSlug(menu) {
             return menu.toLowerCase().replace(/\s+/g, '-');
         },
 
+        
         async fetchSubNavData(id) {
             try {
                 const response = await axios.get(`/get-sub-nav/${id}`);

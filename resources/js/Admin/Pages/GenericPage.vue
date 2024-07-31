@@ -6,6 +6,7 @@
      
         <router-link :to="{ name: 'SaveGeneric' }" class="button button-add">Add New Page</router-link>
         <br><br>
+
         <div v-if="genericpages.generics.length">
           <table class="styled-table">
             <thead>
@@ -38,22 +39,23 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 const genericpages = genericpagesStore();
 const { form, currentPage } = storeToRefs(genericpages);
+const id = route.params.id;
 
-onMounted(async () => {
-  const id = route.params.id;
-  await genericpages.fetchPageData(id);
+watchEffect(() => {
+  genericpages.fetchPageData(id);
 });
 
 const deletePage = (page) => {
   if (confirm('Are you sure you want to delete this page?')) {
     genericpages.deletePages(page.id);
+    genericpages.fetchPageData(id);
   }
 };
 </script>

@@ -8,7 +8,7 @@
               <h2 class="text-base font-bold">Title</h2>
               <textarea type="text"
                 class="form-input border border-gray-300 rounded w-full"
-                v-model="newPage.title"
+                v-model="genericpages.newPage.title"
                 placeholder="Title"></textarea>
             </div>
             <div class="mb-4">
@@ -18,10 +18,23 @@
                 v-model="newPage.abstract"
                 placeholder="Abstract"></textarea>
             </div>
+            <div>
+              <select name="" id="">
+                <option v-for="submenu in sub_menus" v-bind:value="submenu.value">{{submenu.value}}</option>
+              </select>
+              
+            </div>
             <div class="mb-4">
               <h2 class="text-base font-bold">Content</h2>
+              <div class="editor-container" ref="editorContainerElement">
+                <ckeditor
+                  :editor="editor"
+                  v-model="newPage.content"
+                  :config="editorConfig"
+                  v-if="isLayoutReady"
+                ></ckeditor>
+              </div>
               <form @submit.prevent="savePage()">
-               
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
                   Save
                 </button>
@@ -34,32 +47,30 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
-
+  import { onMounted } from 'vue';
+  import { useRoute } from 'vue-router'
   import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
   import { storeToRefs } from 'pinia';
-  
+  import {ckStore} from '@/Admin/Stores/ckeditor';
+
+  // Access the Pinia store
+  const ck = ckStore();
   const genericpages = genericpagesStore();
-  const { editor, editorConfig } = storeToRefs(genericpages);
-  const currentPage = ref(null);  // To store the user being edited
-  
-  const newPage = ref({
-    title: '',
-    abstract: '',
-    content: ''
+  const { newPage, isLayoutReady } = storeToRefs(genericpages);
+  const { editor, editorConfig } = storeToRefs(ck);
+  const route = useRoute();
+
+  onMounted(() => {
+    genericpages.fetchPagesData();
   });
-  
+
   const savePage = () => {
-  const id = ref(route.params.id);
-  if (currentPage.value) {
-
-    genericpages.save(id);
-  } else {
-    genericpages.save(id);
-  }
-  showModal.value = false;  // Close the modal after saving
-};
-
+    const id = route.params.id;
+    if (newPage.value) {
+      genericpages.addPageData(id);
+      window.location.href= `/generic-page/${id}`;
+    } 
+  };
   </script>
   
   <style>

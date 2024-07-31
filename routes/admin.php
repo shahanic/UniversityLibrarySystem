@@ -28,10 +28,6 @@ Route::prefix('subnav')->group(function() {
     Route::get('{vue?}', [SubNavigationController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
-// Route::prefix('pages')->group(function() {
-//     Route::get('{vue?}', [PagesController::class, 'index'])->where('vue', '[\/\w\.-]*');
-// });
-
 Route::prefix('generic-page/{id}')->group(function() {
     Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
@@ -41,6 +37,10 @@ Route::prefix('generic-pages')->group(function() {
 });
 
 Route::prefix('edit-generic-page/{id}')->group(function() {
+    Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
+Route::prefix('save-generic-page/{id}')->group(function() {
     Route::get('{vue?}', [GenericPageController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
@@ -77,6 +77,7 @@ Route::post('/delete-users', [AccountsController::class, 'deleteUser']);
 Route::post('/save-nav',[NavigationController::class, 'saveNav']);
 Route::post('/get-navs',[NavigationController::class, 'getNavs']);
 Route::post('/delete-navs',[NavigationController::class, 'deleteNavs']);
+Route::post('/retrieve-navs',[NavigationController::class, 'retrieveNavs']);
 
 Route::post('save-sub-nav',[SubNavigationController::class, 'saveSubNav']);
 Route::post('/get-sub-navs',[SubNavigationController::class, 'getSubNavs']);
@@ -97,5 +98,3 @@ Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
 Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
 Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
 Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);
-
-Route::post('/add-new-page',[GenericPageController::class, 'savePage']);

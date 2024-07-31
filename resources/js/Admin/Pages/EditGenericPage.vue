@@ -22,6 +22,21 @@
               placeholder="Abstract"
             ></textarea>
           </div>
+          <div>
+            <h2 class="text-base font-bold">Navigation</h2>
+            <select v-model="currentPage.navigation_id" @change="genericpages.retrieveSubNavs(currentPage.navigation_id); currentPage.sub_menu_id = '' ;">
+                <option value="" disabled>Select a navigation</option>
+                <option v-for="nav in genericpages.navs" v-bind:key="nav.id" v-bind:value="nav.id">{{nav.menu}}</option>
+              </select>
+          </div><br>
+          <div> 
+            <h2 class="text-base font-bold">Sub Navigation</h2>
+            <select v-model="currentPage.sub_menu_id" >
+                <option value="" disabled>Select a sub-navigation</option>
+                <option v-for="subnav in genericpages.subnavs" v-bind:key="subnav.id" v-bind:value="subnav.id" >{{subnav.submenu}}</option>
+              </select>
+          </div> <br>
+
           <div class="mb-4">
             <h2 class="text-base font-bold">Content</h2>
             <div class="editor-container" ref="editorContainerElement">
@@ -57,27 +72,26 @@
 
 
 <script setup>
-import { onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { watch, onMounted } from 'vue';
+import { useRoute, useRouter} from 'vue-router';
 import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { storeToRefs } from 'pinia';
 import {ckStore} from '@/Admin/Stores/ckeditor';
 
-const ck = ckStore();
-
 // Access the Pinia store
+const ck = ckStore();
 const genericpages = genericpagesStore();
 const { currentPage, isLayoutReady } = storeToRefs(genericpages);
 const { editor, editorConfig } = storeToRefs(ck);
 
-
-
 // route const
 const route = useRoute();
+const router = useRouter();
+const id = route.params.id;
+
 
 // Automatically edit each article when the component is mounted
 onMounted(() => {
-  const id = route.params.id;  // Get ID from route params
   if (id) {
       genericpages.editPageData(id);
   }
@@ -85,11 +99,11 @@ onMounted(() => {
 
 function savePage() {
   if (currentPage.value) {
-    genericpages.save().then(() => {
-      router.push('/generic-pages');  // Navigate to GenericPages route
-    });
-    window.location.href = '/generic-pages';
-  }
+    genericpages.save(id);
+   }
+   router.go(-1);
+   genericpages.fetchPagesData();
+  //  window.location.href= '/generic-pages';
 }
 
 function deletePage() {
@@ -238,14 +252,7 @@ function deletePage() {
 	border-radius: 10px;
 }
 
-.ck-content pre.fancy-code::before {
-	content: '';
-	display: block;
-	height: 13px;
-	background: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NCAxMyI+CiAgPGNpcmNsZSBjeD0iNi41IiBjeT0iNi41IiByPSI2LjUiIGZpbGw9IiNGMzZCNUMiLz4KICA8Y2lyY2xlIGN4PSIyNi41IiBjeT0iNi41IiByPSI2LjUiIGZpbGw9IiNGOUJFNEQiLz4KICA8Y2lyY2xlIGN4PSI0Ny41IiBjeT0iNi41IiByPSI2LjUiIGZpbGw9IiM1NkM0NTMiLz4KPC9zdmc+Cg==);
-	margin-bottom: 8px;
-	background-repeat: no-repeat;
-}
+
 
 .ck-content pre.fancy-code-dark {
 	background: #272822;

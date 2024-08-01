@@ -1,12 +1,17 @@
 <template>
   <admin-layout>
     <template v-slot:main>
-      <div class="main-container">
+      <EditGenericPage v-if="editing" :data="genericpages.currentPage"></EditGenericPage>
+      <div v-if="!editing" class="main-container">
         <h2 class="header-title">Generic Pages</h2>
      
-        <router-link :to="{ name: 'SaveGeneric' }" class="button button-add">Add New Page</router-link>
+        <!-- <router-link :to="{ name: 'SaveGeneric' }" class="button button-add">Add New Page</router-link>
         <br><br>
-
+         -->
+        <!-- <div>
+          <EditJobForm v-if="opStore.editing" :data="opStore.currentOpp"  ></EditJobForm>
+        </div>   -->
+        
         <div v-if="genericpages.generics.length">
           <table class="styled-table">
             <thead>
@@ -21,9 +26,13 @@
                 <td class="table-cell" style="width: 30%">{{ item.title }}</td>
                 <td class="table-cell" style="width: 48%">{{ item.submenu }}</td>
                 <td class="table-cell actions">
-                  <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" class="button button-edit">
+                  <!-- <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" class="button button-edit">
                     <i class="bi bi-pencil-square"></i>
-                  </router-link>
+                  </router-link> -->
+                  <button @click="genericpages.editPage(item)" class="button button-edit">
+                    {{ item }}
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
                   <button @click="deletePage(item)" class="button button-delete">
                     <i class="bi bi-trash"></i>
                   </button>
@@ -38,25 +47,41 @@
 </template>
 
 <script setup>
+import EditGenericPage from '@/Admin/Pages/EditGenericPage.vue'
+
+// import 'vue3-toastify/dist/index.css';
+// opStore.getter();
+//     opStore.loadApplications();
+//     opStore.paginatedOpps();
+
+
 import { useRoute } from 'vue-router';
-import { onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref, watchEffect, watch } from 'vue';
 import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 const genericpages = genericpagesStore();
-const { form, currentPage } = storeToRefs(genericpages);
+const {currentPage, editing } = storeToRefs(genericpages);
 const id = route.params.id;
+editing.value = false;
 
 watchEffect(() => {
   genericpages.fetchPageData(id);
 });
 
+const handleReload = (newVal, oldVal) => {
+      if (oldVal === true && newVal === false) {
+        genericpages.fetchPagesData();
+      }
+};
+watch(editing, handleReload);
+
 const deletePage = (page) => {
   if (confirm('Are you sure you want to delete this page?')) {
     genericpages.deletePages(page.id);
-    genericpages.fetchPageData(id);
   }
+  genericpages.fetchPageData(id);
 };
 </script>
 

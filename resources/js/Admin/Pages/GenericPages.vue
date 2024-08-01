@@ -1,9 +1,17 @@
 <template>
   <admin-layout>
     <template v-slot:main>
-      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
-        <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
-        <div v-if="genericpages.allgenerics.length">
+      <AddGenericPage v-if="genericpages.adding" :data="genericpages.newPage"></AddGenericPage>
+      <EditGenericPage v-if="editing" :data="genericpages.currentPage"></EditGenericPage>
+
+      <div v-if="!editing" style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <div>
+          <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
+          <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(item)" class="button button-add">ADD NEW PAGE</button>
+        </div>
+       
+        <div v-if="genericpages.generics.length">
+         
           <table class="styled-table">
             <thead>
               <tr>
@@ -13,15 +21,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in genericpages.allgenerics" :key="item.id">
+              
+              <tr v-for="item in genericpages.generics" :key="item.id">                
                 <td>{{ item.title }}</td>
                 <td>{{ item.submenu }}</td>
                 <td class="actions">
-                  <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" custom v-slot="{ navigate }">
-                    <button @click="navigate" class="button button-edit">
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-                  </router-link>
+                  <button @click="genericpages.editPage(item)" class="button button-edit">
+                    {{ item }}
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
                   <button @click="deletePage(item)" class="button button-delete">
                     <i class="bi bi-trash"></i>
                   </button>
@@ -35,21 +43,33 @@
   </admin-layout>
 </template>
 <script setup>
-import { onMounted } from 'vue';
+import EditGenericPage from '@/Admin/Pages/EditGenericPage.vue'
+import AddGenericPage from '@/Admin/Pages/SaveGeneric.vue'
+import { onMounted, watchEffect, watch } from 'vue';
 import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { storeToRefs } from 'pinia';
 
 const genericpages = genericpagesStore();
-const { currentPage } = storeToRefs(genericpages);
+const {currentPage, editing} = storeToRefs(genericpages);
+editing.value = false; 
+genericpages.adding = false;
 
-onMounted(() => {
+watchEffect(() => {
   genericpages.fetchPagesData();
 });
+
+const handleReload = (newVal, oldVal) => {
+      if (oldVal === true && newVal === false) {
+        genericpages.fetchPagesData();
+      }
+};
+watch(editing, handleReload);
 
 const deletePage = (item) => {
   if (confirm('Are you sure you want to delete this page?')) {
     genericpages.deletePages(item.id);
   }
+  genericpages.fetchPagesData();
 };
 </script>
 

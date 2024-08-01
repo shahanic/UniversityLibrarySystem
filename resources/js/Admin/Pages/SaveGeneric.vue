@@ -8,7 +8,7 @@
               <h2 class="text-base font-bold">Title</h2>
               <textarea type="text"
                 class="form-input border border-gray-300 rounded w-full"
-                v-model="genericpages.newPage.title"
+                v-model="newPage.title"
                 placeholder="Title"></textarea>
             </div>
             <div class="mb-4">
@@ -31,9 +31,9 @@
                 <option value="" disabled>Select a sub-navigation</option>
                 <option v-for="subnav in genericpages.subnavs" v-bind:key="subnav.id" v-bind:value="subnav.id" >{{subnav.submenu}}</option>
               </select>
-          </div> <br>
+          </div> <br> 
 
-          {{ newPage }}
+          {{ genericpages }}
             <div class="mb-4">
               <h2 class="text-base font-bold">Content</h2>
               <div class="editor-container" ref="editorContainerElement">
@@ -64,15 +64,15 @@
   import {ckStore} from '@/Admin/Stores/ckeditor';
 
   // Access the Pinia store
-  const ck = ckStore();
   const genericpages = genericpagesStore();
   const { newPage, isLayoutReady } = storeToRefs(genericpages);
+  const ck = ckStore();
   const { editor, editorConfig } = storeToRefs(ck);
   const route = useRoute();
 
-  onMounted(() => {
-    genericpages.fetchPagesData();
-  });
+  // onMounted(() => {
+  //   genericpages.fetchPagesData();
+  // });
 
   const savePage = () => {
     const id = route.params.id;

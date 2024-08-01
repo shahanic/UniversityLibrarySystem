@@ -6,11 +6,10 @@ import 'sweetalert';
 
 import { createRouter, createWebHistory, useRoute } from 'vue-router';
 import { createPinia } from 'pinia';
-import { routes } from './routes';
-import 'ckeditor5/ckeditor5.css';
-
-    
+import { routes } from './routes.js';
 import CKEditor from '@ckeditor/ckeditor5-vue'; //
+import 'ckeditor5/ckeditor5.css';
+import AdminLayout from './Layouts/AdminLayout.vue';
 
 // vue Router
 const router = createRouter({
@@ -18,12 +17,33 @@ const router = createRouter({
     routes: routes
 });
 
-// pinia.use(({ store }) => {
-//     store.router = markRaw(router);
-//     store.route = markRaw(useRoute());
-//   });
+// Vue-x Pinia
+const pinia = createPinia()
 
-import AdminLayout from './Layouts/AdminLayout.vue';
+// let previousRoute = null;
+router.beforeEach((to, from, next) => {
+    document.title = `ULS CMS | ${to.name? to.name : 'Home'}`;
+    // previousRoute = from;
+    next();
+});
+
+const app = createApp();
+app.use(CKEditor); //
+app.use(pinia);
+app.use(router);
+app.component('admin-layout', AdminLayout)
+app.use(CKEditor);
+app.component('ckeditor', CKEditor.component);
+
+app.mount('#app');
+
+
+
+// export {router, previousRoute};
+
+
+
+
 // import GenericPages from './Layouts/GenericPagesLayout.vue';
 // import ArticlePages from './Layouts/ArticlePagesLayout.vue';
 // import QuickLinks from './Layouts/QuickLinksLayout.vue';
@@ -31,28 +51,14 @@ import AdminLayout from './Layouts/AdminLayout.vue';
 // import Faqs from './Layouts/FaqsLayout.vue'
 // import Images from './Layouts/ImagesLayout.vue'
 
-const app = createApp();
-// Vue-x Pinia
-const pinia = createPinia()
-app.use(CKEditor); //
-app.use(pinia);
-app.use(router);
-app.component('admin-layout', AdminLayout)
-
 // app.component('generic-layout', GenericPages)
 // app.component('article-layout', ArticlePages)
 // app.component('faqs-layout', Faqs)
 // app.component('quicklinks-layout', QuickLinks)
 // app.component('images', Images)
 
-app.use(CKEditor);
-app.component('ckeditor', CKEditor.component);
-
-app.mount('#app');
-
-router.beforeEach((to, from, next) => {
-    document.title = `ULS CMS | ${to.name? to.name : 'Home'}`;
-    next()
-});
-
+// pinia.use(({ store }) => {
+//     store.router = markRaw(router);
+//     store.route = markRaw(useRoute());
+//   });
 

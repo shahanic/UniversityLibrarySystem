@@ -2,6 +2,7 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+// import { previousRoute } from '@/Admin/admin';
 
 export const genericpagesStore = defineStore('generics', {
     state: () =>{
@@ -11,14 +12,19 @@ export const genericpagesStore = defineStore('generics', {
             currentPage: null,
             newPage: {
                 title:'',
+                menu_title: '',
                 slug: '',
                 abstract: '',
                 content: '',
+                gallery_id: '',
+                navigation_id: '',
+                sub_menu_id: '',
             },
             generics: [],
-            allgenerics: [],
             subnavs: [],
             navs: [],
+            editing: false,
+            adding: false,
 
         } 
     },
@@ -35,6 +41,8 @@ export const genericpagesStore = defineStore('generics', {
                 axios.post('/save-page', this.currentPage)
                 .then(() => {
                     alert('Content saved successfully!');
+                    // Navigate back based on previous route
+                    this.editing = false;
                 })
                 .catch ((error) => {
                     console.error('Error saving article:', error);
@@ -42,6 +50,7 @@ export const genericpagesStore = defineStore('generics', {
                 });
             }
         }, 
+        
 
         //
         addPageData(id){    
@@ -49,6 +58,7 @@ export const genericpagesStore = defineStore('generics', {
             axios.post(`/save-new-page/${id}`, this.newPage)
             .then((response) => {
                 this.newPage = response.data[0]||null;
+                
                 alert('Content saved successfully!');
             })
             .catch ((error) => {
@@ -56,12 +66,19 @@ export const genericpagesStore = defineStore('generics', {
                 alert('Failed to save content.');
             });
         },
-
+        
+        
+        addPage(page){
+            console.log(page);
+            this.newPage = page;
+            this.adding = true;
+        },
 
         // retrieveEditPage($id), used in EditGenericPage.vue
         editPageData(id){
             axios.post(`/edit-page/${id}`)
             .then ((response) => {
+                // console.log(response.data)
                 // since response returns table(?), need to get array 0
                 this.currentPage = response.data[0]||null;
                 this.retrieveNavs();
@@ -70,6 +87,13 @@ export const genericpagesStore = defineStore('generics', {
                 console.error('Error fetching page data:', error);
             })
         },
+
+        editPage(page){
+            console.log(page);
+            this.currentPage = page;
+            this.editing = true;
+        },
+
 
         retrieveSubNavs(id) {
         axios.post(`/retrieve-sub-navs/${id}`)
@@ -99,8 +123,6 @@ export const genericpagesStore = defineStore('generics', {
             });
         },
 
-        
-
         // deletePages(Request $request), used in all vue genericpages
         deletePages(id) {
             if (!id) return;
@@ -120,9 +142,10 @@ export const genericpagesStore = defineStore('generics', {
 
         // retrieveAllPages(), used in GenericPages.vue
         fetchPagesData() {
+            this.$reset();
             axios.post('/get-pages')
             .then((response) => {
-                this.allgenerics = response.data;
+                this.generics = response.data;
             })
             .catch ((error) => {
                 console.error('Error fetching pages data:', error);
@@ -131,6 +154,7 @@ export const genericpagesStore = defineStore('generics', {
 
         // retrievePages($id), used in GenericPage.vue
         fetchPageData(id){
+            this.$reset();
             axios.post(`/get-page/${id}`)
             .then ((response) => {
                 this.generics = response.data;

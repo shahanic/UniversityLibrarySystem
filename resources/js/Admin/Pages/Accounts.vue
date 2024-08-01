@@ -1,43 +1,3 @@
-<script setup>
-import { ref } from 'vue';
-import { accountsStore } from '@/Admin/Stores/accountsStores';
-import { storeToRefs } from 'pinia';
-import AddAccountModal from '@/Admin/Modals/AddAccountModal.vue';
-
-const user = accountsStore();
-const { form } = storeToRefs(user);
-
-user.getter();
-
-const showModal = ref(false);
-const currentUser = ref(null);
-
-const saveUser = () => {
-  if (currentUser.value) {
-    user.editUser(form.value);
-    user.save();
-  } else {
-    user.save();
-  }
-  showModal.value = false;
-};
-
-const addUser = () => {
-  currentUser.value = null;
-  showModal.value = true;
-};
-
-const editUser = (userx) => {
-  currentUser.value = userx;
-  Object.assign(form.value, userx);
-  showModal.value = true;
-};
-
-const deleteUser = (userx) => {
-  user.deleteUser(userx);
-};
-</script>
-
 <template>
   <admin-layout>
     <template v-slot:main>
@@ -114,6 +74,45 @@ const deleteUser = (userx) => {
   </admin-layout>
 </template>
 
+<script setup>
+import { ref } from 'vue';
+import { accountsStore } from '@/Admin/Stores/accountsStores';
+import { storeToRefs } from 'pinia';
+import AddAccountModal from '@/Admin/Modals/AddAccountModal.vue';
+
+const user = accountsStore();
+const { form } = storeToRefs(user);
+
+user.getter();
+
+const showModal = ref(false);
+const currentUser = ref(null);
+
+const saveUser = () => {
+  if (currentUser.value) {
+    user.editUser(form.value);
+    user.save();
+  } else {
+    user.save();
+  }
+  showModal.value = false;
+};
+
+const addUser = () => {
+  currentUser.value = null;
+  showModal.value = true;
+};
+
+const editUser = (userx) => {
+  currentUser.value = userx;
+  Object.assign(form.value, userx);
+  showModal.value = true;
+};
+
+const deleteUser = (userx) => {
+  user.deleteUser(userx);
+};
+</script>
 
 <style scoped>
 .button {

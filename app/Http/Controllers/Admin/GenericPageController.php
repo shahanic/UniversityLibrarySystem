@@ -60,6 +60,7 @@ class GenericPageController extends Controller
             ->select('generics.id', 
                     'generics.title', 
                     'generics.menu_title', 
+                    'generics.slug', 
                     'generics.abstract', 
                     'generics.content', 
                     'generics.sub_menu_id', 
@@ -90,8 +91,8 @@ class GenericPageController extends Controller
                 'generics.abstract', 
                 'generics.content', 
                 'generics.navigation_id', 
-                'generics.sub_menu_id',
                 'sub_menus.navigation_id',
+                'generics.sub_menu_id',
                 'sub_menus.submenu')
         ->get();
     }

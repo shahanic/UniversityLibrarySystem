@@ -1,4 +1,3 @@
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -25,6 +24,7 @@ export const genericpagesStore = defineStore('generics', {
             navs: [],
             editing: false,
             adding: false,
+            pagechecker: '',
 
         } 
     },
@@ -43,6 +43,7 @@ export const genericpagesStore = defineStore('generics', {
                     alert('Content saved successfully!');
                     // Navigate back based on previous route
                     this.editing = false;
+                    this.adding = false;
                 })
                 .catch ((error) => {
                     console.error('Error saving article:', error);
@@ -52,26 +53,51 @@ export const genericpagesStore = defineStore('generics', {
         }, 
         
 
-        //
-        addPageData(id){    
+        // //genericpage
+        // addPageData(){    
+        //     this.newPage.slug = this.generateSlug(this.newPage.title);
+        //     axios.post(`/save-new-page/${id}`, this.newPage)
+        //     .then((response) => {
+        //         this.newPage = response.data[0]||null;
+        //         this.retrieveNavs();
+        //         alert('Content saved successfully!');
+        //     })
+        //     .catch ((error) => {
+        //         console.error('Error saving article:', error);
+        //         alert('Failed to save content.');
+        //     });
+        // },
+
+
+        // genericpages
+        addNewPage(){
             this.newPage.slug = this.generateSlug(this.newPage.title);
-            axios.post(`/save-new-page/${id}`, this.newPage)
-            .then((response) => {
-                this.newPage = response.data[0]||null;
-                
-                alert('Content saved successfully!');
-            })
-            .catch ((error) => {
-                console.error('Error saving article:', error);
-                alert('Failed to save content.');
-            });
-        },
+            console.log(newPage);
+            if (this.newPage) {
+                    axios.post('/save-page', this.newPage)
+                    .then(() => {
+                        alert('Content saved successfully!');
+                        // Navigate back based on previous route
+                        this.adding = false;
+                    })
+                    .catch ((error) => {
+                        console.error('Error saving article:', error);
+                        alert('Failed to save content.');
+                    });
+            }
+        }, 
         
-        
-        addPage(page){
-            console.log(page);
+
+        addPage(page, pagechecker){
             this.newPage = page;
+            console.log(this.newPage.sub_menu_id);
+
+            this.pagechecker = pagechecker;
             this.adding = true;
+            if (this.pagechecker == 1){
+                fetchSubAndNav(this.newPage.sub_menu_id);
+            }
+            
         },
 
         // retrieveEditPage($id), used in EditGenericPage.vue
@@ -92,6 +118,7 @@ export const genericpagesStore = defineStore('generics', {
             console.log(page);
             this.currentPage = page;
             this.editing = true;
+            
         },
 
 
@@ -110,10 +137,16 @@ export const genericpagesStore = defineStore('generics', {
         retrieveNavs(){
             axios.post('/retrieve-navs') 
             .then(response => {
+                // console.log(response.data)
                 this.navs = response.data;
-                if (this.currentPage.navigation_id) {
+                // console.log(this.newPage)
+                if (this.currentPage != null) {
                     this.retrieveSubNavs(this.currentPage.navigation_id);
-                } else{
+                }
+                else if(this.newPage.navigation_id) {
+                    this.retrieveSubNavs(this.newPage.navigation_id);
+                }
+                else{
                     this.subnavs = [];
                 }
             })
@@ -124,20 +157,26 @@ export const genericpagesStore = defineStore('generics', {
         },
 
         // deletePages(Request $request), used in all vue genericpages
-        deletePages(id) {
-            if (!id) return;
-            axios.post('/delete-pages', { id })
-            .then(() => {
-                this.$reset();
-                //FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                // FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                this.fetchPagesData();
-                alert('Page deleted successfully!');
-            })
-            .catch ((error) => {
-                console.error('Error deleting page:', error);
-                alert('Failed to delete page.');
-            })
+        deletePages(page, pagechecker) {
+            console.log(page);
+            if (!page.id) return;
+            if (confirm('Are you sure you want to delete this page?')){
+                axios.post('/delete-pages', { id: page.id })
+                .then((response) => {
+                    if (response.data.code === 1){
+                        alert('Page deleted successfully!');
+                        if(pagechecker == 1){
+                            this.fetchPageData(page.sub_menu_id);
+                        }else{
+                            this.fetchPagesData();
+                        }
+                    }      
+                })
+                .catch ((error) => {
+                    console.error('Error deleting page:', error);
+                    alert('Failed to delete page.');
+                })
+            }
         },
 
         // retrieveAllPages(), used in GenericPages.vue

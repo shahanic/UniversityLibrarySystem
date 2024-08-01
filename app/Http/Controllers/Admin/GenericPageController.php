@@ -31,25 +31,13 @@ class GenericPageController extends Controller
     }
 
     // '/save-new-page'
-    public function saveNewPage($sub_id, Request $request){
-        $ids =  SubMenu::where('sub_menus.id', $sub_id)
+    public function fetchSubAndNav($sub_id){
+        return SubMenu::where('sub_menus.id', $sub_id)
         ->select('sub_menus.id',
                 'sub_menus.navigation_id',
                 )
         ->first();
-        if ($ids) {
-            $new = new Generic;
-            $new->title = $request->title; 
-            $new->menu_title = $request->menu_title; 
-            $new->slug = $request->slug;  
-            $new->abstract = $request->abstract;  
-            $new->content = $request->content;  
-            $new->navigation_id = $ids->navigation_id;  
-            $new->sub_menu_id = $ids->id;
-            $res = $new->save();
 
-            return response()->json(['success' => $res]);
-        }
     }
 
 
@@ -72,7 +60,7 @@ class GenericPageController extends Controller
     // '/delete-pages'
     public function deletePages(Request $request){
         Generic::where('id', $request->id)->delete();
-        return 1;
+        return response()->json(['status' => 'success', 'code' => 1]);
     }
 
     public function index(){

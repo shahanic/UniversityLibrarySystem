@@ -1,13 +1,12 @@
 <template>
   <admin-layout>
     <template v-slot:main>
-      <AddGenericPage v-if="genericpages.adding" :data="genericpages.newPage"></AddGenericPage>
+      <AddGenericPage v-if="adding" :data="newPage"></AddGenericPage>
       <EditGenericPage v-if="editing" :data="genericpages.currentPage"></EditGenericPage>
-
-      <div v-if="!editing" style="width: 90%; margin: 0 auto; margin-top: 2%;">
+      <div v-if="!editing && !adding" style="width: 90%; margin: 0 auto; margin-top: 2%;">
         <div>
           <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
-          <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(item)" class="button button-add">ADD NEW PAGE</button>
+          <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(newPage)" class="button button-add">ADD NEW PAGE</button>
         </div>
        
         <div v-if="genericpages.generics.length">
@@ -27,10 +26,9 @@
                 <td>{{ item.submenu }}</td>
                 <td class="actions">
                   <button @click="genericpages.editPage(item)" class="button button-edit">
-                    {{ item }}
                     <i class="bi bi-pencil-square"></i>
                   </button>
-                  <button @click="deletePage(item)" class="button button-delete">
+                  <button @click="genericpages.deletePages(item, 0)" class="button button-delete">
                     <i class="bi bi-trash"></i>
                   </button>
                 </td>
@@ -50,9 +48,9 @@ import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { storeToRefs } from 'pinia';
 
 const genericpages = genericpagesStore();
-const {currentPage, editing} = storeToRefs(genericpages);
+const {currentPage, newPage, editing, adding} = storeToRefs(genericpages);
 editing.value = false; 
-genericpages.adding = false;
+adding.value = false;
 
 watchEffect(() => {
   genericpages.fetchPagesData();
@@ -64,13 +62,14 @@ const handleReload = (newVal, oldVal) => {
       }
 };
 watch(editing, handleReload);
+watch(adding, handleReload);
 
-const deletePage = (item) => {
-  if (confirm('Are you sure you want to delete this page?')) {
-    genericpages.deletePages(item.id);
-  }
-  genericpages.fetchPagesData();
-};
+// const deletePage = (item) => {
+//   if (confirm('Are you sure you want to delete this page?')) {
+//     genericpages.deletePages(item.id);
+//   }
+//   genericpages.fetchPagesData();
+// };
 </script>
 
 

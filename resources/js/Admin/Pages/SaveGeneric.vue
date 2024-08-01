@@ -1,6 +1,4 @@
 <template>
-    <admin-layout>
-      <template v-slot:main>
         <div class="container mx-auto p-4">
           <h1 class="text-2xl font-bold mb-4 text-center">Add New Page</h1>
           <div class="mb-6">
@@ -33,7 +31,6 @@
               </select>
           </div> <br> 
 
-          {{ genericpages }}
             <div class="mb-4">
               <h2 class="text-base font-bold">Content</h2>
               <div class="editor-container" ref="editorContainerElement">
@@ -44,7 +41,7 @@
                   v-if="isLayoutReady"
                 ></ckeditor>
               </div>
-              <form @submit.prevent="savePage()">
+              <form @submit.prevent="genericpages.addNewPage()">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
                   Save
                 </button>
@@ -52,8 +49,6 @@
             </div>
           </div>
         </div>
-      </template>
-    </admin-layout>
   </template>
   
   <script setup>
@@ -73,14 +68,16 @@
   // onMounted(() => {
   //   genericpages.fetchPagesData();
   // });
+  onMounted(() => {
+    genericpages.retrieveNavs();
+  });
 
-  const savePage = () => {
-    const id = route.params.id;
-    if (newPage.value) {
-      genericpages.addPageData(id);
-      window.location.href= `/generic-page/${id}`;
-    } 
-  };
+  const props = defineProps({
+  data: {
+    type: Object,
+    required: true
+  }
+});
   </script>
   
   <style>

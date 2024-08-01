@@ -1,16 +1,13 @@
 <template>
   <admin-layout>
     <template v-slot:main>
+      <AddGenericPage v-if="adding" :data="newPage"></AddGenericPage>
       <EditGenericPage v-if="editing" :data="genericpages.currentPage"></EditGenericPage>
-      <div v-if="!editing" class="main-container">
-        <h2 class="header-title">Generic Pages</h2>
-     
-        <!-- <router-link :to="{ name: 'SaveGeneric' }" class="button button-add">Add New Page</router-link>
-        <br><br>
-         -->
-        <!-- <div>
-          <EditJobForm v-if="opStore.editing" :data="opStore.currentOpp"  ></EditJobForm>
-        </div>   -->
+      <div v-if="!editing && !adding" style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <div>
+          <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
+          <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(newPage, 1)" class="button button-add">ADD NEW PAGE</button>
+        </div>
         
         <div v-if="genericpages.generics.length">
           <table class="styled-table">
@@ -26,14 +23,14 @@
                 <td class="table-cell" style="width: 30%">{{ item.title }}</td>
                 <td class="table-cell" style="width: 48%">{{ item.submenu }}</td>
                 <td class="table-cell actions">
+                  
                   <!-- <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" class="button button-edit">
                     <i class="bi bi-pencil-square"></i>
                   </router-link> -->
                   <button @click="genericpages.editPage(item)" class="button button-edit">
-                    {{ item }}
                     <i class="bi bi-pencil-square"></i>
                   </button>
-                  <button @click="deletePage(item)" class="button button-delete">
+                  <button @click="deletePages(item, 1)" class="button button-delete">
                     <i class="bi bi-trash"></i>
                   </button>
                 </td>
@@ -48,6 +45,7 @@
 
 <script setup>
 import EditGenericPage from '@/Admin/Pages/EditGenericPage.vue'
+import AddGenericPage from '@/Admin/Pages/SaveGeneric.vue'
 
 // import 'vue3-toastify/dist/index.css';
 // opStore.getter();
@@ -62,12 +60,16 @@ import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 const genericpages = genericpagesStore();
-const {currentPage, editing } = storeToRefs(genericpages);
-const id = route.params.id;
-editing.value = false;
+const { fetchPageData, deletePages } = genericpages;
+const {currentPage, editing, adding, newPage } = storeToRefs(genericpages);
+
+const subnav_id = route.params.id;
+newPage.sub_menu_id = subnav_id;
+editing.value = false; 
+adding.value = false;
 
 watchEffect(() => {
-  genericpages.fetchPageData(id);
+  fetchPageData(subnav_id);
 });
 
 const handleReload = (newVal, oldVal) => {
@@ -76,13 +78,12 @@ const handleReload = (newVal, oldVal) => {
       }
 };
 watch(editing, handleReload);
+watch(adding, handleReload);
 
-const deletePage = (page) => {
-  if (confirm('Are you sure you want to delete this page?')) {
-    genericpages.deletePages(page.id);
-  }
-  genericpages.fetchPageData(id);
-};
+// const deletePage = (id) => {
+//   deletePages(id);
+//   fetchPageData(subnav_id);
+// };
 </script>
 
 <style scoped>

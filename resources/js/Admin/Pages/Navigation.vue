@@ -5,7 +5,7 @@
         <h2 style="text-align: center; margin-bottom: 10px;">MAIN NAVIGATION</h2>
         <div class="add-menu-button">
           <button @click="addNav" class="button button-add">ADD NEW MENU</button>
-        </div>
+        </div> <br>
 
         <transition name="modal-fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
           <AddNavigationModal v-if="showModal" :isVisible="showModal" @close="showModal = false" @save="saveNav">

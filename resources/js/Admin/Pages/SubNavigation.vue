@@ -2,6 +2,7 @@
   <admin-layout>
     <template v-slot:main>
       <div class="main-container">
+        <router-link :to="{ name: 'Navigation'}" ><</router-link>
         <h2 class="header-title">Sub Navigation List</h2>
         <button @click="addSubNav" class="button button-add">Add New Sub Menu</button>
         <br><br>

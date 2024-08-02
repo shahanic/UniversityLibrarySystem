@@ -29,7 +29,7 @@
           </div><br>
           <div> 
             <h2 class="text-base font-bold">Sub Navigation</h2>
-            <select v-model="currentPage.sub_menu_id" >
+            <select v-model="currentPage.sub_menu_id">
                 <option value="" disabled>Select a sub-navigation</option>
                 <option v-for="subnav in genericpages.subnavs" v-bind:key="subnav.id" v-bind:value="subnav.id" >{{subnav.submenu}}</option>
               </select>

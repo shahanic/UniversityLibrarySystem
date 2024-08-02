@@ -8,6 +8,7 @@
           <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
           <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(genericpages.newPage, 1)" class="button button-add">ADD NEW PAGE</button>
         </div>
+        <br>
         <div v-if="genericpages.generics.length">
           <table class="styled-table">
             <thead>
@@ -45,12 +46,6 @@
 <script setup>
 import EditGenericPage from '@/Admin/Pages/EditGenericPage.vue'
 import AddGenericPage from '@/Admin/Pages/SaveGeneric.vue'
-
-// import 'vue3-toastify/dist/index.css';
-// opStore.getter();
-//     opStore.loadApplications();
-//     opStore.paginatedOpps();
-
 
 import { useRoute } from 'vue-router';
 import { onMounted, ref, watchEffect, watch } from 'vue';

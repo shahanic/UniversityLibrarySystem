@@ -27,7 +27,7 @@
                 <td>{{ item.submenu }}</td>
                 <td class="actions">
                   <button @click="genericpages.previewContent(item.id)" class="button button-preview">
-                    Preview
+                    <i class="bi bi-eye" style="margin-right: 8px;"></i>Preview
                   </button>
                   <button @click="genericpages.editPage(item)" class="button button-edit">
                     <i class="bi bi-pencil-square"></i>

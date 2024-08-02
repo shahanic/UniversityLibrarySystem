@@ -44,7 +44,7 @@
             </transition>
 
             <aside
-                    class="transform top-0 left-0 w-64 backdrop-blur bg-white/80 dark:bg-gray-700/80  fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
+                    class="transform top-0 left-0 w-64 backdrop-blur bg-white/80 dark:bg-gray-700/80  fixed h-full overflow-hiden ease-in-out transition-all duration-300 z-30"
                     :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
             >
                 <div
@@ -53,33 +53,37 @@
                 >
                 </div>
 
-                <div class="grid grid-cols-1 text-gray-500 dark:text-white">
-                    <div class=" py-3.5">
-                        
-
-                        <p class="text-xs block p-2 text-gray-400 dark:text-gray-500 font-semibold">Menu</p>
-                        <router-link to="/super-user":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Dashboard') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Home</router-link>
-                        <router-link to="/generic-pages":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('GenericPages') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Generic Pages</router-link>
-                        <router-link to="/article-pages":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('ArticlePages') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Articles</router-link>
-                        <router-link to="/faqs":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Faqs') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">FAQs</router-link>
-                        <router-link to="/quick-links":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('QuickLinks') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Quick Links</router-link>
-                        <router-link to="/images":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Images') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Images</router-link>
-                        <router-link to="/accounts":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Accounts') ? 'bg-blue-700 dark:bg-gray-600' : ''}`">Accounts</router-link>
-                        <button @click="logout" class="font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 text-red-500">Logout</button>
-<!-- 
+                <div class="grid grid-cols-1 text-gray-500 dark:text-white bg-green-700 h-screen">
+                    <div class=" py-3.5">                                    
+                        <p class="text-xl block p-2 text-gray-400 text-white font-bold">Menu</p>
+                        <div class="flex flex-col mt-2 border-green-300 border-t dark:border-gray-700">
+                            <router-link to="/super-user":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Dashboard') ? 'mobbar-selected' : ''}`">Home</router-link>
+                            <router-link to="/generic-pages":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('GenericPages') ? 'mobbar-selected' : ''}`">Generic Pages</router-link>
+                            <router-link to="/article-pages":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('ArticlePages') ? 'mobbar-selected' : ''}`">Articles</router-link>
+                            <router-link to="/faqs":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Faqs') ? 'mobbar-selected' : ''}`">FAQs</router-link>
+                            <router-link to="/quick-links":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('QuickLinks') ? 'mobbar-selected' : ''}`">Quick Links</router-link>
+                            <router-link to="/images":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Images') ? 'mobbar-selected' : ''}`">Images</router-link>
+                            <router-link to="/accounts":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Accounts') ? 'mobbar-selected' : ''}`">Accounts</router-link>
+                            
+                            <div class="flex items-center justify-center w-full border-t border-green-300 dark:border-gray-700 pt-4"></div>
+                            
+                            <button @click="logout" class="font-semibold cursor-pointer py-3.5 px-4 block text-left hover:bg-green-500 text-white">Logout</button>
+    <!-- 
                         <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100  ${$route.name.includes('list')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/students/list')">GenericPages</div>
                         <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100  ${$route.name.includes('list')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/students/list')">Articles</div>
                         <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100 ${$route.name.includes('Registration')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/enlistment')">FAQs</div>
                         <div :class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-gray-100  ${$route.name.includes('Dropping')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/enlistment/cad')">Quick Links</div>
                         <div :class="`font-semibold cursor-pointer py-3.5 px-3 block hover:bg-gray-100 ${$route.path.includes('gradesheet')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/gradesheet')">Images</div>
                         <div :class="`font-semibold cursor-pointer py-3.5 px-3 block hover:bg-gray-100 ${$route.path.includes('tagging')? 'bg-accent4 text-white' : ''}`" @click="visit('/v2/tagging')">Accounts</div> -->
+                         </div>
                     </div>
 
-                </div>
+                </div> 
             </aside>
         </nav>
     </div>
 </template>
+
 
 <script>
     import Dropdown from "@/Components/Extras/Dropdown.vue";
@@ -123,5 +127,10 @@
 </script>
 
 <style scoped>
+    .mobbar-selected {
+    background: linear-gradient(135deg, #5fcc64 0%, #1B5E20 100%);
+    position: relative;
+    color: white; /* Ensure text color is white */
+}
 
 </style>

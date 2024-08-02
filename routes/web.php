@@ -51,7 +51,7 @@ Route::post('/retrieve-sub-navs/{id}',[SubNavigationController::class, 'retrieve
 
 Route::post('/get-page/{id}',[GenericPageController::class, 'retrievePages']);
 Route::post('/edit-page/{id}',[GenericPageController::class, 'retrieveEditPage']);
-Route::post('/save-new-page/{id}',[GenericPageController::class, 'saveNewPage']);
+Route::post('/save-new-page/{id}',[GenericPageController::class, 'fetchSubAndNav']);
 
 
 Route::get('/get-article/{id}',[ArticlesController::class, 'retrieveArticle']);

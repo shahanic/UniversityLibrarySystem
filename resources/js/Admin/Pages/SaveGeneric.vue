@@ -72,6 +72,7 @@
     genericpages.retrieveNavs();
   });
 
+
   const props = defineProps({
   data: {
     type: Object,

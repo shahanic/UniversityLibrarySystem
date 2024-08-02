@@ -6,9 +6,8 @@
       <div v-if="!editing && !adding" style="width: 90%; margin: 0 auto; margin-top: 2%;">
         <div>
           <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
-          <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(newPage, 1)" class="button button-add">ADD NEW PAGE</button>
+          <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(genericpages.newPage, 1)" class="button button-add">ADD NEW PAGE</button>
         </div>
-        
         <div v-if="genericpages.generics.length">
           <table class="styled-table">
             <thead>
@@ -64,17 +63,18 @@ const { fetchPageData, deletePages } = genericpages;
 const {currentPage, editing, adding, newPage } = storeToRefs(genericpages);
 
 const subnav_id = route.params.id;
-newPage.sub_menu_id = subnav_id;
 editing.value = false; 
 adding.value = false;
 
+  
 watchEffect(() => {
   fetchPageData(subnav_id);
+  genericpages.newPage.sub_menu_id = subnav_id;
 });
 
 const handleReload = (newVal, oldVal) => {
       if (oldVal === true && newVal === false) {
-        genericpages.fetchPagesData();
+        genericpages.fetchPageData(subnav_id);
       }
 };
 watch(editing, handleReload);

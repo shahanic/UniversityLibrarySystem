@@ -72,12 +72,10 @@ export const genericpagesStore = defineStore('generics', {
         // genericpages
         addNewPage(){
             this.newPage.slug = this.generateSlug(this.newPage.title);
-            console.log(newPage);
             if (this.newPage) {
                     axios.post('/save-page', this.newPage)
                     .then(() => {
                         alert('Content saved successfully!');
-                        // Navigate back based on previous route
                         this.adding = false;
                     })
                     .catch ((error) => {
@@ -90,14 +88,17 @@ export const genericpagesStore = defineStore('generics', {
 
         addPage(page, pagechecker){
             this.newPage = page;
-            console.log(this.newPage.sub_menu_id);
-
-            this.pagechecker = pagechecker;
+            // this.pagechecker = pagechecker;
             this.adding = true;
-            if (this.pagechecker == 1){
-                fetchSubAndNav(this.newPage.sub_menu_id);
+            if (pagechecker == 1){
+                axios.post(`/save-new-page/${this.newPage.sub_menu_id}`)
+                    .then((response) => {
+                        this.newPage.navigation_id = response.data.navigation_id
+                    })
+                    .catch ((error) => {
+                        console.error('Error fetching navigation and sub navigation id:', error);
+                    });
             }
-            
         },
 
         // retrieveEditPage($id), used in EditGenericPage.vue
@@ -137,7 +138,7 @@ export const genericpagesStore = defineStore('generics', {
         retrieveNavs(){
             axios.post('/retrieve-navs') 
             .then(response => {
-                // console.log(response.data)
+                console.log(response.data)
                 this.navs = response.data;
                 // console.log(this.newPage)
                 if (this.currentPage != null) {

@@ -25,7 +25,7 @@
           </div><br>
           <div> 
             <h2 class="text-base font-bold">Sub Navigation</h2>
-            <select v-model="newPage.sub_menu_id" >
+            <select v-model="newPage.sub_menu_id" require>
                 <option value="" disabled>Select a sub-navigation</option>
                 <option v-for="subnav in genericpages.subnavs" v-bind:key="subnav.id" v-bind:value="subnav.id" >{{subnav.submenu}}</option>
               </select>
@@ -45,6 +45,13 @@
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
                   Save
                 </button>
+                <button
+                  @click="genericpages.cancel"
+                  type="button"
+                  class="bg-green-500 text-white px-4 py-2 rounded mt-4 ml-2"
+                  >
+                  Cancel
+              </button>
               </form>
             </div>
           </div>

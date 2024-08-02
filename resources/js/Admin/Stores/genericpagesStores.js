@@ -24,14 +24,20 @@ export const genericpagesStore = defineStore('generics', {
             navs: [],
             editing: false,
             adding: false,
-            pagechecker: '',
-
+            preview: false,
+            content: '',
         } 
     },
 
     actions: {
         generateSlug(title) { 
             return title.toLowerCase().replace(/\s+/g, '-'); 
+        },
+
+        cancel(){
+            this.editing = false;
+            this.adding = false;
+            this.preview = false;
         },
 
         // save from edit
@@ -52,22 +58,17 @@ export const genericpagesStore = defineStore('generics', {
             }
         }, 
         
-
-        // //genericpage
-        // addPageData(){    
-        //     this.newPage.slug = this.generateSlug(this.newPage.title);
-        //     axios.post(`/save-new-page/${id}`, this.newPage)
-        //     .then((response) => {
-        //         this.newPage = response.data[0]||null;
-        //         this.retrieveNavs();
-        //         alert('Content saved successfully!');
-        //     })
-        //     .catch ((error) => {
-        //         console.error('Error saving article:', error);
-        //         alert('Failed to save content.');
-        //     });
-        // },
-
+        previewContent(id){
+            this.preview = true;
+            axios.post(`/edit-page/${id}`)
+            .then ((response) => {
+                this.content = response.data[0].content;
+            })
+            .catch ((error) => {
+                console.error('Error fetching page data:', error);
+            })
+        },
+ 
 
         // genericpages
         addNewPage(){
@@ -75,6 +76,7 @@ export const genericpagesStore = defineStore('generics', {
             if (this.newPage) {
                     axios.post('/save-page', this.newPage)
                     .then(() => {
+                        
                         alert('Content saved successfully!');
                         this.adding = false;
                     })
@@ -85,7 +87,7 @@ export const genericpagesStore = defineStore('generics', {
             }
         }, 
         
-
+        // genericpage
         addPage(page, pagechecker){
             this.newPage = page;
             // this.pagechecker = pagechecker;

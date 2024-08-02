@@ -1,9 +1,10 @@
 <template>
   <admin-layout>
     <template v-slot:main>
+      <PreviewGenericPage v-if="preview" :data="newPage"></PreviewGenericPage>
       <AddGenericPage v-if="adding" :data="newPage"></AddGenericPage>
       <EditGenericPage v-if="editing" :data="genericpages.currentPage"></EditGenericPage>
-      <div v-if="!editing && !adding" style="width: 90%; margin: 0 auto; margin-top: 2%;">
+      <div v-if="!editing && !adding && !preview" style="width: 90%; margin: 0 auto; margin-top: 2%;">
         <div>
           <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
           <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(newPage)" class="button button-add">ADD NEW PAGE</button>
@@ -25,12 +26,16 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.submenu }}</td>
                 <td class="actions">
+                  <button @click="genericpages.previewContent(item.id)" class="button button-preview">
+                    Preview
+                  </button>
                   <button @click="genericpages.editPage(item)" class="button button-edit">
                     <i class="bi bi-pencil-square"></i>
                   </button>
                   <button @click="genericpages.deletePages(item, 0)" class="button button-delete">
                     <i class="bi bi-trash"></i>
                   </button>
+
                 </td>
               </tr>
             </tbody>
@@ -43,14 +48,14 @@
 <script setup>
 import EditGenericPage from '@/Admin/Pages/EditGenericPage.vue'
 import AddGenericPage from '@/Admin/Pages/SaveGeneric.vue'
+import PreviewGenericPage from '@/Admin/Pages/PreviewGenericPage.vue'
+
 import { onMounted, watchEffect, watch } from 'vue';
 import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
 import { storeToRefs } from 'pinia';
 
 const genericpages = genericpagesStore();
-const {currentPage, newPage, editing, adding} = storeToRefs(genericpages);
-editing.value = false; 
-adding.value = false;
+const {currentPage, newPage, editing, adding, preview} = storeToRefs(genericpages);
 
 watchEffect(() => {
   genericpages.fetchPagesData();
@@ -63,6 +68,7 @@ const handleReload = (newVal, oldVal) => {
 };
 watch(editing, handleReload);
 watch(adding, handleReload);
+watch(preview, handleReload);
 
 // const deletePage = (item) => {
 //   if (confirm('Are you sure you want to delete this page?')) {

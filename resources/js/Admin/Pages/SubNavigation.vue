@@ -2,10 +2,10 @@
   <admin-layout>
     <template v-slot:main>
       <div class="main-container">
-        <router-link :to="{ name: 'Navigation'}" ><</router-link>
+        <!-- <router-link :to="{ name: 'Navigation'}" ><</router-link> -->
         <h2 class="header-title">Sub Navigation List</h2>
-        <button @click="addSubNav" class="button button-add">Add New Sub Menu</button>
-        <br><br>
+        <button @click="addSubNav" class="button button-add">Add Sub Menu</button>
+        <br>
 
         <AddSubNavigationModal :isVisible="showModal" @close="showModal = false" @save="saveSubNav">
           <div>
@@ -26,7 +26,7 @@
               <tr>
                 <th class="header-cell">Title</th>
                 <th class="header-cell">Navigation</th>
-                <th class="header-cell"></th>
+                <th style="width: 50%; font-weight: bold; text-transform: uppercase; font-size: 0.875em; "  >Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -35,7 +35,8 @@
                 <td class="table-cell">{{ item.menu }}</td>
                 <td class="table-cell actions">
                   <router-link :to="{ name: 'GenericPage', params: { id: item.id } }" custom v-slot="{ navigate }">
-                    <button @click="navigate" class="button button-view">Pages</button>
+                    <button @click="navigate" class="button button-view">
+                      <i class="bi bi-eye" style="margin-right: 8px;"></i>Pages</button>
                   </router-link>
                   <button @click="editSubNav(item)" class="button button-edit">
                     <i class="bi bi-pencil-square"></i>

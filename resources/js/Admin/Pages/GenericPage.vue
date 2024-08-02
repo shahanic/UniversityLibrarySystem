@@ -1,21 +1,22 @@
 <template>
   <admin-layout>
     <template v-slot:main>
+      <PreviewGenericPage v-if="preview" :data="newPage"></PreviewGenericPage>
       <AddGenericPage v-if="adding" :data="newPage"></AddGenericPage>
       <EditGenericPage v-if="editing" :data="genericpages.currentPage"></EditGenericPage>
-      <div v-if="!editing && !adding" style="width: 90%; margin: 0 auto; margin-top: 2%;">
+      <div v-if="!editing && !adding && !preview" style="width: 90%; margin: 0 auto; margin-top: 2%;">
         <div>
           <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
           <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(genericpages.newPage, 1)" class="button button-add">ADD NEW PAGE</button>
         </div>
-        <br>
+      
         <div v-if="genericpages.generics.length">
           <table class="styled-table">
             <thead>
               <tr>
                 <th class="header-cell">Title</th>
                 <th class="header-cell">Submenu</th>
-                <th class="header-cell">Actions</th>
+                <th style="width: 50%; font-weight: bold; text-transform: uppercase; font-size: 0.875em;">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -23,16 +24,17 @@
                 <td class="table-cell" style="width: 30%">{{ item.title }}</td>
                 <td class="table-cell" style="width: 48%">{{ item.submenu }}</td>
                 <td class="table-cell actions">
-                  
-                  <!-- <router-link :to="{ name: 'EditGenericPage', params: { id: item.id } }" class="button button-edit">
-                    <i class="bi bi-pencil-square"></i>
-                  </router-link> -->
+                  <button @click="genericpages.previewContent(item.id)" class="button button-delete">
+                    <i class="bi bi-eye" style="margin-right: 8px;"></i>Preview
+                  </button>
                   <button @click="genericpages.editPage(item)" class="button button-edit">
                     <i class="bi bi-pencil-square"></i>
                   </button>
                   <button @click="deletePages(item, 1)" class="button button-delete">
                     <i class="bi bi-trash"></i>
                   </button>
+                  
+                  
                 </td>
               </tr>
             </tbody>
@@ -46,6 +48,7 @@
 <script setup>
 import EditGenericPage from '@/Admin/Pages/EditGenericPage.vue'
 import AddGenericPage from '@/Admin/Pages/SaveGeneric.vue'
+import PreviewGenericPage from '@/Admin/Pages/PreviewGenericPage.vue'
 
 import { useRoute } from 'vue-router';
 import { onMounted, ref, watchEffect, watch } from 'vue';
@@ -55,11 +58,9 @@ import { storeToRefs } from 'pinia';
 const route = useRoute();
 const genericpages = genericpagesStore();
 const { fetchPageData, deletePages } = genericpages;
-const {currentPage, editing, adding, newPage } = storeToRefs(genericpages);
-
+const {currentPage, editing, adding, preview, newPage } = storeToRefs(genericpages);
 const subnav_id = route.params.id;
-editing.value = false; 
-adding.value = false;
+
 
   
 watchEffect(() => {
@@ -80,6 +81,7 @@ watch(adding, handleReload);
 //   fetchPageData(subnav_id);
 // };
 </script>
+
 
 <style scoped>
 .main-container {
@@ -111,7 +113,11 @@ watch(adding, handleReload);
   margin-bottom: 20px;
 }
 
-.button-add:hover {
+.button-view {
+  background-color: #4CAF50;
+}
+
+.button-view:hover {
   background-color: #45a049;
 }
 
@@ -130,6 +136,13 @@ watch(adding, handleReload);
 
 .button-delete:hover {
   background-color: #c82333;
+}
+
+.input-text {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px;
 }
 
 .styled-table {
@@ -179,4 +192,10 @@ watch(adding, handleReload);
   align-items: center;
   gap: 10px;
 }
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
 </style>
+

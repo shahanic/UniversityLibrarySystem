@@ -27,6 +27,8 @@ class GenericPageController extends Controller
         $new->content = $request->content;  
         $new->navigation_id = $request->navigation_id;  
         $new->sub_menu_id = $request->sub_menu_id;
+        $new->status = $request->status;
+
         $res = $new->save();
         return response()->json(['success' => $res]);
         
@@ -52,6 +54,7 @@ class GenericPageController extends Controller
                     'generics.menu_title', 
                     'generics.slug', 
                     'generics.abstract', 
+                    'generics.status', 
                     'generics.content', 
                     'generics.sub_menu_id', 
                     'sub_menus.navigation_id',
@@ -80,6 +83,7 @@ class GenericPageController extends Controller
                 'generics.slug', 
                 'generics.abstract', 
                 'generics.content', 
+                'generics.status', 
                 'generics.navigation_id', 
                 'sub_menus.navigation_id',
                 'generics.sub_menu_id',
@@ -99,7 +103,8 @@ class GenericPageController extends Controller
                 'generics.abstract', 
                 'generics.content', 
                 'generics.navigation_id', 
-                'generics.sub_menu_id', 
+                'generics.sub_menu_id',
+                'generics.status', 
                 'sub_menus.submenu')
         ->get();
     }

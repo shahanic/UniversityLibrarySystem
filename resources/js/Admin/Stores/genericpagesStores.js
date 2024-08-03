@@ -18,6 +18,7 @@ export const genericpagesStore = defineStore('generics', {
                 gallery_id: '',
                 navigation_id: '',
                 sub_menu_id: '',
+                status: '',
             },
             generics: [],
             subnavs: [],
@@ -26,6 +27,7 @@ export const genericpagesStore = defineStore('generics', {
             adding: false,
             preview: false,
             content: '',
+            status: '',
         } 
     },
 
@@ -107,7 +109,7 @@ export const genericpagesStore = defineStore('generics', {
         editPageData(id){
             axios.post(`/edit-page/${id}`)
             .then ((response) => {
-                // console.log(response.data)
+                // (response.data)
                 // since response returns table(?), need to get array 0
                 this.currentPage = response.data[0]||null;
                 this.retrieveNavs();
@@ -118,7 +120,6 @@ export const genericpagesStore = defineStore('generics', {
         },
 
         editPage(page){
-            console.log(page);
             this.currentPage = page;
             this.editing = true;
             
@@ -128,7 +129,6 @@ export const genericpagesStore = defineStore('generics', {
         retrieveSubNavs(id) {
         axios.post(`/retrieve-sub-navs/${id}`)
             .then(response => {
-            // console.log(response.data);
             this.subnavs = response.data; // Assuming response.data is the filtered subnavs
             })
             .catch(error => {
@@ -140,9 +140,7 @@ export const genericpagesStore = defineStore('generics', {
         retrieveNavs(){
             axios.post('/retrieve-navs') 
             .then(response => {
-                console.log(response.data)
                 this.navs = response.data;
-                // console.log(this.newPage)
                 if (this.currentPage != null) {
                     this.retrieveSubNavs(this.currentPage.navigation_id);
                 }
@@ -161,7 +159,6 @@ export const genericpagesStore = defineStore('generics', {
 
         // deletePages(Request $request), used in all vue genericpages
         deletePages(page, pagechecker) {
-            console.log(page);
             if (!page.id) return;
             if (confirm('Are you sure you want to delete this page?')){
                 axios.post('/delete-pages', { id: page.id })

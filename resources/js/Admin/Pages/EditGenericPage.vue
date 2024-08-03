@@ -34,6 +34,14 @@
                 <option v-for="subnav in genericpages.subnavs" v-bind:key="subnav.id" v-bind:value="subnav.id" >{{subnav.submenu}}</option>
               </select>
           </div> <br>
+          <div> 
+            <h2 class="text-base font-bold">Status</h2>
+            <select v-model="currentPage.status" require>
+                <option value="" disabled>Select status</option>
+                <option value="1">Draft</option>
+                <option value="0">Publish</option>
+              </select>
+          </div> <br>
 
           <div class="mb-4">
             <h2 class="text-base font-bold">Content</h2>

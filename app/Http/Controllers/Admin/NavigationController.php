@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class NavigationController extends Controller{
 
+    // '/save-nav'
     public function saveNav(Request $request){
         if($request->id){
             $new = Navigation::find($request->id);
@@ -24,10 +25,12 @@ class NavigationController extends Controller{
         return $res;
         
     }
+    // '/get-navs'
     public function getNavs(){
         return Navigation:: all();
     }
 
+    // '/delete-navs'
     public function deleteNavs(Request $request){
         Navigation::where('id', $request->id)->delete();
         return 1;
@@ -45,6 +48,7 @@ class NavigationController extends Controller{
         return response()->json($result);
     }
         
+    // '/retrieve-navs'
     public function retrieveNavs(){
         return response()->json(Navigation::select('navigations.id', 'navigations.menu')->get());
     }

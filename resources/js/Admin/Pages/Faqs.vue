@@ -1,3 +1,50 @@
+<template>
+  <admin-layout>
+    <template v-slot:main>
+      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
+        <h2 style="text-align: center; margin-bottom: 10px;">FAQS</h2>
+
+        <button @click="addFaq" class="button button-add">Add New FAQ</button>
+
+        <AddFaqModal :isVisible="showModal" @close="showModal = false" @save="saveFaq">
+
+        </AddFaqModal>
+
+        <br>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th class="actions-header">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(faqx, index) in faq.faqs" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ faqx.question }}</td>
+              <td>{{ faqx.answer }}</td>
+              <td>{{ faqx.category }}</td>
+              <td>{{ faqx.status }}</td>
+              <td class="actions">
+                <button @click="editFaq(faqx)" class="button button-edit">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button @click="deleteFaq(faqx)" class="button button-delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </template>
+  </admin-layout>
+</template>
+
 <script setup>
 import { ref } from 'vue';
 import { faqsStore } from '@/Admin/Stores/faqsStores';
@@ -39,79 +86,6 @@ const deleteFaq = (faqx) => {
 </script>
 
 
-<template>
-  <admin-layout>
-    <template v-slot:main>
-      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
-        <h2 style="text-align: center; margin-bottom: 10px;">FAQS</h2>
-
-        <button @click="addFaq" class="button button-add">Add New FAQ</button>
-
-        <AddFaqModal :isVisible="showModal" @close="showModal = false" @save="saveFaq">
-          <div>
-            <div class="modal-header">
-              <h1>Add FAQ</h1>
-            </div>
-
-            <div>
-              <label for="question">Question:</label><br>
-              <input type="text" v-model="form.question" class="input-text">
-            </div>
-            <div>
-              <label for="answer">Answer:</label><br>
-              <input type="text" v-model="form.answer" class="input-text">
-            </div>
-            <div>
-              <label for="category">Category:</label><br>
-              <select v-model="form.category" class="input-text">
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label for="status">Status:</label><br>
-              <select v-model="form.status" class="input-text">
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-          </div>
-        </AddFaqModal>
-
-        <br>
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Question</th>
-              <th>Answer</th>
-              <th>Category</th>
-              <th>Status</th>
-              <th class="actions-header">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(faqx, index) in faq.faqs" :key="index">
-              <td>{{ index + 1 }}</td>
-              <td>{{ faqx.question }}</td>
-              <td>{{ faqx.answer }}</td>
-              <td>{{ faqx.category }}</td>
-              <td>{{ faqx.status }}</td>
-              <td class="actions">
-                <button @click="editFaq(faqx)" class="button button-edit">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-                <button @click="deleteFaq(faqx)" class="button button-delete">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </template>
-  </admin-layout>
-</template>
 <style scoped>
 .button {
   background-color: #4CAF50;

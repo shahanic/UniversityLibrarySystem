@@ -8,37 +8,10 @@
         <br><br>
 
         <AddAccountModal :isVisible="showModal" @close="showModal = false" @save="saveUser">
-          <div>
-            <div class="modal-header">
-              <h1>Add Account</h1>
-            </div>
-
-            <div>
-              <label for="name">Name:</label><br>
-              <input type="text" v-model="form.name" class="input-text">
-            </div>
-            <div>
-              <label for="email">Email:</label><br>
-              <input type="text" v-model="form.email" class="input-text">
-            </div>
-            <div>
-              <label for="username">Username:</label><br>
-              <input type="text" v-model="form.username" class="input-text">
-            </div>
-            <div>
-              <label for="role">Role:</label><br>
-              <select v-model="form.role" class="input-text">
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label for="password">Password:</label><br>
-              <input type="text" v-model="form.password" class="input-text">
-            </div>
-          </div>
+          
         </AddAccountModal>
-
+{{form}}
+{{currentUser}}
         <br>
         <table class="styled-table">
           <thead>

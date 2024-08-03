@@ -1,7 +1,16 @@
 <template>
   <div v-if="isVisible" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
     <div class="bg-white p-6 rounded-lg w-1/4">
-      <slot></slot>
+      <div>
+            <div class="modal-header">
+              <h1>Add Sub Menu</h1>
+            </div>
+
+            <div>
+              <label for="menu">Sub Menu:</label><br>
+              <input type="text" v-model="subnav.form.submenu" class="input-text">
+            </div>
+      </div>
       <div class="flex justify-between items-center mt-1 ">
           <button @click="saveSubNav" class="bg-green-700 text-white px-2 py-1 rounded">Save</button>
           <button @click="closeModal" class="bg-red-500 text-white px-4 py-1 rounded mr-3">Close</button>
@@ -10,24 +19,33 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'AddSubNavigationModal',
-  props: {
-    isVisible: {
-      type: Boolean,
-      required: true
-    }
-  },
-  methods: {
-    closeModal() {
-      this.$emit('close');
-    },
-    saveSubNav() {
-      this.$emit('save'); // Emitting a save event to the parent component
-    }
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { subnavigationsStore } from '@/Admin/Stores/subnavigationStore';
+
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+    required: true
   }
+});
+
+const emit = defineEmits(['close', 'save']);
+const subnav = subnavigationsStore();
+
+const closeModal = () => {
+  subnav.form.id = '';
+  subnav.form.submenu = '';
+  subnav.form.slug = '';
+  subnav.form.created_at = '';
+  subnav.form.updated_at = '';
+  emit('close');
 };
+
+const saveSubNav = () => {
+  emit('save');
+};
+
 </script>
 
 <style scoped>

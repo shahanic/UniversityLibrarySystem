@@ -36,7 +36,7 @@ export const genericpagesStore = defineStore('generics', {
 
         cancel(){
             this.editing = false;
-            this.adding = false;
+            this.adding = false;    
             this.preview = false;
         },
 

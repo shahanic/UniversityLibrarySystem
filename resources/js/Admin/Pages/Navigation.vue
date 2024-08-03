@@ -8,19 +8,8 @@
         </div>
 
         <transition name="modal-fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
-          <AddNavigationModal v-if="showModal" :isVisible="showModal" @close="showModal = false" @save="saveNav">
-            <div>
-              <div class="modal-header">
-                <h1>Add Menu</h1>
-              </div>
-              <div>
-                <label for="menu">Menu:</label><br>
-                <input type="text" v-model="form.menu" class="input-text">
-              </div>
-            </div>
-          </AddNavigationModal>
+          <AddNavigationModal v-if="showModal" :isVisible="showModal" @close="showModal = false" @save="saveNav"></AddNavigationModal>
         </transition>
-
         <table class="styled-table">
           <thead>
             <tr>

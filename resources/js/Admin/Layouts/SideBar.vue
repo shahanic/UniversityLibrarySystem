@@ -72,7 +72,7 @@
             <router-link to="/navigation" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('Navigation') ? 'sidebar-selected' : ''}`">
                 Navigation
             </router-link>
-            <router-link to="/generic-pages" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('GenericPages') ? 'sidebar-selected' : ''}`">
+            <router-link to="/generic-pages" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('GenericPage') ? 'sidebar-selected' : ''}`">
                 Generic Pages
             </router-link>
             <router-link to="/article-pages" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('ArticlePages') ? 'sidebar-selected' : ''}`">

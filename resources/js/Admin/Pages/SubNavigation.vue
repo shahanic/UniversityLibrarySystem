@@ -6,20 +6,7 @@
         <h2 class="header-title">Sub Navigation List</h2>
         <button @click="addSubNav" class="button button-add">Add Sub Menu</button>
         <br>
-
-        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false" @save="saveSubNav">
-          <div>
-            <div class="modal-header">
-              <h1>Add Sub Menu</h1>
-            </div>
-
-            <div>
-              <label for="menu">Sub Menu:</label><br>
-              <input type="text" v-model="form.submenu" class="input-text">
-            </div>
-          </div>
-        </AddSubNavigationModal>
-
+        <AddSubNavigationModal :isVisible="showModal" @close="showModal = false" @save="saveSubNav"></AddSubNavigationModal>
         <div v-if="subnav.sub_menus.length">
           <table class="styled-table">
             <thead>

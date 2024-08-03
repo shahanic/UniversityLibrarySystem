@@ -38,25 +38,6 @@ export const routes = [
         component: GenericPages
     },
 
-    // {
-    //     path: '/edit-generic-page/:id',
-    //     name: "EditGenericPage",
-    //     component: EditGenericPage
-    // },
-
-    // {
-    //     path: '/save-generic-page/:id',
-    //     name: 'SaveGeneric',
-    //     component: SaveGeneric 
-    //   },
-
-
-    // {
-    //     path: '/pages/:id',
-    //     name: "Pages",
-    //     component: Pages
-    // },
-
     {
         path: '/faqs',
         name: "Faqs",

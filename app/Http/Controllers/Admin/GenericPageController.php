@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Generic;
 use App\Models\SubMenu;
 use App\Models\Navigation;
+use App\Models\Gallery;
+use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
 
 class GenericPageController extends Controller
@@ -100,6 +102,31 @@ class GenericPageController extends Controller
                 'generics.sub_menu_id', 
                 'sub_menus.submenu')
         ->get();
+    }
+
+    public function uploadImage(Request $request){
+        if($request->id){
+            $new = Generic::find($request->id);
+            $photo = new Photo;            
+            $new->gallery_id = $request->gallery_id; 
+            $new->gallery_id = $photo->gallery_id; 
+            $res = $new->save();
+            return response()->json(['success' => $res]);
+            
+        }else{
+            $new = new Generic;
+            $new->title = $request->title; 
+            $new->menu_title = $request->menu_title; 
+            $new->slug = $request->slug;  
+            $new->abstract = $request->abstract;  
+            $new->content = $request->content;  
+            $new->gallery_id = $request->gallery_id; 
+            $new->navigation_id = $request->navigation_id;  
+            $new->sub_menu_id = $request->sub_menu_id;
+            $res = $new->save();
+            return response()->json(['success' => $res]);
+        }
+        
     }
 
 }

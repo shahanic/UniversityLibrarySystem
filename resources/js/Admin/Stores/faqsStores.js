@@ -7,6 +7,8 @@ export const faqsStore = defineStore('faq', {
             form:{
                 question: '',
                 answer: '',
+                slug: '',
+                
                 category:'',
                 status:'',
             }
@@ -15,7 +17,11 @@ export const faqsStore = defineStore('faq', {
     },
 
     actions: {
+        generateSlug(question) { 
+            return question.toLowerCase().replace(/\s+/g, '-'); 
+        },
         save(){
+            this.form.slug = this.generateSlug(this.form.question);
             let {form} = this;
             axios.post('/save-faq', form).then(({data})=>{
                 this.$reset();

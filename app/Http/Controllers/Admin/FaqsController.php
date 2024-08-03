@@ -19,8 +19,10 @@ class FaqsController extends Controller
 
         $new->question = $request->question;    
         $new->answer = $request->answer;
+        $new->slug = $request->slug;
         $new->category = $request->category;
         $new->status = $request->status;
+        $new->views = 1;
 
 
         $res = $new->save();

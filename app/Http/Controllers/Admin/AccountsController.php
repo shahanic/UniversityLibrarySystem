@@ -16,7 +16,6 @@ class AccountsController extends Controller
         }else{
             $new = new User;
         }
-
         $new->name = $request->name;     
         $new->username = $request->username;
         $new->email = $request->email;
@@ -29,6 +28,7 @@ class AccountsController extends Controller
     }
     public function getUsers(){
         return User:: all();
+
     }
 
     public function deleteUser(Request $request){

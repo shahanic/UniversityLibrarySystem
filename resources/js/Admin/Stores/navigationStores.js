@@ -26,7 +26,6 @@ export const navigationStore = defineStore('nav', {
                 this.$reset();
                 this.getter();
             });
-
         },
         getter(){
             axios.post('/get-navs').then(({data})=>{

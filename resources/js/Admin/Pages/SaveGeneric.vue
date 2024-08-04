@@ -68,7 +68,6 @@
   
   <script setup>
   import { onMounted } from 'vue';
-  import { useRoute } from 'vue-router'
   import { genericpagesStore } from '@/Admin/Stores/genericpagesStores';
   import { storeToRefs } from 'pinia';
   import {ckStore} from '@/Admin/Stores/ckeditor';
@@ -78,7 +77,6 @@
   const { newPage, isLayoutReady } = storeToRefs(genericpages);
   const ck = ckStore();
   const { editor, editorConfig } = storeToRefs(ck);
-  const route = useRoute();
 
   // onMounted(() => {
   //   genericpages.fetchPagesData();

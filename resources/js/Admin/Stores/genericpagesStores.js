@@ -78,7 +78,6 @@ export const genericpagesStore = defineStore('generics', {
             if (this.newPage) {
                     axios.post('/save-page', this.newPage)
                     .then(() => {
-                        
                         alert('Content saved successfully!');
                         this.adding = false;
                     })
@@ -109,8 +108,6 @@ export const genericpagesStore = defineStore('generics', {
         editPageData(id){
             axios.post(`/edit-page/${id}`)
             .then ((response) => {
-                // (response.data)
-                // since response returns table(?), need to get array 0
                 this.currentPage = response.data[0]||null;
                 this.retrieveNavs();
             })

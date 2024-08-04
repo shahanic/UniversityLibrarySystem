@@ -59,6 +59,8 @@
         <div class="flex -mt-1 px-2 gap-1">
             <div class="flex self-center w-20 h-14">
                 <img class="rounded-full" src="https://www.mmsu.edu.ph/mmsu_logo/mmsu_logo.png"/>
+                <!-- <img class="rounded-full" src="imgs/mmsu.png"/> -->
+
             </div>
             <div class="flex self-center">
                 <p class="font-semibold text-white text-sm">University Library System</p>

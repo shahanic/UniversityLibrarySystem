@@ -18,8 +18,11 @@ class ArticlesController extends Controller
         }
         $new->title = $request->title; 
         $new->abstract = $request->abstract; 
+        $new->slug = $request->slug; 
         $new->content = $request->content;    
-     
+        $new->status = $request->status;    
+        $new->gallery_id = $request->gallery_id;    
+        $new->date = $request->date;  
         $res = $new->save();
         return $res;
         

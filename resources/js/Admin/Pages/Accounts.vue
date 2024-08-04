@@ -7,11 +7,7 @@
         <button @click="addUser" class="button button-add">Add New Account</button>
         <br><br>
 
-        <AddAccountModal :isVisible="showModal" @close="showModal = false" @save="saveUser">
-          
-        </AddAccountModal>
-{{form}}
-{{currentUser}}
+        <AddAccountModal :isVisible="showModal" @close="showModal = false" @save="saveUser"></AddAccountModal>
         <br>
         <table class="styled-table">
           <thead>

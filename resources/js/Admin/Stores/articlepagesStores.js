@@ -1,36 +1,82 @@
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import AddArticle from '../Modals/AddArticle.vue';
 
 export const articlesStore = defineStore('articles', {
   state: () => ({
-    // editor: ClassicEditor,
-    // editorConfig: {
-    //   toolbar: ['undo', 'redo', '|', 'heading', '|', 'bold', 'italic', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
-    // },
     currentArticle: null,
+    newArticle: {
+      title: '',
+      abstract: '',
+      slug: '',
+      content: '',
+      status: '',
+      gallery_id: '', 
+      date: new Date().toISOString().split('T')[0],
+    },
     articles: [],
+    adding: false,
   }),
+
   actions: {
-    async save() {
-      if (this.currentArticle) {
-      try {
-        await axios.post('/save-article', this.currentArticle);
-        alert('Content saved successfully!');
-      } catch (error) {
-        console.error('Error saving article:', error);
-        alert('Failed to save content.');
-      }
-    }
+    generateSlug(title) { 
+      return title.toLowerCase().replace(/\s+/g, '-'); 
   },
-    async fetchArticlesData() {
-      try {
-        const response = await axios.post('/get-articles');
-        this.articles = response.data;
-      } catch (error) {
-        console.error('Error fetching articles:', error);
+  
+    cancel(){
+      // this.editing = false;
+      this.adding = false;    
+      // this.preview = false;
+  },
+
+    save(){
+      if (this.currentArticle){
+        axios.post('/save-article', this.currentArticle)
+        .then(() =>{
+          alert('Content saved successfully!');
+        })
+        .catch((error) => {
+          console.error('Error saving article:', error);
+          alert('Failed to save content.');
+        })
       }
     },
+
+    addNewArticle(){
+      this.newArticle.slug = this.generateSlug(this.newArticle.title);
+      if (this.newArticle){
+        axios.post('/save-article', this.newArticle)
+        .then(() =>{
+          alert('Content saved successfully!');
+          this.adding = false;
+        })
+        .catch((error) => {
+          console.error('Error saving article:', error);
+          alert('Failed to save content.');
+        })
+      }
+    },
+
+
+    addArticle(article){
+      this.newArticle = article;
+      this.adding = true;
+    },
+
+    fetchArticlesData(){
+      this.$reset();
+      axios.post('/get-articles')
+      .then((response) => {
+        this.articles = response.data;
+      })
+      .catch((error) => {
+        console.error('Error fetching articles:', error);
+
+      })
+    },
+
+
 
     // editArticle(articlex) {
     //   this.title = articlex.title;

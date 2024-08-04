@@ -1,49 +1,70 @@
 <template>
   <admin-layout>
     <template v-slot:main>
-      <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
+      <AddArticle v-if="adding" :data="newArticle"></AddArticle>
+      <div v-if="!adding"style="width: 90%; margin: 0 auto; margin-top: 2%;">
         <h2 style="text-align: center; margin-bottom: 10px;">Article Pages</h2>
+        <button @click="articlepage.addArticle(articlepage.newArticle)" class="button button-add">Add New Article</button>
+        <br><br>
+        {{newArticle}}
         <table class="styled-table">
           <thead>
             <tr>
               <th>Title</th>
-              <th>Content</th>
-              <th>Page</th>
+              <th>Description</th>
+              <th>Status</th>
               <th class="actions-header">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(articlex, i) in articles" :key="i">
               <td>{{ articlex.title }}</td>
-              <td>{{ articlex.content }}</td>
-              <td>{{ articlex.pages_id }}</td>
+              <td>{{ articlex.abstract }}</td>
+              <td>{{ articlex.status === 1 ? 'Drafted' : 'Published' }}</td>
               <td class="actions">
-                <router-link :to="{ name: 'ArticlePage', params: { id: articlex.id } }" custom v-slot="{ navigate }">
+                <!-- <router-link :to="{ name: 'ArticlePage', params: { id: articlex.id } }" custom v-slot="{ navigate }">
                   <button @click="navigate" class="button button-edit">
                     <i class="bi bi-pencil-square"></i>
                   </button>
-                </router-link>
+                </router-link> -->
               </td>
+              
             </tr>
           </tbody>
         </table>
         <br>
+        
       </div>
     </template>
   </admin-layout>
 </template>
 <script setup>
-import { onMounted } from 'vue';
+import AddArticle from '@/Admin/Modals/AddArticle.vue'
+import { onMounted, watch, watchEffect } from 'vue';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import { storeToRefs } from 'pinia';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const articlepage = articlesStore();
-const { articles } = storeToRefs(articlepage);
+const { articles, newArticle, adding } = storeToRefs(articlepage);
 
-onMounted(() => {
+watchEffect(() => {
   articlepage.fetchArticlesData();
+
 });
+// onMounted(() => {
+//   articlepage.fetchArticlesData();
+// });
+
+
+const handleReload = (newVal, oldVal) => {
+      if (oldVal === true && newVal === false) {
+        articlepage.fetchArticlesData();
+      }
+};
+// watch(editing, handleReload);
+watch(adding, handleReload);
+
 </script>
 
 <style scoped>

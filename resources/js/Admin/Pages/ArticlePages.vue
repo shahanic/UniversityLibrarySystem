@@ -1,12 +1,13 @@
 <template>
   <admin-layout>
     <template v-slot:main>
+      <PreviewArticle v-if="preview" :data="newArticle"></PreviewArticle>
       <AddArticle v-if="adding" :data="newArticle"></AddArticle>
-      <div v-if="!adding"style="width: 90%; margin: 0 auto; margin-top: 2%;">
+      <EditArticle v-if="editing" :data="currentArticle"></EditArticle>
+      <div v-if="!adding && !editing && !preview" style="width: 90%; margin: 0 auto; margin-top: 2%;">
         <h2 style="text-align: center; margin-bottom: 10px;">Article Pages</h2>
         <button @click="articlepage.addArticle(articlepage.newArticle)" class="button button-add">Add New Article</button>
         <br><br>
-        {{newArticle}}
         <table class="styled-table">
           <thead>
             <tr>
@@ -22,11 +23,15 @@
               <td>{{ articlex.abstract }}</td>
               <td>{{ articlex.status === 1 ? 'Drafted' : 'Published' }}</td>
               <td class="actions">
-                <!-- <router-link :to="{ name: 'ArticlePage', params: { id: articlex.id } }" custom v-slot="{ navigate }">
-                  <button @click="navigate" class="button button-edit">
-                    <i class="bi bi-pencil-square"></i>
+                <button @click="articlepage.previewContent(articlex.id)" class="button button-preview">
+                    <i class="bi bi-eye" style="margin-right: 8px;"></i>Preview
                   </button>
-                </router-link> -->
+                <button @click="articlepage.editArticle(articlex)" class="button button-add">Edit moko idolo labyu
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button @click="articlepage.deleteArticle(articlex.id)" class="button button-delete">
+                    <i class="bi bi-trash"></i>
+                  </button>
               </td>
               
             </tr>
@@ -39,23 +44,21 @@
   </admin-layout>
 </template>
 <script setup>
+import PreviewArticle from '@/Admin/Modals/PreviewArticle.vue'
 import AddArticle from '@/Admin/Modals/AddArticle.vue'
+import EditArticle from '../Modals/EditArticle.vue';
 import { onMounted, watch, watchEffect } from 'vue';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import { storeToRefs } from 'pinia';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const articlepage = articlesStore();
-const { articles, newArticle, adding } = storeToRefs(articlepage);
+const { articles, newArticle, currentArticle, adding, editing, preview } = storeToRefs(articlepage);
 
 watchEffect(() => {
   articlepage.fetchArticlesData();
 
 });
-// onMounted(() => {
-//   articlepage.fetchArticlesData();
-// });
-
 
 const handleReload = (newVal, oldVal) => {
       if (oldVal === true && newVal === false) {
@@ -64,6 +67,8 @@ const handleReload = (newVal, oldVal) => {
 };
 // watch(editing, handleReload);
 watch(adding, handleReload);
+watch(editing, handleReload);
+
 
 </script>
 

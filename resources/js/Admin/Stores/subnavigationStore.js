@@ -13,6 +13,7 @@ export const subnavigationsStore = defineStore('subnav', {
             sub_menus: [],
             navigations: [],
             editing: false,
+            checkifthereissubnav: true,
 
         } 
     },
@@ -33,6 +34,7 @@ export const subnavigationsStore = defineStore('subnav', {
                     // Handle case where no data is found
                     this.form.navigation_id = '';
                     this.sub_menus = [];
+                    this.checkifthereissubnav = false;
                     console.warn('No sub-navigation data found for ID:', id);
                 }
             })

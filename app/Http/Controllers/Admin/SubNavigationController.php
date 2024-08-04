@@ -18,6 +18,7 @@ class SubNavigationController extends Controller
         ->where('navigations.id', $id)
         ->select('sub_menus.id', 
                  'sub_menus.submenu', 
+                 'sub_menus.slug', 
                  'navigations.id as nav_id',
                  'navigations.menu')
         ->get();
@@ -56,9 +57,5 @@ class SubNavigationController extends Controller
                  'sub_menus.submenu')
         ->get();
     }
-
-
-
-
 
 }

@@ -17,6 +17,9 @@ export const articlesStore = defineStore('articles', {
     },
     articles: [],
     adding: false,
+    editing: false,
+    preview: false,
+    previewArticle: null,
   }),
 
   actions: {
@@ -25,24 +28,29 @@ export const articlesStore = defineStore('articles', {
   },
   
     cancel(){
-      // this.editing = false;
+      this.editing = false;
       this.adding = false;    
-      // this.preview = false;
+      this.preview = false;
   },
+    previewContent(id){
+      this.preview = true;
+      axios.post(`/edit-article/${id}`)
+        .then((response) =>{
+          this.previewArticle = {
+            title: response.data[0].title,
+            content: response.data[0].content
+          };
 
-    save(){
-      if (this.currentArticle){
-        axios.post('/save-article', this.currentArticle)
-        .then(() =>{
-          alert('Content saved successfully!');
         })
         .catch((error) => {
-          console.error('Error saving article:', error);
-          alert('Failed to save content.');
+          console.error('Error fetching article data:', error);
         })
-      }
-    },
+  },
 
+    addArticle(article){
+      this.newArticle = article;
+      this.adding = true;
+    },
     addNewArticle(){
       this.newArticle.slug = this.generateSlug(this.newArticle.title);
       if (this.newArticle){
@@ -59,9 +67,36 @@ export const articlesStore = defineStore('articles', {
     },
 
 
-    addArticle(article){
-      this.newArticle = article;
-      this.adding = true;
+
+    editArticle(article){
+      console.log(article); 
+      this.currentArticle = article;
+      this.editing = true;
+    },
+    editArticleData(id){
+        axios.post(`/edit-article/${id}`)
+        .then((response) =>{
+          this.currentPage = response.data[0]||null;
+        })
+        .catch((error) => {
+          console.error('Error saving article:', error);
+          alert('Failed to save content.');
+        })
+    },
+
+    save(){
+      this.currentArticle.slug = this.generateSlug(this.currentArticle.title);
+      if (this.currentArticle){
+        axios.post('/save-article', this.currentArticle)
+        .then(() =>{
+          alert('Content saved successfully!');
+          this.editing = false;
+        })
+        .catch((error) => {
+          console.error('Error saving article:', error);
+          alert('Failed to save content.');
+        })
+      }
     },
 
     fetchArticlesData(){
@@ -69,6 +104,7 @@ export const articlesStore = defineStore('articles', {
       axios.post('/get-articles')
       .then((response) => {
         this.articles = response.data;
+        
       })
       .catch((error) => {
         console.error('Error fetching articles:', error);
@@ -76,25 +112,20 @@ export const articlesStore = defineStore('articles', {
       })
     },
 
-
-
-    // editArticle(articlex) {
-    //   this.title = articlex.title;
-    //   this.abstract = articlex.abstract;
-    //   this.content = articlex.content;
-    // },
-
-    async deleteArticle(id) {
+    deleteArticle(id){
       if (!id) return;
-      try {
-        await axios.post('/delete-article', { id });
+      if (confirm('Are you sure you want to delete this page?')){
+      axios.post('/delete-article', { id })
+      .then(() => {
         this.$reset();
-        await this.fetchArticlesData();
+        this.fetchArticlesData();
         alert('Article deleted successfully!');
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error('Error deleting article:', error);
         alert('Failed to delete article.');
-      }
+      })
+    }
     },
 
     async fetchArticleData(id){

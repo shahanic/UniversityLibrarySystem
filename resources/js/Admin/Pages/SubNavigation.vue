@@ -7,6 +7,9 @@
         <button @click="addSubNav" class="button button-add">Add Sub Menu</button>
         <br>
         <AddSubNavigationModal :isVisible="showModal" @close="showModal = false" @save="saveSubNav"></AddSubNavigationModal>
+        <IfNoSuvNav :isVisible="checkifthereissubnav">
+          
+        </IfNoSuvNav>
         <div v-if="subnav.sub_menus.length">
           <table class="styled-table">
             <thead>
@@ -21,7 +24,7 @@
                 <td class="table-cell">{{ item.submenu }}</td>
                 <td class="table-cell">{{ item.menu }}</td>
                 <td class="table-cell actions">
-                  <router-link :to="{ name: 'GenericPage', params: { id: item.id } }" custom v-slot="{ navigate }">
+                  <router-link :to="{ name: 'GenericPage', params: { subslug:item.slug }, query: { id: item.id } }" custom v-slot="{ navigate }">
                     <button @click="navigate" class="button button-view">
                       <i class="bi bi-eye" style="margin-right: 8px;"></i>Pages</button>
                   </router-link>
@@ -50,10 +53,10 @@ import AddSubNavigationModal from '@/Admin/Modals/AddSubNavigationModal.vue';
 
 const route = useRoute();
 const subnav = subnavigationsStore();
-const { form } = storeToRefs(subnav);
+const { form, checkifthereissubnav } = storeToRefs(subnav);
 
 onMounted(async () => {
-  const id = route.params.id;
+  const id = route.query.id;
   await subnav.fetchSubNavData(id);
 });
 

@@ -48,7 +48,20 @@ class ArticlesController extends Controller
         ->get();
     }
 
-    
+   public function retrieveEditArticle($id){
+        return Article::where('articles.id', $id)
+        ->select(
+            'articles.title',
+            'articles.abstract',
+            'articles.slug',
+            'articles.content',
+            'articles.title',
+            'articles.gallery_id',
+            'articles.date',
+        )
+        ->get();
+    }
+
 
 
 }

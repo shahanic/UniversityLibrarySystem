@@ -25,11 +25,25 @@ export const routes = [
         name: "Navigation",
         component: Navigation
     },
+
+    {
+        path: '/navigation/:slug',
+        name: "SubNavigation",
+        component: SubNavigation,
+        props: route => ({ 
+            slug: route.params.slug, 
+            id: route.query.id 
+          })
+    },
     
     {
-        path: '/generic-page/:id',
+        path: '/navigation/:slug/:subslug',
         name: "GenericPage",
-        component: GenericPage
+        component: GenericPage,
+        props: route => ({ 
+            subslug: route.params.slug, 
+            id: route.query.id 
+          })
     },
 
     {
@@ -60,12 +74,6 @@ export const routes = [
         path: '/accounts',
         name: "Accounts",
         component: Accounts
-    },
-
-    {
-        path: '/subnav/:id',
-        name: "SubNavigation",
-        component: SubNavigation
     },
 
     {

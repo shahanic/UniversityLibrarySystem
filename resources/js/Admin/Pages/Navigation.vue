@@ -21,11 +21,12 @@
             <tr v-for="navx in nav.navigations" :key="navx.id">
               <td>{{ navx.menu }}</td>
               <td class="actions">
-                <router-link :to="{ name: 'SubNavigation', params: { id: navx.id } }" custom v-slot="{ navigate }">
-                  <button @click="navigate" class="button button-view">
-                    <i class="bi bi-eye" style="margin-right: 8px;"></i>   View
+                <router-link :to="{ name: 'SubNavigation', params: {slug: navx.slug }, query: { id: navx.id }}">
+                  <button class="button button-view">
+                  <i class="bi bi-eye" style="margin-right: 8px;"></i> View
                   </button>
                 </router-link>
+                
                 <button @click="editNav(navx)" class="button button-edit">
                   <i class="bi bi-pencil-square"></i>
                 </button>

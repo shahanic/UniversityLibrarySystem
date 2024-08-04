@@ -61,6 +61,8 @@ class GenericPageController extends Controller
                     'sub_menus.submenu')
             ->get();
     }
+
+    
     
     // '/delete-pages'
     public function deletePages(Request $request){

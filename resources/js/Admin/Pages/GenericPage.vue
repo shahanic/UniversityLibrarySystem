@@ -62,7 +62,7 @@ const route = useRoute();
 const genericpages = genericpagesStore();
 const { fetchPageData, deletePages } = genericpages;
 const {currentPage, editing, adding, preview, newPage } = storeToRefs(genericpages);
-const subnav_id = route.params.id;
+const subnav_id = route.query.id;
 
 
   
@@ -79,10 +79,6 @@ const handleReload = (newVal, oldVal) => {
 watch(editing, handleReload);
 watch(adding, handleReload);
 
-// const deletePage = (id) => {
-//   deletePages(id);
-//   fetchPageData(subnav_id);
-// };
 </script>
 
 

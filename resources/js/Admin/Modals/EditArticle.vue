@@ -1,27 +1,26 @@
 <template>
     <div class="container mx-auto p-4">
-      <h1 class="text-2xl font-bold mb-4 text-center">Add New Article</h1>
+      <h1 class="text-2xl font-bold mb-4 text-center">Edit Article</h1>
       <div class="mb-6">
-
         <div class="col-span-2 mb-4">
           <h2 class="text-base font-bold">Title</h2>
           <textarea type="text"
             class="form-input border border-gray-300 rounded w-full"
-            v-model="newArticle.title"
+            v-model="currentArticle.title"
             placeholder="Title" required></textarea>
         </div>
         <div class="mb-4">
           <h2 class="text-base font-bold">Description</h2>
           <textarea type="text"
             class="form-input border border-gray-300 rounded w-full py-2 px-3"
-            v-model="newArticle.abstract"
+            v-model="currentArticle.abstract"
             placeholder="Abstract"></textarea>
         </div>
         <div class="mb-4">
           <h2 class="text-base font-bold">Content</h2>
           <textarea type="text"
             class="form-input border border-gray-300 rounded w-full py-2 px-3"
-            v-model="newArticle.content"
+            v-model="currentArticle.content"
             placeholder="Content"></textarea>
         </div>
         <div class="mb-4">
@@ -30,7 +29,7 @@
           </div> <br>   
         <div> 
             <h2 class="text-base font-bold">Status</h2>
-            <select v-model="newArticle.status" require>
+            <select v-model="currentArticle.status" require>
                 <option value="" disabled>Select status</option>
                 <option value="1">Draft</option>
                 <option value="0">Publish</option>
@@ -38,9 +37,9 @@
         </div> <br> 
         <div> 
             <h2 class="text-base font-bold">Date</h2>
-            <input v-model="newArticle.date" type="date" >
+            <input v-model="currentArticle.date" type="date" >
         </div> <br> 
-          <form @submit.prevent="articlepage.addNewArticle()">
+          <form @submit.prevent="articlepage.save()">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
               Save
             </button>
@@ -65,9 +64,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 // import { VDateInput } from 'vuetify/labs/VDateInput'
 
 const articlepage = articlesStore();
-const { newArticle } = storeToRefs(articlepage);
+const { currentArticle, } = storeToRefs(articlepage);
 
-  
+onMounted(() => {
+  if (articlepage.currentArticle.id) {
+      articlepage.editArticleData(articlepage.currentArticle.id);
+  }
+});  
+
 const props = defineProps({
 data: {
 type: Object,

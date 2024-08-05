@@ -3,14 +3,13 @@
     <template v-slot:main>
       <div class="main-container">
         <!-- <router-link :to="{ name: 'Navigation'}" ><</router-link> -->
-        <h2 class="header-title">Sub Navigation List</h2>
-        <button @click="addSubNav" class="button button-add">Add Sub Menu</button>
-        <br>
+
         <AddSubNavigationModal :isVisible="showModal" @close="showModal = false" @save="saveSubNav"></AddSubNavigationModal>
-        <IfNoSuvNav :isVisible="checkifthereissubnav">
-          
-        </IfNoSuvNav>
+
         <div v-if="subnav.sub_menus.length">
+          <h2 class="header-title">Sub Navigation List</h2>
+          <button @click="addSubNav" class="button button-add">Add Sub Menu</button>
+          <br>
           <table class="styled-table">
             <thead>
               <tr>
@@ -38,33 +37,49 @@
               </tr>
             </tbody>
           </table>
+        </div> 
+        <div v-if="!subnav.sub_menus.length">
+          <h2 class="header-title">Sub Navigation List</h2><br>
+          <p style="max-width: fit-content; margin-left: auto; margin-right: auto; text-align: center">SORRY! NO RESULTS FOUND:( <br>Seems like there's no sub navigation, would you like to add one or check out its pages instead?</p>
+          <br>
+            <div style="max-width: fit-content; margin-left: auto; margin-right: auto;">
+              <button style="margin-right: 10px;"@click="addSubNav" class="button button-add">Add Sub Menu</button>
+            <router-link style= "margin-left: 10px" :to="{ name: 'GenericPage', params: { subslug: nav_slug }, query: { id: id } }" custom v-slot="{ navigate }">
+              <button  @click="navigate" class="button button-view">
+                <i class="bi bi-eye" style="margin-right: 8px;"></i>Pages</button>
+            </router-link>
+            </div>
+          </div>
         </div>
-      </div>
     </template>
   </admin-layout>
 </template>
 
 <script setup>
+import AddSubNavigationModal from '@/Admin/Modals/AddSubNavigationModal.vue';
 import { useRoute } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { watchEffect, ref } from 'vue';
 import { subnavigationsStore } from '@/Admin/Stores/subnavigationStore';
 import { storeToRefs } from 'pinia';
-import AddSubNavigationModal from '@/Admin/Modals/AddSubNavigationModal.vue';
+
+import { navigationStore } from '@/Admin/Stores/navigationStores';
+const nav = navigationStore();
 
 const route = useRoute();
 const subnav = subnavigationsStore();
-const { form, checkifthereissubnav } = storeToRefs(subnav);
+const { form } = storeToRefs(subnav);
+const id = route.query.id;
+const nav_slug = route.params.slug
 
-onMounted(async () => {
-  const id = route.query.id;
-  await subnav.fetchSubNavData(id);
+watchEffect(() => {
+  subnav.fetchSubNavData(id);
 });
 
 const showModal = ref(false);
 const currentSubNav = ref(null);
 
 const saveSubNav = () => {
-  const id = route.params.id;
+  const id = route.paraquesryms.id;
   if (currentSubNav.value) {
     subnav.editSubNav(form.value);
     subnav.save(id);

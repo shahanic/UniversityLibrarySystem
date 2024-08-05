@@ -53,11 +53,11 @@ const emit = defineEmits(['close', 'save']);
 const account = accountsStore();
 
 const closeModal = () => {
-  account.form.id = '';
-  account.form.username = '';
-  account.form.email = '';
-  account.form.role = '';
-  account.form.password = '';
+  // account.form.id = '';
+  // account.form.username = '';
+  // account.form.email = '';
+  // account.form.role = '';
+  // account.form.password = '';
   emit('close');
 };
 

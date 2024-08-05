@@ -5,12 +5,11 @@
       <AddGenericPage v-if="adding" :data="newPage"></AddGenericPage>
       <EditGenericPage v-if="editing" :data="genericpages.currentPage"></EditGenericPage>
       <div v-if="!editing && !adding && !preview" style="width: 90%; margin: 0 auto; margin-top: 2%;">
-        <div>
-          <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
-          <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(genericpages.newPage, 1)" class="button button-add">ADD NEW PAGE</button>
-        </div>
-      
         <div v-if="genericpages.generics.length">
+          <div>
+            <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
+            <button style="  text-align: left; margin-bottom: 20px;" @click="genericpages.addPage(genericpages.newPage, 1)" class="button button-add">ADD NEW PAGE</button>
+          </div>
           <table class="styled-table">
             <thead>
               <tr>
@@ -35,13 +34,21 @@
                   </button>
                   <button @click="deletePages(item, 1)" class="button button-delete">
                     <i class="bi bi-trash"></i>
-                  </button>
-                  
-                  
+                  </button> 
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div v-if="!genericpages.generics.length">
+          <h2 style="text-align: center; margin-bottom: 10px;">Generic Pages</h2>
+          <br>
+          <p style="max-width: fit-content; margin-left: auto; margin-right: auto; text-align: center">SORRY! NO RESULTS FOUND:( <br>Seems like there's no pages, would you like to add one?</p> <br>
+
+            <div style="max-width: fit-content; margin-left: auto; margin-right: auto;">
+              <button @click="genericpages.addPage(genericpages.newPage, 1)" class="button button-add">ADD NEW PAGE</button>          
+          </div>  
         </div>
       </div>
     </template>

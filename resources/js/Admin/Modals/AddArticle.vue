@@ -26,6 +26,7 @@
         </div>
         <div class="mb-4">
           <h2 class="text-base font-bold">Photo</h2>
+      
           <div class="editor-container" ref="editorContainerElement">
           </div> <br>   
         <div> 

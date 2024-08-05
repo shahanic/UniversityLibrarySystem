@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
-use App\Models\Pages;
+use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ArticlesController extends Controller
 {
@@ -62,6 +64,21 @@ class ArticlesController extends Controller
         ->get();
     }
 
+    // public function store(Request $request)
+    // {
+    //     $file = $request->image;
+    //     $filename = $file->getClientOriginalName();
+    //     // $ext = $file->getClientOriginalExtension();
+    //     // $filename = $originalFileName . '.' . $ext;
+        
+    //     Storage::disk('public')->put('/imgs/' . $filename, File::get($file));
+
+    //     $imageModel = new Photo();
+    //     $imageModel->name = $filename;
+    //     $imageModel->save();
+
+    //     return 1;
+    // }
 
 
 }

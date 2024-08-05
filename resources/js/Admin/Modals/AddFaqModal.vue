@@ -5,7 +5,8 @@
         <div class="modal-header">
           <h1>Add FAQ</h1>
         </div>
-
+{{form}}
+{{ faq.form }}
         <div>
           <label for="question">Question:</label><br>
           <input type="text" v-model="faq.form.question" class="input-text">
@@ -52,10 +53,15 @@ const emit = defineEmits(['close', 'save']);
 const faq = faqsStore();
 
 const closeModal = () => {
+  faq.form. id= '';
   faq.form.question = '';
+  faq.form.slug= '';
   faq.form.answer = '';
   faq.form.category = '';
-  faq.form. status= '';
+  faq.form.status= '';
+  faq.form.views= '';
+  faq.form.created_at= '';
+  faq.form.updated_at= '';
   emit('close');
 };
 

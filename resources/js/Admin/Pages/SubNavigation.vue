@@ -62,14 +62,13 @@ import { watchEffect, ref } from 'vue';
 import { subnavigationsStore } from '@/Admin/Stores/subnavigationStore';
 import { storeToRefs } from 'pinia';
 
-import { navigationStore } from '@/Admin/Stores/navigationStores';
-const nav = navigationStore();
 
 const route = useRoute();
 const subnav = subnavigationsStore();
 const { form } = storeToRefs(subnav);
 const id = route.query.id;
 const nav_slug = route.params.slug
+
 
 watchEffect(() => {
   subnav.fetchSubNavData(id);

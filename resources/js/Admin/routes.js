@@ -65,7 +65,7 @@ export const routes = [
     },
 
     {
-        path: '/images',
+        path: '/manage-images',
         name: "Images",
         component: Images
     },

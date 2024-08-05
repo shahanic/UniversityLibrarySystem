@@ -71,8 +71,6 @@ const { fetchPageData, deletePages } = genericpages;
 const {currentPage, editing, adding, preview, newPage } = storeToRefs(genericpages);
 const subnav_id = route.query.id;
 
-
-  
 watchEffect(() => {
   fetchPageData(subnav_id);
   genericpages.newPage.sub_menu_id = subnav_id;
@@ -87,8 +85,6 @@ watch(editing, handleReload);
 watch(adding, handleReload);
 
 </script>
-
-
 <style scoped>
 .main-container {
   width: 90%;

@@ -9,7 +9,6 @@
         <AddFaqModal :isVisible="showModal" @close="showModal = false" @save="saveFaq">
 
         </AddFaqModal>
-
         <br>
         <table class="styled-table">
           <thead>

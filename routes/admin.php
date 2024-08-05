@@ -1,4 +1,3 @@
-
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
@@ -9,6 +8,7 @@ use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\ArticlesController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\QuickLinksController;
+use App\Http\Controllers\Admin\ImagesController;
 
 use App\Models\User;
 use App\Models\Navigation;
@@ -52,7 +52,7 @@ Route::prefix('article-pages')->group(function() {
     Route::get('{vue?}', [ArticlesController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
-Route::prefix('images')->group(function() {
+Route::prefix('manage-images')->group(function() {
     Route::get('{vue?}', [ImagesController::class, 'index'])->where('vue', '[\/\w\.-]*');
 });
 
@@ -94,7 +94,13 @@ Route::post('/delete-pages',[GenericPageController::class, 'deletePages']);
 Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
 Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
 Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
+Route::post('/upload-image', [ArticlesController::class, 'store']);
+
 
 Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
 Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
 Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);
+
+Route::post('/save-image', [ImagesController::class, 'store']);
+Route::post('/get-images', [ImagesController::class, 'fetch']);
+Route::post('/delete-image', [ImagesController::class, 'delete']);

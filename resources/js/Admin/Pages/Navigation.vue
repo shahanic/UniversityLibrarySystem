@@ -26,7 +26,6 @@
                   <i class="bi bi-eye" style="margin-right: 8px;"></i> View
                   </button>
                 </router-link>
-                
                 <button @click="editNav(navx)" class="button button-edit">
                   <i class="bi bi-pencil-square"></i>
                 </button>

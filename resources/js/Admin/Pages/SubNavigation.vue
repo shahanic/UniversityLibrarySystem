@@ -79,7 +79,7 @@ const showModal = ref(false);
 const currentSubNav = ref(null);
 
 const saveSubNav = () => {
-  const id = route.paraquesryms.id;
+  const id = route.params.id;
   if (currentSubNav.value) {
     subnav.editSubNav(form.value);
     subnav.save(id);

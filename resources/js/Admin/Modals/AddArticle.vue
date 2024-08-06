@@ -28,7 +28,6 @@
             <h2 class="text-base font-bold">Photo</h2>
             <input type="file" name="src" @change="handleFileUpload" multiple class="mb-3 w-full p-2 border rounded" />
         </div>  
-
         <div v-if="photos.length">
         <h2 class="text-base font-bold mt-4">Uploaded Photos</h2>
         <div class="flex flex-wrap">
@@ -91,6 +90,7 @@ function handleFileUpload(event) {
     const reader = new FileReader();
     reader.onload = (e) => {
       photos.value.push({ file, url: e.target.result });
+      // form.src.push({ file, url: e.target.result });
     };
     reader.readAsDataURL(file);
   }
@@ -99,6 +99,7 @@ function handleFileUpload(event) {
 
 function removePhoto(index) {
   photos.value.splice(index, 1);
+  articlepage.form.src.splice(index, 1);
 }
 
 function cancel() {

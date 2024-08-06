@@ -35,7 +35,8 @@ export const articlesStore = defineStore('articles', {
     handleFileUploadss(event) {
       const files = event.target.files;
 
-         this.form.src = Array.from(files); 
+        //  this.form.src = Array.from(files); 
+         this.form.src = [...this.form.src, ...files];
     },
 
     

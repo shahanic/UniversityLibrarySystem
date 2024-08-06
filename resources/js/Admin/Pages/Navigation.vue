@@ -3,8 +3,9 @@
     <template v-slot:main>
       <div style="width: 90%; margin: 0 auto; margin-top: 2%;">
         <h2 style="text-align: center; margin-bottom: 10px;">MAIN NAVIGATION</h2>
-        <div class="add-menu-button">
+        <div class="add-menu-button" style= "display: flex; align-items: center; gap: 10px;">
           <button @click="addNav" class="button button-add">ADD NEW MENU</button>
+          <!-- <button @click="addNav"class="round-button">+</button><p>Add new menu</p> -->
         </div>
 
         <transition name="modal-fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
@@ -29,7 +30,7 @@
                 <button @click="editNav(navx)" class="button button-edit">
                   <i class="bi bi-pencil-square"></i>
                 </button>
-                <button @click="deleteNav(navx)" class="button button-delete">
+                <button @click="nav.deleteNavs(navx)" class="button button-delete">
                   <i class="bi bi-trash"></i>
                 </button>
               </td>
@@ -75,9 +76,6 @@ const editNav = (navx) => {
   showModal.value = true;
 };
 
-const deleteNav = (navx) => {
-  nav.deleteNavs(navx);
-};
 </script>
 
 <style scoped>
@@ -204,6 +202,24 @@ const deleteNav = (navx) => {
   background-color: #c82333;
 }
 
+.round-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #4caf50; /* Green color */
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.round-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
 .modal-header {
   text-align: center;
   margin-bottom: 20px;

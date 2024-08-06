@@ -31,8 +31,8 @@
             <h2 class="text-base font-bold">Status</h2>
             <select v-model="currentArticle.status" require>
                 <option value="" disabled>Select status</option>
-                <option value="1">Draft</option>
-                <option value="0">Publish</option>
+                <option value="0">Draft</option>
+                <option value="1">Publish</option>
             </select>
         </div> <br> 
         <div> 

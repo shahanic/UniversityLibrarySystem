@@ -5,7 +5,6 @@
         <h1 style="text-align: center; margin-bottom: 10px;">Accounts Here</h1>
         
         <button @click="addUser" class="button button-add">Add New Account</button>
-        <br><br>
 
         <AddAccountModal :isVisible="showModal" @close="showModal = false" @save="saveUser"></AddAccountModal>
         <br>

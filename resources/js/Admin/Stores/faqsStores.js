@@ -26,7 +26,6 @@ export const faqsStore = defineStore('faq', {
             axios.post('/save-faq', form).then(({data})=>{
                 this.$reset();
                 this.getter();
-
             });
 
         },

@@ -5,8 +5,6 @@
         <div class="modal-header">
           <h1>Add FAQ</h1>
         </div>
-{{form}}
-{{ faq.form }}
         <div>
           <label for="question">Question:</label><br>
           <input type="text" v-model="faq.form.question" class="input-text">
@@ -25,8 +23,9 @@
         <div>
           <label for="status">Status:</label><br>
           <select v-model="faq.form.status" class="input-text">
-            <option value="1">1</option>
-            <option value="2">2</option>
+            <option value="" disabled>Select status</option>
+            <option value="0">Draft</option>
+            <option value="1">Published</option>
           </select>
         </div>
       </div>

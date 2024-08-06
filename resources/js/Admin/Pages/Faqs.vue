@@ -27,7 +27,7 @@
               <td>{{ faqx.question }}</td>
               <td>{{ faqx.answer }}</td>
               <td>{{ faqx.category }}</td>
-              <td>{{ faqx.status }}</td>
+              <td>{{ faqx.status === 1 ? 'Published' : 'Drafted' }}</td>
               <td class="actions">
                 <button @click="editFaq(faqx)" class="button button-edit">
                   <i class="bi bi-pencil-square"></i>

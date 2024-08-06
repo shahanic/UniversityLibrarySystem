@@ -26,7 +26,7 @@
               <tr v-for="item in genericpages.generics" :key="item.id">                
                 <td>{{ item.title }}</td>
                 <td>{{ item.submenu }}</td>
-                <td>{{ item.status === 1 ? 'Drafted' : 'Published' }}</td>
+                <td>{{ item.status === 1 ? 'Published' : 'Drafted'  }}</td>
                 <td class="actions">
                   <button @click="genericpages.previewContent(item.id)" class="button button-preview">
                     <i class="bi bi-eye" style="margin-right: 8px;"></i>Preview

@@ -21,7 +21,7 @@
             <tr v-for="(articlex, i) in articles" :key="i">
               <td>{{ articlex.title }}</td>
               <td>{{ articlex.abstract }}</td>
-              <td>{{ articlex.status === 1 ? 'Drafted' : 'Published' }}</td>
+              <td>{{ articlex.status === 1 ? 'Published' : 'Drafted' }}</td>
               <td class="actions">
                 <button @click="articlepage.previewContent(articlex.id)" class="button button-preview">
                     <i class="bi bi-eye" style="margin-right: 8px;"></i>Preview

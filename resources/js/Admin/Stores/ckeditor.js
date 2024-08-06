@@ -279,10 +279,11 @@ export const ckStore = defineStore( 'ck', {
                     contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
                 },
                 simpleUpload: {
-                    uploadUrl: '',
+                    uploadUrl: '/upload-genpics',
                     // uploadUrl: '/generic-pages',
                     withCredentials: true,
                     headers: {
+                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                         // 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                         // Authorization: document.head.querySelector('meta[name="csrf-token"]').content,
                         // params: {

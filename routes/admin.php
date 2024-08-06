@@ -90,6 +90,8 @@ Route::post('/delete-pages',[PagesController::class, 'deletePages']);
 Route::post('/save-page',[GenericPageController::class, 'savePage']);
 Route::post('/get-pages',[GenericPageController::class, 'retrieveAllPages']);
 Route::post('/delete-pages',[GenericPageController::class, 'deletePages']);
+Route::post('upload-genpics',[GenericPageController::class, 'uploadImage']);
+
 
 Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
 Route::post('/get-articles',[ArticlesController::class, 'getArticles']);

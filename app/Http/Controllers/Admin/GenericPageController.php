@@ -10,6 +10,10 @@ use App\Models\Navigation;
 use App\Models\Gallery;
 use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+// use Intervention\Image\ImageManagerStatic as Image;
+
 
 class GenericPageController extends Controller
 {   
@@ -111,45 +115,73 @@ class GenericPageController extends Controller
         ->get();
     }
 
-    public function uploadImage(Request $request){
-        if($request->id){
-            $new = Generic::find($request->id);
-            $photo = new Photo;            
-            $new->gallery_id = $request->gallery_id; 
-            $new->gallery_id = $photo->gallery_id; 
-            $res = $new->save();
-            return response()->json(['success' => $res]);
-            
-        }else{
-            $new = new Generic;
-            $new->title = $request->title; 
-            $new->menu_title = $request->menu_title; 
-            $new->slug = $request->slug;  
-            $new->abstract = $request->abstract;  
-            $new->content = $request->content;  
-            $new->gallery_id = $request->gallery_id; 
-            $new->navigation_id = $request->navigation_id;  
-            $new->sub_menu_id = $request->sub_menu_id;
-            $res = $new->save();
-            return response()->json(['success' => $res]);
-        }
-        
-    }
-
-    // public function upload(Request $request)
+    // public function uploadImage(Request $request)
     // {
-    //     if($request->hasFile('upload')) {
-    //         $file = $request->file('upload');
-    //         $filename = time() . '.' . $file->getClientOriginalExtension();
-    //         $file->move(public_path('uploads'), $filename);
-
-    //         $url = url('uploads/' . $filename);
-
-    //         return response()->json([
-    //             'url' => $url
-    //         ]);
+    //     // Ensure the file is present in the request
+    //     if (!$request->hasFile('upload')) {
+    //         return response()->json(['error' => 'No file uploaded'], 400);
     //     }
-    //     return response()->json(['error' => 'No file uploaded'], 400);
+
+    //     $file = $request->file('upload');
+    //     $ext = $file->getClientOriginalExtension();
+    //     $filename = explode('.', $file->getClientOriginalName())[0] . '_' . md5(now()) . '.' . $ext;
+
+    //     // Initialize ImageManager with the specified driver
+    //     $manager = new ImageManager(['driver' => 'imagick']); // Use 'imagick' if you prefer
+
+    //     // Create the image and resize it
+    //     $image = $manager->make($file)->resize(1920, null, function ($constraint) {
+    //         $constraint->aspectRatio();
+    //     });
+
+    //     // Save the image to storage
+    //     Storage::disk('public')->put('/images/' . $filename, (string) $image->encode());
+
+    //     return response()->json(['url' => '/storage/images/' . $filename]);
     // }
+    public function uploadImage(Request $request){
+        $file = $request->upload;
+        $ext = $file->getClientOriginalExtension();
+        $filename = explode('.', $file->getClientOriginalName())[0].'_'.md5(now()).'.'.$ext;
+
+        // $manager = new ImageManager(['driver' => 'gd']);
+        $manager = new ImageManager(
+            new Intervention\Image\Drivers\Gd\Driver()
+        );        
+        $image = $manager->read('data:image/jpeg;base64'.base64_encode(Photo::get($file)));
+        $image->scale(width:1920);
+        // $image = $manager->make($file)->resize(1920, null, function ($constraint) {
+            // $constraint->aspectRatio();
+        // });
+
+        Storage::disk('public')->put('/images/'.$filename, (string) $image->encode());
+
+        // return response()->json(['url' => '/storage/images/' . $filename]);
+        return ['url' => '/storage/images/'.$filename];
+    }
+        // if($request->id){
+        //     $new = Generic::find($request->id);
+        //     $photo = new Photo;            
+        //     $new->gallery_id = $request->gallery_id; 
+        //     $new->gallery_id = $photo->gallery_id; 
+        //     $res = $new->save();
+        //     return response()->json(['success' => $res]);
+            
+        // }else{
+        //     $new = new Generic;
+        //     $new->title = $request->title; 
+        //     $new->menu_title = $request->menu_title; 
+        //     $new->slug = $request->slug;  
+        //     $new->abstract = $request->abstract;  
+        //     $new->content = $request->content;  
+        //     $new->gallery_id = $request->gallery_id; 
+        //     $new->navigation_id = $request->navigation_id;  
+        //     $new->sub_menu_id = $request->sub_menu_id;
+        //     $res = $new->save();
+        //     return response()->json(['success' => $res]);
+        // }
+        
+    // }
+
 
 }

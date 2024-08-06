@@ -20,65 +20,110 @@ export const articlesStore = defineStore('articles', {
     editing: false,
     preview: false,
     previewArticle: null,
-    image_list: [],
-    image: {
-      file: null,
+    //for photos
+    photos: [],
+    isAddImageModalOpen: false,
+    form: {
+      name: '',
+      type: '',
+      src: [],
     },
   }),
 
   actions: {
-    onFileChange(event) {
-      const files = event.target.files[0];
+    handleFileUpload(event) {
+      const files = event.target.files;
+      this.form.src = Array.from(files); 
+      // this.form.src = event.target.files
+      // Store the file objects in an array
+      console.log(this.form.src[0]);
+      console.log(this.form.src[0] instanceof File)
+      // const url = URL.createObjectURL(files);
 
-      if (files) {
-          this.image.file = files;
+      // // imageStore.handleFileUpload(event);
+      // const files = Array.from(event.target.files);
+      // this.form.src.push(...files);
+      // this.form.src.forEach((file, index) => {
+      //   console.log(`File ${index}:`, file);
+      //   console.log(`Name: ${file.name}, Type: ${file.type}, Size: ${file.size}`);
+      // });
+      // this.form.src.forEach((file) => {
+      //   const objectUrl = URL.createObjectURL(file);
+      //   console.log(objectUrl); // Check the generated URL
+      // });
+      // if (files) {
+      //   this.form.src = Array.from(files); // Store the file objects in an array
+      //   Array.from(files).forEach((file) => {
+      //     const reader = new FileReader();
+      //     reader.onload = (e) => {
+      //       this.form.src.push(e.target.result);
+      //     };
+      //     reader.readAsDataURL(file);
+      //   });
+      // }
+    },
 
-          const fileReader = new FileReader();
-          fileReader.onload = () => {
-              this.previewImage = fileReader.result;
-          };
-          fileReader.readAsDataURL(files);
+    generateSlug(title) {
+      if (title) {
+        return title
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-]+/g, ''); // Remove non-word characters
       }
-  },
+      return ''; // Return an empty string or a default value if title is not defined
+    },
 
-    uploadImage() {
-      if (!this.image.file) {
-          alert("Please select an image to upload.");
-          return;
-      }
-
-      const formData = new FormData();
-      formData.append("image", this.image.file);
-
-      axios.post("/upload-image", formData)
-          .then((response) => {
-              const imageData = response.data;
-              console.log(imageData);
-
-
-              this.image_list.push({
-                  id: imageData.id,
-                  url: imageData.url,
+    addNewArticle() {
+      this.newArticle.slug = this.generateSlug(this.newArticle.title); // Generate slug
+    
+      if (this.newArticle) {
+        axios.post('/save-article', this.newArticle)
+          .then(response => {
+            const article = response.data;
+    
+            // Proceed to upload images if any
+            if (this.form.src && this.form.src.length > 0) {
+              const formData = new FormData();
+              formData.append('gallery_id', article.gallery_id);
+              formData.append('name', article.title);
+              formData.append('slug', article.slug);
+              formData.append('type', '1'); // Add the type field with value 1
+    
+              for (let i = 0; i < this.form.src.length; i++) {
+                formData.append('src[]', this.form.src[i]); // Append files to FormData
+              }
+    
+              axios.post(`/save-images-art/${article.gallery_id}/${article.slug}`, formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              })
+              .then(() => {
+                alert('Content and images saved successfully!');
+                // adding = false;
+              })
+              .catch(error => {
+                console.error('Error saving images:', error);
+                alert('Failed to save images.');
               });
-              console.log(this.image_list);
-
-              alert("Upload successful");
-              this.image.file = null;
-              this.previewImage = null;
-
-              // // Auto-reload after successful upload
-              // setTimeout(() => {
-              //     window.location.reload();
-              // }, 1000); // Adjust the delay as needed
+            } else {
+              alert('Content saved successfully!');
+              // this.adding = false;
+            }
           })
-          .catch((error) => {
-              alert("Error uploading image: " + error.message);
+          .catch(error => {
+            console.error('Error saving article:', error);
+            alert('Failed to save content.');
           });
-  },
+      }
+    },
+    
 
-    generateSlug(title) { 
-      return title.toLowerCase().replace(/\s+/g, '-'); 
-  },
+
+    
+  //   generateSlug(title) { 
+  //     return title.toLowerCase().replace(/\s+/g, '-'); 
+  // },
   
     cancel(){
       this.editing = false;
@@ -104,21 +149,6 @@ export const articlesStore = defineStore('articles', {
       this.newArticle = article;
       this.adding = true;
     },
-    addNewArticle(){
-      this.newArticle.slug = this.generateSlug(this.newArticle.title);
-      if (this.newArticle){
-        axios.post('/save-article', this.newArticle)
-        .then(() =>{
-          alert('Content saved successfully!');
-          this.adding = false;
-        })
-        .catch((error) => {
-          console.error('Error saving article:', error);
-          alert('Failed to save content.');
-        })
-      }
-    },
-
 
 
     editArticle(article){
@@ -193,4 +223,6 @@ export const articlesStore = defineStore('articles', {
     }
 
   },
+
+  
 });

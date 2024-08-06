@@ -8,8 +8,9 @@ import { createRouter, createWebHistory, useRoute } from 'vue-router';
 import { createPinia } from 'pinia';
 import { routes } from './routes.js';
 import CKEditor from '@ckeditor/ckeditor5-vue'; //
-import 'ckeditor5/ckeditor5.css';
+import 'ckeditor5/ckeditor5.css'; //
 import AdminLayout from './Layouts/AdminLayout.vue';
+import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
 
 // vue Router
 const router = createRouter({

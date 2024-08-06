@@ -95,12 +95,12 @@ Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
 Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
 Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
 Route::post('/upload-image', [ArticlesController::class, 'store']);
-
+Route::post('/save-images-art/{galleryId}/{slug}', [ArticlesController::class, 'saveImages']);
 
 Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
 Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
 Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);
 
-Route::post('/save-image', [ImagesController::class, 'store']);
+Route::post('/save-images', [ImagesController::class, 'store']);
 Route::post('/get-images', [ImagesController::class, 'fetch']);
 Route::post('/delete-image', [ImagesController::class, 'delete']);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Photo;
+use App\Models\Gallery;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -17,17 +18,44 @@ class ArticlesController extends Controller
             $new = Article::find($request->id);
         }else{
             $new = new Article;
+            $gallery = new Gallery;
+            $gallery->title = $request->title;
+            $gallery->slug = $request->slug;
+            $gallery->status = $request->status; // edit where it can be changed
+            $gallery->save();
+
+            $new->gallery_id = $gallery->id;
         }
         $new->title = $request->title; 
         $new->abstract = $request->abstract; 
         $new->slug = $request->slug; 
         $new->content = $request->content;    
         $new->status = $request->status;    
-        $new->gallery_id = $request->gallery_id;    
-        $new->date = $request->date;  
-        $res = $new->save();
-        return $res;
+        $new->date = $request->date; 
         
+        $res = $new->save();
+        // Call method to handle image uploads
+        if ($request->hasFile('src')) {
+            $this->saveImages($request->file('src'), $new->gallery_id, $request->slug);
+        }
+
+        return response()->json($new);
+    }
+
+    // Method to save images
+    public function saveImages(Request $request, $galleryId, $slug) {
+        foreach ($request->file('src') as $file) {
+            $filename = time() . '-' . $file->getClientOriginalName();
+            // $file->storeAs('public/images', $filename); // Adjust path as needed
+            $file->move(public_path('images'), $filename);
+
+            $image = new Photo();
+            $image->gallery_id = $galleryId;
+            $image->name = $slug; // Or set to some meaningful name
+            // $image->slug = $slug;
+            $image->src = 'images/' . $filename;
+            $image->save();
+        }
     }
     public function getArticles(){
         return Article:: all();

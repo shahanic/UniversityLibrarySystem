@@ -26,22 +26,19 @@
 
         <div class="mb-4">
             <h2 class="text-base font-bold">Photo</h2>
-            <input type="file" @change="handleFileUpload" multiple class="mb-3 w-full p-2 border rounded" />
+            <input type="file" name="src" @change="handleFileUpload" multiple class="mb-3 w-full p-2 border rounded" />
         </div>  
 
-        <!-- <div v-if="form.src.length">
+        <div v-if="photos.length">
         <h2 class="text-base font-bold mt-4">Uploaded Photos</h2>
         <div class="flex flex-wrap">
-          {{ form.src }}
-          <div v-for="(file, index) in form.src" :key="index" class="relative mr-4 mb-4">
-            <img :src="URL.createObjectURL(file)" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
-            <img v-if="file && typeof URL !== 'undefined' && URL.createObjectURL(file)" :src="URL.createObjectURL(file)" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
-            <button @click="removePhoto(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full">
-              X
-            </button>
+          <div v-for="(photo, index) in photos" :key="index" class="relative mr-4 mb-4">
+            <img :src="photo.url" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
+            <button @click="removePhoto(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
           </div>
         </div>
-      </div> -->
+      </div>
+
 
         <div> 
             <h2 class="text-base font-bold">Status</h2>
@@ -84,14 +81,30 @@ required: true
 },
 });
 const articlepage = articlesStore();
-const { newArticle, form} = storeToRefs(articlepage);
+const { newArticle, form, photos} = storeToRefs(articlepage);
+
 
 function handleFileUpload(event) {
-      articlepage.handleFileUpload(event);
-    }
-function removePhoto(index) {
-  form.src.splice(index, 1);
+  const files = event.target.files;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      photos.value.push({ file, url: e.target.result });
+    };
+    reader.readAsDataURL(file);
+  }
+  articlepage.handleFileUploadss(event);
 }
+
+function removePhoto(index) {
+  photos.value.splice(index, 1);
+}
+
+function cancel() {
+  articlepage.cancel();
+}
+
 // isVisible: {
 //     type: Boolean,
 //     required: true

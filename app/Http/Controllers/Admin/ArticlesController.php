@@ -43,7 +43,9 @@ class ArticlesController extends Controller
     }
 
     // Method to save images
-    public function saveImages(Request $request, $galleryId, $slug) {
+    public function saveImages(Request $request, $galleryId, $slug, $type) {
+        // dd($request->src);
+        // dd($request->file('src'));
         foreach ($request->file('src') as $file) {
             $filename = time() . '-' . $file->getClientOriginalName();
             // $file->storeAs('public/images', $filename); // Adjust path as needed
@@ -52,7 +54,7 @@ class ArticlesController extends Controller
             $image = new Photo();
             $image->gallery_id = $galleryId;
             $image->name = $slug; // Or set to some meaningful name
-            // $image->slug = $slug;
+            $image->type = $type;
             $image->src = 'images/' . $filename;
             $image->save();
         }

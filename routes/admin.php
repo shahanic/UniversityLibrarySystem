@@ -95,7 +95,7 @@ Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
 Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
 Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
 Route::post('/upload-image', [ArticlesController::class, 'store']);
-Route::post('/save-images-art/{galleryId}/{slug}', [ArticlesController::class, 'saveImages']);
+Route::post('/save-images-art/{galleryId}/{slug}/{type}', [ArticlesController::class, 'saveImages']);
 
 Route::post('/save-faq', [FaqsController::class, 'saveFaq']);
 Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);

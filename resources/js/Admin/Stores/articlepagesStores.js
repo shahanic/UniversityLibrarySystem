@@ -28,40 +28,17 @@ export const articlesStore = defineStore('articles', {
       type: '',
       src: [],
     },
+    oldestFirst: false,
   }),
 
   actions: {
-    handleFileUpload(event) {
+    handleFileUploadss(event) {
       const files = event.target.files;
-      this.form.src = Array.from(files); 
-      // this.form.src = event.target.files
-      // Store the file objects in an array
-      console.log(this.form.src[0]);
-      console.log(this.form.src[0] instanceof File)
-      // const url = URL.createObjectURL(files);
 
-      // // imageStore.handleFileUpload(event);
-      // const files = Array.from(event.target.files);
-      // this.form.src.push(...files);
-      // this.form.src.forEach((file, index) => {
-      //   console.log(`File ${index}:`, file);
-      //   console.log(`Name: ${file.name}, Type: ${file.type}, Size: ${file.size}`);
-      // });
-      // this.form.src.forEach((file) => {
-      //   const objectUrl = URL.createObjectURL(file);
-      //   console.log(objectUrl); // Check the generated URL
-      // });
-      // if (files) {
-      //   this.form.src = Array.from(files); // Store the file objects in an array
-      //   Array.from(files).forEach((file) => {
-      //     const reader = new FileReader();
-      //     reader.onload = (e) => {
-      //       this.form.src.push(e.target.result);
-      //     };
-      //     reader.readAsDataURL(file);
-      //   });
-      // }
+         this.form.src = Array.from(files); 
     },
+
+    
 
     generateSlug(title) {
       if (title) {
@@ -75,25 +52,25 @@ export const articlesStore = defineStore('articles', {
 
     addNewArticle() {
       this.newArticle.slug = this.generateSlug(this.newArticle.title); // Generate slug
-    
       if (this.newArticle) {
         axios.post('/save-article', this.newArticle)
           .then(response => {
             const article = response.data;
-    
             // Proceed to upload images if any
             if (this.form.src && this.form.src.length > 0) {
-              const formData = new FormData();
+               const formData = new FormData();
+              console.log(formData);
               formData.append('gallery_id', article.gallery_id);
               formData.append('name', article.title);
               formData.append('slug', article.slug);
               formData.append('type', '1'); // Add the type field with value 1
-    
+         
+
               for (let i = 0; i < this.form.src.length; i++) {
                 formData.append('src[]', this.form.src[i]); // Append files to FormData
               }
     
-              axios.post(`/save-images-art/${article.gallery_id}/${article.slug}`, formData, {
+              axios.post(`/save-images-art/${article.gallery_id}/${article.slug}/${1}`, formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
@@ -117,19 +94,13 @@ export const articlesStore = defineStore('articles', {
           });
       }
     },
-    
 
-
-    
-  //   generateSlug(title) { 
-  //     return title.toLowerCase().replace(/\s+/g, '-'); 
-  // },
-  
     cancel(){
       this.editing = false;
       this.adding = false;    
       this.preview = false;
-  },
+    },
+
     previewContent(id){
       this.preview = true;
       axios.post(`/edit-article/${id}`)
@@ -143,7 +114,7 @@ export const articlesStore = defineStore('articles', {
         .catch((error) => {
           console.error('Error fetching article data:', error);
         })
-  },
+    },
 
     addArticle(article){
       this.newArticle = article;
@@ -211,18 +182,15 @@ export const articlesStore = defineStore('articles', {
     }
     },
 
-    async fetchArticleData(id){
-        try {
-            const response = await axios.get(`/get-article/${id}`);
-            // Assuming the response data is an object for a single article
-            this.currentArticle = response.data[0]||null;
+    fetchArticleData(id){
+      axios.get(`/get-article/${id}`)
+      .then((response) => {
+        this.currentArticle = response.data[0]||null;
+      })
+      .catch((error) => {
+        console.error('Error fetching article data:', error);
+      })
+    },
 
-        } catch (error) {
-            console.error('Error fetching article data:', error);
-        }
-    }
-
-  },
-
-  
+  }
 });

@@ -13,13 +13,17 @@ RUN apt-get update \
     libzip-dev \
     curl \
     zip \
-    unzip
-
+    unzip\
+    libfreetype-dev\
+    libjpeg62-turbo-dev\
+    libpng-dev
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo pdo_mysql\
-    && docker-php-ext-install zip
+    && docker-php-ext-install zip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
 
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 

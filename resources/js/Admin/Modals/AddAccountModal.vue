@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineEmits } from 'vue';
 import { accountsStore } from '@/Admin/Stores/accountsStores';
 
 const props = defineProps({

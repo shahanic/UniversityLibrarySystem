@@ -9,9 +9,11 @@ use App\Models\SubMenu;
 use App\Models\Navigation;
 use App\Models\Gallery;
 use App\Models\Photo;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 // use Intervention\Image\ImageManagerStatic as Image;
 
 
@@ -139,26 +141,23 @@ class GenericPageController extends Controller
 
     //     return response()->json(['url' => '/storage/images/' . $filename]);
     // }
+
     public function uploadImage(Request $request){
         $file = $request->upload;
         $ext = $file->getClientOriginalExtension();
         $filename = explode('.', $file->getClientOriginalName())[0].'_'.md5(now()).'.'.$ext;
 
-        // $manager = new ImageManager(['driver' => 'gd']);
-        $manager = new ImageManager(
-            new Intervention\Image\Drivers\Gd\Driver()
-        );        
-        $image = $manager->read('data:image/jpeg;base64'.base64_encode(Photo::get($file)));
-        $image->scale(width:1920);
-        // $image = $manager->make($file)->resize(1920, null, function ($constraint) {
-            // $constraint->aspectRatio();
-        // });
+        $manager = new ImageManager(new Driver);
+        $image = $manager->read('data:image/jpeg;base64,'.base64_encode(File::get($file)));
+        $image->scale(width: 1920);
+        // insert watermark
+        //$image->place('images/watermark.png');
+        Storage::disk('public')->put('/article/'.$filename, $image->encode());
 
-        Storage::disk('public')->put('/images/'.$filename, (string) $image->encode());
+        return ['url' => '/storage/article/'.$filename];
 
-        // return response()->json(['url' => '/storage/images/' . $filename]);
-        return ['url' => '/storage/images/'.$filename];
     }
+    
         // if($request->id){
         //     $new = Generic::find($request->id);
         //     $photo = new Photo;            

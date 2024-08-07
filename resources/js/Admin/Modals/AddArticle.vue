@@ -10,35 +10,38 @@
             placeholder="Title" required></textarea>
         </div>
         <div class="mb-4">
-          <h2 class="text-base font-bold">Description</h2>
-          <textarea type="text"
-            class="form-input border border-gray-300 rounded w-full py-2 px-3"
-            v-model="newArticle.abstract"
-            placeholder="Abstract"></textarea>
-        </div>
-        <div class="mb-4">
           <h2 class="text-base font-bold">Content</h2>
-          <textarea style="min-height: fit-content;" type="text"
-            class="form-input border border-gray-300 rounded w-full py-2 px-3"
-            v-model="newArticle.content"
-            placeholder="Content"></textarea>
+            <div class="editor-container" ref="editorContainerElement">
+                <ckeditor
+                  :editor="editor"
+                  v-model="newArticle.content"
+                  :config="editorConfig"
+                  v-if="isLayoutReady"
+                ></ckeditor>
+              </div>
         </div>
-
         <div class="mb-4">
             <h2 class="text-base font-bold">Photo</h2>
             <input type="file" name="src" @change="handleFileUpload" multiple class="mb-3 w-full p-2 border rounded" />
         </div>  
         <div v-if="photos.length">
-        <h2 class="text-base font-bold mt-4">Uploaded Photos</h2>
-        <div class="flex flex-wrap">
-          <div v-for="(photo, index) in photos" :key="index" class="relative mr-4 mb-4">
-            <img :src="photo.url" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
-            <button @click="removePhoto(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
-          </div>
+            <h2 class="text-base font-bold mt-4">Uploaded Photos</h2>
+            <div class="flex flex-wrap">
+              <div v-for="(photo, index) in photos" :key="index" class="relative mr-4 mb-4">
+                <img :src="photo.url" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
+                <button @click="removePhoto(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
+              </div>
+            </div>
         </div>
-      </div>
-
-
+        <div> 
+            <h2 class="text-base font-bold">Type</h2>
+            <select v-model="newArticle.type" require>
+                <option value="" disabled>Select type</option>
+                <option value="News">News</option>
+                <option value="Events">Events</option>
+                <option value="Announcements">Announcements</option>
+            </select>
+        </div> <br> 
         <div> 
             <h2 class="text-base font-bold">Status</h2>
             <select v-model="newArticle.status" require>
@@ -68,11 +71,11 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import { storeToRefs } from 'pinia';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-// import { VDateInput } from 'vuetify/labs/VDateInput'
+import {ckStore} from '@/Admin/Stores/ckeditor';
+
 const props = defineProps({
 data: {
 type: Object,
@@ -80,8 +83,9 @@ required: true
 },
 });
 const articlepage = articlesStore();
-const { newArticle, form, photos} = storeToRefs(articlepage);
-
+const { newArticle, form, photos, isLayoutReady} = storeToRefs(articlepage);
+const ck = ckStore();
+const { editor, editorConfig } = storeToRefs(ck);
 
 function handleFileUpload(event) {
   const files = event.target.files;
@@ -100,10 +104,6 @@ function handleFileUpload(event) {
 function removePhoto(index) {
   photos.value.splice(index, 1);
   articlepage.form.src.splice(index, 1);
-}
-
-function cancel() {
-  articlepage.cancel();
 }
 
 // isVisible: {

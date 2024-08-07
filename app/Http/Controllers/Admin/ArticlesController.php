@@ -30,6 +30,7 @@ class ArticlesController extends Controller
         $new->abstract = $request->abstract; 
         $new->slug = $request->slug; 
         $new->content = $request->content;    
+        $new->type = $request->type;    
         $new->status = $request->status;    
         $new->date = $request->date; 
         

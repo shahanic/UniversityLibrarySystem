@@ -12,7 +12,7 @@
           <thead>
             <tr>
               <th>Title</th>
-              <th>Description</th>
+              <!-- <th>Description</th> -->
               <th>Status</th>
               <th class="actions-header">Actions</th>
             </tr>
@@ -20,7 +20,7 @@
           <tbody>
             <tr v-for="(articlex, i) in articles" :key="i">
               <td>{{ articlex.title }}</td>
-              <td>{{ articlex.abstract }}</td>
+              <!-- <td>{{ articlex.content }}</td> -->
               <td>{{ articlex.status === 1 ? 'Published' : 'Drafted' }}</td>
               <td class="actions">
                 <button @click="articlepage.previewContent(articlex.id)" class="button button-preview">

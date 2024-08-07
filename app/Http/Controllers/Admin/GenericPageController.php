@@ -157,7 +157,7 @@ class GenericPageController extends Controller
         return ['url' => '/storage/article/'.$filename];
 
     }
-    
+
         // if($request->id){
         //     $new = Generic::find($request->id);
         //     $photo = new Photo;            

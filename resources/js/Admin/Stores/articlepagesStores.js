@@ -5,12 +5,14 @@ import AddArticle from '../Modals/AddArticle.vue';
 
 export const articlesStore = defineStore('articles', {
   state: () => ({
+    isLayoutReady: true,
     currentArticle: null,
     newArticle: {
       title: '',
       abstract: '',
       slug: '',
       content: '',
+      type: '',
       status: '',
       gallery_id: '', 
       date: new Date().toISOString().split('T')[0],
@@ -78,7 +80,7 @@ export const articlesStore = defineStore('articles', {
               })
               .then(() => {
                 alert('Content and images saved successfully!');
-                // adding = false;
+                this.adding = false;
               })
               .catch(error => {
                 console.error('Error saving images:', error);
@@ -86,7 +88,7 @@ export const articlesStore = defineStore('articles', {
               });
             } else {
               alert('Content saved successfully!');
-              // this.adding = false;
+              this.adding = false;
             }
           })
           .catch(error => {
@@ -128,6 +130,7 @@ export const articlesStore = defineStore('articles', {
       this.currentArticle = article;
       this.editing = true;
     },
+
     editArticleData(id){
         axios.post(`/edit-article/${id}`)
         .then((response) =>{

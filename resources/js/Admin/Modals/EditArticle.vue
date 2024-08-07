@@ -10,23 +10,30 @@
             placeholder="Title" required></textarea>
         </div>
         <div class="mb-4">
-          <h2 class="text-base font-bold">Description</h2>
-          <textarea type="text"
-            class="form-input border border-gray-300 rounded w-full py-2 px-3"
-            v-model="currentArticle.abstract"
-            placeholder="Abstract"></textarea>
-        </div>
-        <div class="mb-4">
           <h2 class="text-base font-bold">Content</h2>
-          <textarea type="text"
-            class="form-input border border-gray-300 rounded w-full py-2 px-3"
-            v-model="currentArticle.content"
-            placeholder="Content"></textarea>
+            <div class="editor-container" ref="editorContainerElement">
+                <ckeditor
+                  :editor="editor"
+                  v-model="currentArticle.content"
+                  :config="editorConfig"
+                  v-if="isLayoutReady"
+                ></ckeditor>
+              </div>
         </div>
         <div class="mb-4">
-          <h2 class="text-base font-bold">Photo</h2>
-          <div class="editor-container" ref="editorContainerElement">
-          </div> <br>   
+            <h2 class="text-base font-bold">Photo</h2>
+            <input type="file" name="src" @change="handleFileUpload" multiple class="mb-3 w-full p-2 border rounded" />
+        </div>  
+        <div v-if="photos.length">
+            <h2 class="text-base font-bold mt-4">Uploaded Photos</h2>
+            <div class="flex flex-wrap">
+              <div v-for="(photo, index) in photos" :key="index" class="relative mr-4 mb-4">
+                <img :src="photo.url" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
+                <button @click="removePhoto(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
+              </div>
+            </div>
+        </div>
+
         <div> 
             <h2 class="text-base font-bold">Status</h2>
             <select v-model="currentArticle.status" require>
@@ -53,7 +60,6 @@
           </form>
         </div>
       </div>
-    </div>
 </template>
 
 <script setup>
@@ -61,16 +67,32 @@ import { onMounted } from 'vue';
 import { articlesStore } from '@/Admin/Stores/articlepagesStores';
 import { storeToRefs } from 'pinia';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-// import { VDateInput } from 'vuetify/labs/VDateInput'
+import {ckStore} from '@/Admin/Stores/ckeditor';
 
 const articlepage = articlesStore();
-const { currentArticle, } = storeToRefs(articlepage);
+const { currentArticle, isLayoutReady, photos} = storeToRefs(articlepage);
+const ck = ckStore();
+const { editor, editorConfig } = storeToRefs(ck);
 
 onMounted(() => {
   if (articlepage.currentArticle.id) {
       articlepage.editArticleData(articlepage.currentArticle.id);
   }
 });  
+
+function handleFileUpload(event) {
+  const files = event.target.files;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      photos.value.push({ file, url: e.target.result });
+      // form.src.push({ file, url: e.target.result });
+    };
+    reader.readAsDataURL(file);
+  }
+  articlepage.handleFileUploadss(event);
+}
 
 const props = defineProps({
 data: {

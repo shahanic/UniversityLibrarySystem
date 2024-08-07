@@ -3,6 +3,13 @@
         <h1 class="text-2xl font-bold mb-4 text-center">Preview Page</h1>
         <strong><p>{{ previewArticle.title }}</p></strong>
         <p v-html="previewArticle.content"></p>
+        <br>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div v-for="(image, index) in previewArticle.src" :key="index">
+                <img :src="`/${image}`" :alt="'image'" class="w-full object-cover rounded" />
+            </div>
+        </div>
+
     </div>
     <button
         @click="articlepage.cancel"

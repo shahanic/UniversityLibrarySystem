@@ -9,7 +9,7 @@ const buttons = [
   { name: 'Articles', link: '/article-pages' },
   { name: 'FAQs', link: '/faqs' },
   { name: 'Quick Links', link: '/quick-links' },
-  { name: 'Images', link: '/images' },
+  { name: 'Images', link: '/galleries' },
   { name: 'Accounts', link: '/accounts' }
 ];
 </script>

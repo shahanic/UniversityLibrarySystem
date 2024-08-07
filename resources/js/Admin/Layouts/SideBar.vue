@@ -86,7 +86,7 @@
             <router-link to="/quick-links" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('QuickLinks') ? 'sidebar-selected' : ''}`">
                 Quick Links
             </router-link>
-            <router-link to="/manage-images" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('Images') ? 'sidebar-selected' : ''}`">
+            <router-link to="/galleries" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('Galleries') ? 'sidebar-selected' : ''}`">
                 Images
             </router-link>
             <router-link to="/accounts" :class="`nav-links hover:bg-green-500 dark:hover:bg-gray-800 ${$route.name.includes('Accounts') ? 'sidebar-selected' : ''}`">

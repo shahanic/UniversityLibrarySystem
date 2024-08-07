@@ -62,7 +62,7 @@
                             <router-link to="/article-pages":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('ArticlePages') ? 'mobbar-selected' : ''}`">Articles</router-link>
                             <router-link to="/faqs":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Faqs') ? 'mobbar-selected' : ''}`">FAQs</router-link>
                             <router-link to="/quick-links":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('QuickLinks') ? 'mobbar-selected' : ''}`">Quick Links</router-link>
-                            <router-link to="/images":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Images') ? 'mobbar-selected' : ''}`">Images</router-link>
+                            <router-link to="/galleries":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Galleries') ? 'mobbar-selected' : ''}`">Images</router-link>
                             <router-link to="/accounts":class="`font-semibold cursor-pointer py-3.5 px-4 block hover:bg-green-500 dark:hover:bg-gray-800 text-white ${$route.name.includes('Accounts') ? 'mobbar-selected' : ''}`">Accounts</router-link>
                             
                             <div class="flex items-center justify-center w-full border-t border-green-300 dark:border-gray-700 pt-4"></div>

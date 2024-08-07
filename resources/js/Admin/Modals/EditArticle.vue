@@ -103,6 +103,15 @@ function handleFileUpload(event) {
     };
     reader.readAsDataURL(file);
   }
+  const savedfiles = articlepage.currentArticle.photos;
+  for (let i = 0; i < savedfiles.length; i++) {
+    const file = savedfiles[i];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      photos.value.push(articlepage.currentArticle.photos);
+    };
+    reader.readAsDataURL(file);
+  }
   articlepage.handleFileUploadss(event);
 }
 
@@ -110,6 +119,7 @@ function removePhoto(index) {
   photos.value.splice(index, 1);
   // currentArticle.photos.value.splice(index, 1);
 }
+
 
 
 const props = defineProps({

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\Photo;
 use App\Models\Gallery;
 
@@ -17,10 +18,26 @@ class ImagesController extends Controller
     public function index(){
         return view('admin');
     }
+    
+    public function galleryphoto($id){
+        return Gallery::join('photos', 'galleries.id', 'photos.gallery_id')
+        ->where('galleries.id', $id)
+        ->select('photos.id', 
+                'photos.name',
+                'photos.type',
+                'photos.src',
+                'photos.gallery_id',
+                'photos.updated_at',
+                 'galleries.id as gal_id',
+                 'galleries.title')
+        ->get();
+
+    }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'gallery_id' => 'required|integer', 
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'src.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each image file
@@ -36,16 +53,21 @@ class ImagesController extends Controller
 
                 // Save the image data into the database
                 $photo = new Photo();
+                $photo->gallery_id = $validatedData['gallery_id'];  
                 $photo->name = $validatedData['name'];
                 $photo->type = $validatedData['type'];
                 $photo->src = 'images/' . $imageName; // Save the path relative to the public directory
+               
                 $photo->save();
 
                 $photos[] = $photo;
             }
         }
 
-        return response()->json(['success' => 'Images uploaded successfully!', 'photos' => $photos]);
+        return response()->json([
+            'success' => 'Images uploaded successfully!', 
+            'photos' => $photos
+        ]);
     }
 
 
@@ -89,9 +111,22 @@ class ImagesController extends Controller
 
         return response()->json(['success' => 'Image deleted successfully!']);
     }
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
+    public function getImages(){
+        return Photo:: all();
+        
+}
+    
+public function retrieveImages($id){
+    return SubMenu::where('photos.gallery_id', $id)
+    ->select('photos.id', 
+             'photos.photo')
+    ->get();
+}
+public function __construct()
+{
+    $this->middleware('auth');
+}
+
 
 }

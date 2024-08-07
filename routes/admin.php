@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ArticlesController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\QuickLinksController;
 use App\Http\Controllers\Admin\ImagesController;
+use App\Http\Controllers\Admin\GalleriesController;
 
 use App\Models\User;
 use App\Models\Navigation;
@@ -69,6 +70,16 @@ Route::prefix('quick-links')->group(function() {
 });
 
 
+Route::prefix('galleries')->group(function() {
+    Route::get('{vue?}', [GalleriesController::class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
+Route::prefix('images/{id}')->group(function() {
+    Route::get('{vue?}', [ImagesController::class, 'index'])->where('vue', '[\/\w\.-]*');
+});
+
+
+
 
 Route::post('/save-user', [AccountsController::class, 'saveUser']);
 Route::post('/get-users', [AccountsController::class, 'getUsers']);
@@ -92,7 +103,6 @@ Route::post('/get-pages',[GenericPageController::class, 'retrieveAllPages']);
 Route::post('/delete-pages',[GenericPageController::class, 'deletePages']);
 Route::post('upload-genpics',[GenericPageController::class, 'uploadImage']);
 
-
 Route::post('/save-article',[ArticlesController::class, 'saveArticle']);
 Route::post('/get-articles',[ArticlesController::class, 'getArticles']);
 Route::post('/delete-article',[ArticlesController::class, 'deleteArticles']);
@@ -107,5 +117,11 @@ Route::post('/get-faqs', [FaqsController::class, 'getFaqs']);
 Route::post('/delete-faqs', [FaqsController::class, 'deleteFaq']);
 
 Route::post('/save-images', [ImagesController::class, 'store']);
-Route::post('/get-images', [ImagesController::class, 'fetch']);
+// Route::post('/get-images', [ImagesController::class, 'fetch']);
 Route::post('/delete-image', [ImagesController::class, 'delete']);
+
+Route::post('/save-gallery',[GalleriesController::class, 'saveGallery']);
+Route::post('/get-galleries',[GalleriesController::class, 'getGalleries']);
+Route::post('/delete-galleries',[GalleriesController::class, 'deleteGalleries']);
+Route::post('/retrieve-galleries',[GalleriesController::class, 'retrieveGalleries']);
+Route::get('/get-images/{id}',[ImagesController::class, 'galleryPhoto']);

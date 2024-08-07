@@ -12,6 +12,7 @@ import Images from "./Pages/Images.vue";
 import SubNavigation from "./Pages/SubNavigation.vue";
 // import Pages from "./Pages/Pages.vue";
 import SaveGeneric from "./Pages/SaveGeneric.vue";
+import Gallery from "./Pages/Gallery.vue";
 
 export const routes = [
     {
@@ -65,10 +66,12 @@ export const routes = [
     },
 
     {
-        path: '/manage-images',
+        path: '/galleries/:id',
         name: "Images",
         component: Images
     },
+
+
 
     {
         path: '/accounts',
@@ -89,6 +92,12 @@ export const routes = [
     },
 
 
+    {
+        path: '/galleries',
+        name: "Gallery",
+        component: Gallery,
+    },
+    
 
  
 

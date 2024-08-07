@@ -8,7 +8,7 @@
         <input type="file" @change="handleFileUpload" required multiple class="mb-3 w-full p-2 border rounded" />
         <div class="flex justify-between">
           <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">Save</button>
-          <button type="button" @click="$emit('close')" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-gray-700 transition">Cancel</button>
+          <button type="button" @click="imageStore.closeAddImageModal" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-gray-700 transition">Cancel</button>
         </div>
       </form>
     </div>

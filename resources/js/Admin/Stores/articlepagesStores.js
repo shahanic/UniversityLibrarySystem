@@ -105,12 +105,14 @@ export const articlesStore = defineStore('articles', {
     previewContent(id){
       this.preview = true;
       axios.post(`/edit-article/${id}`)
-        .then((response) =>{
+      .then((response) =>{
+      const srcs = response.data.photos;
           this.previewArticle = {
-            title: response.data[0].title,
-            content: response.data[0].content
+            title: response.data.title,
+            content: response.data.content,
+            src: srcs,
           };
-
+          // console.log(this.previewArticle.src)
         })
         .catch((error) => {
           console.error('Error fetching article data:', error);
@@ -204,7 +206,7 @@ export const articlesStore = defineStore('articles', {
       axios.post(`/delete-image-art`, { id })
       .then(() => {
         this.$reset;
-
+        // this.currentArticle.photos.splice(index, 1);
         alert('Image deleted successfully!');
       })
       

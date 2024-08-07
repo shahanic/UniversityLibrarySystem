@@ -14,14 +14,17 @@ use Illuminate\Support\Facades\File;
 class ArticlesController extends Controller
 {
     public function saveArticle(Request $request){
+        // dd($request);
         if($request->id){
             $new = Article::find($request->id);
+            $gallery = Gallery::find($request->gallery_id);
         }else{
             $new = new Article;
             $gallery = new Gallery;
             $gallery->title = $request->title;
             $gallery->slug = $request->slug;
-            $gallery->status = $request->status; // edit where it can be changed
+            $gallery->status = $request->status; 
+            $gallery->link = '/articles';
             $gallery->save();
 
             $new->gallery_id = $gallery->id;
@@ -45,14 +48,10 @@ class ArticlesController extends Controller
 
     // Method to save images
     public function saveImages(Request $request, $galleryId, $slug, $type) {
-        // dd($request->src);
-        // dd($request->file('src'));
             foreach ($request->file('src') as $file) {
             $filename = time() . '-' . $file->getClientOriginalName();
-            // $file->storeAs('public/images', $filename); // Adjust path as needed
-            // $file->move(public_path('images'), $filename);
+            $file->move(public_path('images'), $filename);
 
-            Storage::disk('public')->put('/images/'.$filename, $request);
 
             $image = new Photo();
             $image->gallery_id = $galleryId;
@@ -73,15 +72,27 @@ class ArticlesController extends Controller
 
     public function deleteImage(Request $request)
     {
-    $filename = $request->input('src');
-    $path = 'public/' . $filename;
+    $request->validate([
+        'id' => 'required|integer|exists:photos,id'
+    ]);
+    $photos = Photo::findOrFail($request->id);
 
-        if (Storage::exists($path)) {
-            Storage::delete($path);
-            return response()->json(['success' => 'Image deleted successfully.']);
-        } else {
-            return response()->json(['error' => 'Image not found.'], 404);
-        }
+    // Delete the image file from storage
+    \Storage::disk('public')->delete($photos->src);
+
+    // Delete the image record from the database
+    $photos->delete();
+
+    return response()->json(['success' => 'Image deleted successfully!']);
+    // $filename = $request->input('src');
+    // $path = 'public/' . $filename;
+
+    //     if (Storage::exists($path)) {
+    //         Storage::delete($path);
+    //         return response()->json(['success' => 'Image deleted successfully.']);
+    //     } else {
+    //         return response()->json(['error' => 'Image not found.'], 404);
+    //     }
 
 
     }
@@ -101,11 +112,13 @@ class ArticlesController extends Controller
    public function retrieveEditArticle($id){ //dont forget to put if where theres no gallery id!
         $article = Article::where('articles.id', $id)
         ->select(
+            'articles.id',
             'articles.title',
             'articles.abstract',
             'articles.slug',
             'articles.content',
             'articles.status',
+            'articles.type',
             'articles.gallery_id',
             'articles.date',
         )
@@ -117,11 +130,11 @@ class ArticlesController extends Controller
                 ->join('galleries', 'articles.gallery_id', '=', 'galleries.id')
                 ->join('photos', 'galleries.id', '=', 'photos.gallery_id')
                 ->where('articles.id', $id)
-                ->select('photos.src')
+                ->select('photos.id','photos.src')
                 ->get();
             
             // Convert the photos to an array of URLs
-            $photoUrls = $photos->pluck('src');
+            $photoUrls = $photos->pluck('src','id');
         } else {
             $photoUrls = [];
         }

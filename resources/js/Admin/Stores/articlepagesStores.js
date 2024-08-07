@@ -36,8 +36,8 @@ export const articlesStore = defineStore('articles', {
   actions: {
     handleFileUploadss(event) {
       const files = event.target.files;
-
         //  this.form.src = Array.from(files); 
+        console.log(this.form.src);
          this.form.src = [...this.form.src, ...files];
     },
 
@@ -124,7 +124,6 @@ export const articlesStore = defineStore('articles', {
 
 
     editArticle(article){
-      console.log(article); 
       this.currentArticle = article;
       this.editing = true;
     },
@@ -132,30 +131,54 @@ export const articlesStore = defineStore('articles', {
     editArticleData(id){
         axios.post(`/edit-article/${id}`)
         .then((response) =>{
-          console.log(response.data)
           this.currentArticle = response.data;
-
+         
         })
         .catch((error) => {
           console.error('Error saving article:', error);
           alert('Failed to save content.');
         })
-      //   axios.post(`/get-images-art/${id}`)
-      // .then((response) => {
-      //   console.log(response.data);
-      // })
-      // .catch((error) => {
-      //   console.error('Error fetching article images:', error);
-      // })
+
     },
 
     save(){
       this.currentArticle.slug = this.generateSlug(this.currentArticle.title);
       if (this.currentArticle){
         axios.post('/save-article', this.currentArticle)
-        .then(() =>{
-          alert('Content saved successfully!');
-          this.editing = false;
+        .then((response) =>{
+          const article = response.data;
+
+           // Proceed to upload images if any
+           if (this.form.src && this.form.src.length > 0) {
+            const formData = new FormData();
+           console.log(formData);
+           formData.append('gallery_id', article.gallery_id);
+           formData.append('name', article.title);
+           formData.append('slug', article.slug);
+           formData.append('type', '0'); // Add the type field with value 1
+      
+
+           for (let i = 0; i < this.form.src.length; i++) {
+             formData.append('src[]', this.form.src[i]); // Append files to FormData
+           }
+ 
+           axios.post(`/save-images-art/${article.gallery_id}/${article.slug}/${0} `, formData, {
+             headers: {
+               'Content-Type': 'multipart/form-data'
+             }
+           })
+           .then(() => {
+             alert('Content and images saved successfully!');
+             this.editing = false;
+           })
+           .catch(error => {
+             console.error('Error saving images:', error);
+             alert('Failed to save images.');
+           });
+         } else {
+           alert('Content saved successfully!');
+           this.editing = false;
+         }
         })
         .catch((error) => {
           console.error('Error saving article:', error);
@@ -177,9 +200,11 @@ export const articlesStore = defineStore('articles', {
       })
     },
 
-    deleteImage(src){
-      axios.post(`/delete-image-art`, { src })
+    deleteImage(id){
+      axios.post(`/delete-image-art`, { id })
       .then(() => {
+        this.$reset;
+
         alert('Image deleted successfully!');
       })
       

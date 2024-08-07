@@ -24,8 +24,7 @@
             <h2 class="text-base font-bold">Photo</h2>
             <input type="file" name="src" @change="handleFileUpload" multiple class="mb-3 w-full p-2 border rounded" />
         </div>  
-        {{ currentArticle.photos }}
-        <div v-if=" currentArticle.photos">
+        <div >
             <h2 class="text-base font-bold mt-4">Uploaded Photos</h2>
             <div class="flex flex-wrap">
               <div v-for="(photo, index) in photos" :key="index" class="relative mr-4 mb-4">
@@ -33,13 +32,20 @@
                 <button @click="removePhoto(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
               </div>
               <div v-for="(pic, index) in currentArticle.photos" :key="index" class="relative mr-4 mb-4">
-                {{ pic }}
-                <img :src="`storage/public/${pic}`" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
-                <button @click="articlepage.deleteImage(pic)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
+                <img :src="`/${pic}`" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
+                <button @click="articlepage.deleteImage(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
               </div>
             </div>
         </div>
-
+        <div> 
+            <h2 class="text-base font-bold">Type</h2>
+            <select v-model="currentArticle.type" require>
+                <option value="" disabled>Select type</option>
+                <option value="News">News</option>
+                <option value="Events">Events</option>
+                <option value="Announcements">Announcements</option>
+            </select>
+        </div> <br>
         <div> 
             <h2 class="text-base font-bold">Status</h2>
             <select v-model="currentArticle.status" require>
@@ -86,7 +92,6 @@ onMounted(() => {
   }
 });  
 
-// currentArticle.photos
 
 function handleFileUpload(event) {
   const files = event.target.files;
@@ -94,15 +99,16 @@ function handleFileUpload(event) {
     const file = files[i];
     const reader = new FileReader();
     reader.onload = (e) => {
-      photos.value.push(e.target.result );
+      photos.value.push(e.target.result);
+    };
     reader.readAsDataURL(file);
   }
   articlepage.handleFileUploadss(event);
 }
-}
+
 function removePhoto(index) {
   photos.value.splice(index, 1);
-  currentArticle.photos.value.splice(index, 1);
+  // currentArticle.photos.value.splice(index, 1);
 }
 
 

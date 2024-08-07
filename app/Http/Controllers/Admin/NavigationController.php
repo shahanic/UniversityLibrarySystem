@@ -52,5 +52,9 @@ class NavigationController extends Controller{
     public function retrieveNavs(){
         return response()->json(Navigation::select('navigations.id', 'navigations.menu')->get());
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 }

@@ -110,6 +110,10 @@ class ArticlesController extends Controller
     //     return 1;
     // }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 }
  

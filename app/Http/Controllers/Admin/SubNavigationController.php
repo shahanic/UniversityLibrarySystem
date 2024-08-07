@@ -58,4 +58,10 @@ class SubNavigationController extends Controller
         ->get();
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
 }

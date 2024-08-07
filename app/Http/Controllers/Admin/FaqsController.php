@@ -44,4 +44,6 @@ class FaqsController extends Controller
     {
         $this->middleware('auth');
     }
+
+    
 }

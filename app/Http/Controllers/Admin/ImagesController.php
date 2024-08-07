@@ -89,4 +89,9 @@ class ImagesController extends Controller
 
         return response()->json(['success' => 'Image deleted successfully!']);
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 }

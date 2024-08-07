@@ -47,10 +47,12 @@ class ArticlesController extends Controller
     public function saveImages(Request $request, $galleryId, $slug, $type) {
         // dd($request->src);
         // dd($request->file('src'));
-        foreach ($request->file('src') as $file) {
+            foreach ($request->file('src') as $file) {
             $filename = time() . '-' . $file->getClientOriginalName();
             // $file->storeAs('public/images', $filename); // Adjust path as needed
-            $file->move(public_path('images'), $filename);
+            // $file->move(public_path('images'), $filename);
+
+            Storage::disk('public')->put('/images/'.$filename, $request);
 
             $image = new Photo();
             $image->gallery_id = $galleryId;
@@ -69,6 +71,21 @@ class ArticlesController extends Controller
         return 1;
     }
 
+    public function deleteImage(Request $request)
+    {
+    $filename = $request->input('src');
+    $path = 'public/' . $filename;
+
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+            return response()->json(['success' => 'Image deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'Image not found.'], 404);
+        }
+
+
+    }
+
     public function index(){
         return view('admin');
     }
@@ -81,35 +98,59 @@ class ArticlesController extends Controller
         ->get();
     }
 
-   public function retrieveEditArticle($id){
-        return Article::where('articles.id', $id)
+   public function retrieveEditArticle($id){ //dont forget to put if where theres no gallery id!
+        $article = Article::where('articles.id', $id)
         ->select(
             'articles.title',
             'articles.abstract',
             'articles.slug',
             'articles.content',
-            'articles.title',
+            'articles.status',
             'articles.gallery_id',
             'articles.date',
         )
-        ->get();
+        ->first();
+
+        if ($article->gallery_id) {
+            // Retrieve photo URLs related to the gallery
+            $photos = DB::table('articles')
+                ->join('galleries', 'articles.gallery_id', '=', 'galleries.id')
+                ->join('photos', 'galleries.id', '=', 'photos.gallery_id')
+                ->where('articles.id', $id)
+                ->select('photos.src')
+                ->get();
+            
+            // Convert the photos to an array of URLs
+            $photoUrls = $photos->pluck('src');
+        } else {
+            $photoUrls = [];
+        }
+    
+        // Append photos to the article data
+        $article->photos = $photoUrls;
+    
+        
+        return $article;
+
+ 
     }
 
-    // public function store(Request $request)
-    // {
-    //     $file = $request->image;
-    //     $filename = $file->getClientOriginalName();
-    //     // $ext = $file->getClientOriginalExtension();
-    //     // $filename = $originalFileName . '.' . $ext;
-        
-    //     Storage::disk('public')->put('/imgs/' . $filename, File::get($file));
 
-    //     $imageModel = new Photo();
-    //     $imageModel->name = $filename;
-    //     $imageModel->save();
 
-    //     return 1;
-    // }
+    public function retrieveImages($id)
+    {
+        return DB::table('articles')
+            ->join('galleries', 'articles.gallery_id', '=', 'galleries.id')
+            ->join('photos', 'galleries.id', '=', 'photos.gallery_id')
+            ->where('articles.id', $id)
+            ->select(
+                'photos.id as photo_id',
+                'photos.src',
+                'photos.name'
+            )
+            ->get();
+    }
+
 
     public function __construct()
     {

@@ -41,8 +41,6 @@ export const articlesStore = defineStore('articles', {
          this.form.src = [...this.form.src, ...files];
     },
 
-    
-
     generateSlug(title) {
       if (title) {
         return title
@@ -134,12 +132,21 @@ export const articlesStore = defineStore('articles', {
     editArticleData(id){
         axios.post(`/edit-article/${id}`)
         .then((response) =>{
-          this.currentPage = response.data[0]||null;
+          console.log(response.data)
+          this.currentArticle = response.data;
+
         })
         .catch((error) => {
           console.error('Error saving article:', error);
           alert('Failed to save content.');
         })
+      //   axios.post(`/get-images-art/${id}`)
+      // .then((response) => {
+      //   console.log(response.data);
+      // })
+      // .catch((error) => {
+      //   console.error('Error fetching article images:', error);
+      // })
     },
 
     save(){
@@ -168,6 +175,14 @@ export const articlesStore = defineStore('articles', {
         console.error('Error fetching articles:', error);
 
       })
+    },
+
+    deleteImage(src){
+      axios.post(`/delete-image-art`, { src })
+      .then(() => {
+        alert('Image deleted successfully!');
+      })
+      
     },
 
     deleteArticle(id){

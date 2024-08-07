@@ -24,12 +24,18 @@
             <h2 class="text-base font-bold">Photo</h2>
             <input type="file" name="src" @change="handleFileUpload" multiple class="mb-3 w-full p-2 border rounded" />
         </div>  
-        <div v-if="photos.length">
+        {{ currentArticle.photos }}
+        <div v-if=" currentArticle.photos">
             <h2 class="text-base font-bold mt-4">Uploaded Photos</h2>
             <div class="flex flex-wrap">
               <div v-for="(photo, index) in photos" :key="index" class="relative mr-4 mb-4">
-                <img :src="photo.url" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
+                <img :src="photo" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
                 <button @click="removePhoto(index)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
+              </div>
+              <div v-for="(pic, index) in currentArticle.photos" :key="index" class="relative mr-4 mb-4">
+                {{ pic }}
+                <img :src="`storage/public/${pic}`" alt="Uploaded Photo" class="w-32 h-32 object-cover rounded" />
+                <button @click="articlepage.deleteImage(pic)" class="absolute top-0 right-0 bg-red-500 text-white p-1">x</button>
               </div>
             </div>
         </div>
@@ -80,19 +86,25 @@ onMounted(() => {
   }
 });  
 
+// currentArticle.photos
+
 function handleFileUpload(event) {
   const files = event.target.files;
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     const reader = new FileReader();
     reader.onload = (e) => {
-      photos.value.push({ file, url: e.target.result });
-      // form.src.push({ file, url: e.target.result });
-    };
+      photos.value.push(e.target.result );
     reader.readAsDataURL(file);
   }
   articlepage.handleFileUploadss(event);
 }
+}
+function removePhoto(index) {
+  photos.value.splice(index, 1);
+  currentArticle.photos.value.splice(index, 1);
+}
+
 
 const props = defineProps({
 data: {
